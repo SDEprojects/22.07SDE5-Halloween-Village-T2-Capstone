@@ -5,13 +5,21 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.FloatControl.Type;
 
+/**
+ * This class is responsible for all background-music-related audio, including the playing,
+ * stopping, and changing the volume of background music.
+ */
 public class PlayMusic {
 
   private Clip clip;
   private FloatControl musicVolume;
 
+  /**
+   * Plays the background music.
+   *
+   * @param musicName Name of a music file.
+   */
   public void play(String musicName) {
     try {
 
@@ -29,27 +37,36 @@ public class PlayMusic {
         musicVolume.setValue(-20.0f);
         // start the music
         clip.start();
-
       } else {
         System.out.println("Can't find file");
       }
+
     } catch (Exception ex) {
       ex.printStackTrace();
     }
   }
 
+  /**
+   * Stops the background music.
+   */
   public void stop() {
     clip.stop();
   }
 
+  /**
+   * Increases the volume of the background music by 10 decibels.
+   */
   public void increaseVolume() {
     try {
       musicVolume.setValue(musicVolume.getValue() + 10.0f);
-    } catch(IllegalArgumentException ex){
+    } catch (IllegalArgumentException ex) {
       ex.printStackTrace();
     }
   }
 
+  /**
+   * Decreases the volume of background music by 10 decibels.
+   */
   public void decreaseVolume() {
     try {
       musicVolume.setValue(musicVolume.getValue() - 10.0f);
