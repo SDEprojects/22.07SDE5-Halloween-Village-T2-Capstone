@@ -16,7 +16,7 @@ public class PlayMusic {
   private FloatControl musicVolume;
 
   /**
-   * Plays the background music.
+   * Plays the background music from a desired music file.
    *
    * @param musicName Name of a music file.
    */
@@ -26,7 +26,17 @@ public class PlayMusic {
       // get the url path for our music
       URL url = getClass().getResource(musicName);
 
-      if (url != null) {
+      // if the desired music file does not exist, alert the user
+      if (url == null) {
+        System.out.println("Error: Failed to find background music file.");
+      }
+      // if the clip already exists, the music is already playing
+      if (clip != null) {
+        System.out.println("The background music is already playing.");
+      }
+      // check if the appropriate music file exists and
+      // check if a clip already exist to avoid playing multiple layers of background music
+      if (url != null && clip == null) {
         // NOTE: Audio input stream can take a URL, file, or string
         AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
         clip = AudioSystem.getClip();
@@ -37,8 +47,6 @@ public class PlayMusic {
         musicVolume.setValue(-20.0f);
         // start the music
         clip.start();
-      } else {
-        System.out.println("Can't find file");
       }
 
     } catch (Exception ex) {
@@ -50,7 +58,11 @@ public class PlayMusic {
    * Stops the background music.
    */
   public void stop() {
-    clip.stop();
+    // check if clip exists and if it does, stop the clip
+    if (clip != null) {
+      clip.stop();
+    }
+    clip = null;
   }
 
   /**
