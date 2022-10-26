@@ -1,6 +1,7 @@
 package com.halloween;
 
 import static com.halloween.view.SoundEffects.muteSoundEffects;
+import static com.halloween.view.SoundEffects.playSound;
 import static com.halloween.view.SoundEffects.unmuteSoundEffects;
 
 import com.halloween.controller.Game;
@@ -49,6 +50,10 @@ public class Main {
   private static void playGame(Game game, TextParser textParser) {
     // start the music
     game.startMusic();
+    // play sound effect
+    // This is to prevent NullPointerException from happening when the mute fx or the
+    // unmute fx command is used before any sound clip object is created
+    playSound("/howl.wav");
     // placeholder for user input (command)
     String[] input;
     // show the current game's status
