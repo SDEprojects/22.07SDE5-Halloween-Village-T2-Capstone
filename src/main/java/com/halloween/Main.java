@@ -54,14 +54,13 @@ public class Main {
     // This is to prevent NullPointerException from happening when the mute fx or the
     // unmute fx command is used before any sound clip object is created
     playSound("/howl.wav");
-    // placeholder for user input (command)
-    String[] input;
-    // show the current game's status
-    game.showStatus();
+
     // allow the user to continue playing the game while the game's state is not terminal
     while (!game.getState().isTerminal()) {
+      // show the current game's status
+      game.showStatus();
       // parse the user input into an array of words
-      input = textParser.userInput();
+      String []input = textParser.userInput();
 
       // check if the parsed user input matches a valid command and if so, invoke an appropriate
       // method related to the command
@@ -87,17 +86,14 @@ public class Main {
         muteSoundEffects();
       } else if (input[0].equals("unmute") && input[1].equals("fx")) {
         unmuteSoundEffects();
-      } else {
-        if (input[0].equals("go")) {
-          game.movePlayer(input[1]);
-        } else if (input[0].equals("knock")) {
-          game.knockOnDoor();
-        } else if (input[0].equals("get")) {
-          game.getItem();
-        } else if (input[0].equals("use") && input[1] != null) {
-          game.useItem(input[1]);
-        }
-        game.showStatus();
+      } else if (input[0].equals("go")) {
+        game.movePlayer(input[1]);
+      } else if (input[0].equals("knock")) {
+        game.knockOnDoor();
+      } else if (input[0].equals("get")) {
+        game.getItem();
+      } else if (input[0].equals("use") && input[1] != null) {
+        game.useItem(input[1]);
       }
     }
     // at this point, the game's state is terminal so check the win/lose status of the game
