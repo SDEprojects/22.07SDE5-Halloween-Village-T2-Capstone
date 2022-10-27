@@ -5,7 +5,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Set;
 
-
+/**
+ * This class is responsible for parsing a user input and checking whether the input is a valid game
+ * command.
+ */
 public class TextParser {
 
   private static Set<String> DIRECTIONS = Set.of(
@@ -14,12 +17,20 @@ public class TextParser {
   private Reader reader;
   private BufferedReader buffer;
 
+  /**
+   * Initializes an instance of {@link TextParser}.
+   */
   public TextParser() {
     this.reader = new InputStreamReader(System.in);
     this.buffer = new BufferedReader(reader);
   }
 
-
+  /**
+   * Prompts the user to enter a command, then sanitizes and separates the user input into an array
+   * of words.
+   *
+   * @return Returns an array of words representing the user input separated by whitespace(s).
+   */
   public String[] userInput() {
     String input = "";
     String[] inputArray;
@@ -27,18 +38,21 @@ public class TextParser {
       System.out.println("Enter a command: ");
       try {
         input = buffer.readLine().trim().toLowerCase();
-
       } catch (Exception e) {
         System.out.println("Error Exception: " + e);
       }
-
       inputArray = input.split("\\s+");
-
     } while (!isInputValid(inputArray));
-
     return inputArray;
   }
 
+  /**
+   * Checks the validity of the user's command and returns the result.
+   * <p>If the user input is invalid, an alert will be displayed to the user.</p>
+   *
+   * @param input User command (user input split into words).
+   * @return Returns a boolean representing the validity of user command.
+   */
   public boolean isInputValid(String[] input) {
     boolean valid = false;
 
@@ -89,8 +103,8 @@ public class TextParser {
         return true;
       }
     }
-
     System.out.println("WARNING: Invalid input!");
     return valid;
   }
+
 }

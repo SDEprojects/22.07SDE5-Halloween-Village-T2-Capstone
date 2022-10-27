@@ -19,13 +19,13 @@ public class House {
   /**
    * Initializes an instance of {@link House}.
    *
-   * @param houseName House's name.
+   * @param houseName  House's name.
    * @param houseItems Items stored in the house.
-   * @param residents People associated with the house.
-   * @param north Name of the house located to the north of this house.
-   * @param east Name of the house located to the east of this house.
-   * @param south Name of the house located to the south of this house.
-   * @param west Name of the house located to the west of this house.
+   * @param residents  People associated with the house.
+   * @param north      Name of the house located to the north of this house.
+   * @param east       Name of the house located to the east of this house.
+   * @param south      Name of the house located to the south of this house.
+   * @param west       Name of the house located to the west of this house.
    */
   public House(String houseName, ArrayList<String> houseItems, String[] residents, String north,
       String east, String south, String west) {

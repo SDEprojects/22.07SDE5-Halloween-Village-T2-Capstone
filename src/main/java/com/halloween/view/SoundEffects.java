@@ -9,7 +9,7 @@ import javax.sound.sampled.FloatControl;
 /**
  * This class is responsible for all sound-effect-related audio, including the playing,
  * stopping, and changing the volume of sound effects.
- * For reference, sound effects include footsteps sound and knocking-on-the-door sound.
+ * <p>For reference, sound effects include footsteps sound and knocking-on-the-door sound.</p>
  */
 public class SoundEffects {
 

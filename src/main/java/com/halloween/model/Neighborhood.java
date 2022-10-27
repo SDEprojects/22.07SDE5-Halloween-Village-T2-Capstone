@@ -35,14 +35,14 @@ public class Neighborhood {
 
   /**
    * Checks if there is a valid location that the player can visit at their desired direction, and
-   * returns the name of the {@link House} that the player can visit from their current location.
-   * If there is no valid location at the desired direction, the result will be empty.
+   * returns the name of the {@link House} that the player can visit from their current location. If
+   * there is no valid location at the desired direction, the result will be empty.
    *
-   * @param direction A direction (north, east, south, west) the player wants to move to.
+   * @param direction       A direction (north, east, south, west) the player wants to move to.
    * @param currentPosition {@link House} that the player is currently visiting.
    * @return Returns the name of the {@link House} that the player can visit from current location.
-   * If there is no {@link House} that the user can visit at the desired direction, returns
-   * an empty String.
+   * If there is no {@link House} that the user can visit at the desired direction, returns an empty
+   * String.
    */
   public String isValidDirection(String direction, House currentPosition) {
     HashMap<String, String> possibleHouses = new HashMap<>();

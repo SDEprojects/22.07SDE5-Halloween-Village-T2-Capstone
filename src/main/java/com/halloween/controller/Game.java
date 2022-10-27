@@ -17,9 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This Game class initializes the game, manages the user status, and creates the Win scenarios for
- * the game
+ * the game.
  */
-
 public class Game {
 
   private State state;
@@ -29,18 +28,32 @@ public class Game {
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
 
-  //Game position starts at "your house" in game
+  /**
+   * Initializes an instance of {@link Game}.
+   */
   public Game() {
+    // game position starts at "your house" in game initially
     player.setPosition("your house");
   }
 
+  /**
+   * Initializes an instance of {@link Game} by reading in saved data.
+   *
+   * @param state State of the game.
+   * @param player An instance of the player where the player's data is stored.
+   * @param neighborhood An instance of the neighborhood, which represents the world in the game.
+   */
   public Game(State state, Player player, Neighborhood neighborhood) {
     this.state = state;
     this.player = player;
     this.neighborhood = neighborhood;
   }
 
-  //Greeting to user at the beginning of the game
+  /**
+   * Greets the user at the beginning of the game.
+   *
+   * @throws IOException
+   */
   public void greetPlayer() throws IOException {
     if (player.getName() != null) {   // If player inputs name
       System.out.printf(display.getNpcResponse("welcome_back") + "\n",
@@ -56,6 +69,9 @@ public class Game {
     }
   }
 
+  /**
+   * Displays the current status of the game.
+   */
   public void showStatus() {
     House currentPosition = neighborhood.getNeighborhood().get(player.getPosition());
     String playerItems = player.getItems().isEmpty() ? "nothing" : player.getItems().toString();
@@ -71,37 +87,58 @@ public class Game {
     showValidMoves();
   }
 
-  //Game Menu Key
+  /**
+   * Displays the game menu.
+   */
   public void showMenu() {
     System.out.println(display.getImportantDisplay("menu"));
-    ;
   }
 
+  /**
+   * Displays the game title (flash screen).
+   */
   public void showTitle() {
     System.out.println(display.getImportantDisplay("title"));
   }
 
+  /**
+   * Displays the game's background story.
+   */
   public void showBackstory() {
     System.out.println(display.getImportantDisplay("backstory"));
   }
 
+  /**
+   * Displays the game's basic instructions.
+   */
   public void showInstructions() {
     System.out.println(display.getImportantDisplay("instruction"));
   }
 
+  /**
+   * Displays all available commands.
+   */
   public void showHelp() {
     System.out.println(display.getImportantDisplay("help"));
   }
 
+  /**
+   * Displays the player's inventory.
+   */
   public void showInventory() {
     System.out.printf(display.getNpcResponse("show_inventory"), player.getItems());
   }
 
+  /**
+   * Displays the game's world map (neighborhood).
+   */
   public void showMap() {
     System.out.println(display.getImportantDisplay("map"));
   }
 
-  //Directional Menu Key
+  /**
+   * Displays valid locations that the player can visit from the current location.
+   */
   public void showValidMoves() {
     House currentPosition = neighborhood.getNeighborhood().get(player.getPosition());
     String north =
@@ -113,15 +150,25 @@ public class Game {
     System.out.println(north + east + south + west);
   }
 
-  //Win / Lose: Displays win/loss to user.
+  /**
+   * Displays the game win message.
+   */
   public void showWin() {
     System.out.println(display.getImportantDisplay("win"));
   }
 
+  /**
+   * Displays the game lose message.
+   */
   public void showLose() {
     System.out.println(display.getImportantDisplay("lose"));
   }
 
+  /**
+   * Moves the player to a new location.
+   *
+   * @param direction The direction that the player desires to move to.
+   */
   public void movePlayer(String direction) {
     House currentPosition = neighborhood.getNeighborhood().get(player.getPosition());
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
@@ -138,6 +185,9 @@ public class Game {
     }
   }
 
+  /**
+   * Allows the player to get an item.
+   */
   public void getItem() {
     House house = neighborhood.getNeighborhood().get(player.getPosition());
     if (house.isKnocked() && house.getHouseItems().size() > 0) {
@@ -154,6 +204,9 @@ public class Game {
     house.setKnocked(false);
   }
 
+  /**
+   * Allows the player to knock on the door for the current location and have an interaction.
+   */
   public void knockOnDoor() {
     House house = neighborhood.getNeighborhood().get(player.getPosition());
     house.setKnocked(true);
@@ -178,6 +231,11 @@ public class Game {
     }
   }
 
+  /**
+   * Allows the player to knock at the Saw House location.
+   *
+   * @param playerItems A list of items that the player has (inventory).
+   */
   private void knockOnSawHouse(ArrayList<String> playerItems) {
     // check for "thing" in not in our items then we lose the game
     if (!playerItems.contains("thing")) {
@@ -191,6 +249,11 @@ public class Game {
     }
   }
 
+  /**
+   * Allows the player to knock at the Karen's House location.
+   *
+   * @param playerItems A list of items that the player has (inventory).
+   */
   private void knockOnKarenHouse(ArrayList<String> playerItems) {
     // if we have a badge, potion, or ruby, then do nothing
     if (playerItems.contains("badge") || playerItems.contains("potion") || playerItems.contains(
@@ -211,16 +274,26 @@ public class Game {
     }
   }
 
+  /**
+   * Allows the player to exit the game.
+   */
   public void quitGame() {
     System.out.println(display.getNpcResponse("exit_game"));
     System.exit(0);
   }
 
+  /**
+   * Allows the player to save the current game.
+   */
   public void saveGame() {
     storeGame.saveGame(state, player, neighborhood);
   }
 
-  //Load game sequence
+  /**
+   * Allows the player to load a previously saved game.
+   *
+   * @return Returns a new instance of {@link Game}, loaded with data from a previously save game.
+   */
   public Game loadGame() {
     Gson gson = new Gson();
     State state = storeGame.loadGame("state.json", State.class, gson);
@@ -232,18 +305,18 @@ public class Game {
     return new Game(state, player, neighborhood);
   }
 
+  /**
+   * Removes JSON files where game data is stored.
+   */
   public void removeFiles() {
     storeGame.removeJsonFiles();
   }
 
-  public State getState() {
-    return state;
-  }
-
-  public void setState(State state) {
-    this.state = state;
-  }
-
+  /**
+   * Allows the player to use an item at the current location.
+   *
+   * @param item The item to be used at the current location.
+   */
   public void useItem(String item) {
     // get the house the player is currently at
     House house = neighborhood.getNeighborhood().get(player.getPosition());
@@ -273,6 +346,12 @@ public class Game {
     }
   }
 
+  /**
+   * Allows the player to use items at the Witch's Den location.
+   *
+   * @param item The item to be used at Witch's Den.
+   * @param house An instance of {@link House}, representing the Witch's Den.
+   */
   private void witchUseItem(String item, House house) {
     if (item.equals("cat-hair") || item.equals("beer") || item.equals("dentures")) {
       System.out.printf(display.getNpcResponse("give_witch_ingredient"), item);
@@ -291,6 +370,11 @@ public class Game {
     }
   }
 
+  /**
+   * Allows the player to use an item at the Karen's House location.
+   *
+   * @param item The item to be used at Karen's House.
+   */
   public void karenUseItem(String item) {
     if (item.equals("badge")) {
       System.out.println(display.getNpcResponse("karen_defeated_badge"));
@@ -305,21 +389,44 @@ public class Game {
     setState(State.WIN);
   }
 
+  /**
+   * Allows the player to play the background music.
+   */
   public void startMusic() {
     String musicName = "/darkess.wav";
     musicPlayer.play(musicName);
   }
 
+  /**
+   * Allows the player to stop the background music.
+   */
   public void stopMusic() {
     musicPlayer.stop();
   }
 
+  /**
+   * Allows the player to increase the volume of the background music.
+   */
   public void increaseVolume() {
     musicPlayer.increaseVolume();
   }
 
+  /**
+   * Allows the player to decrease the volume of the background music.
+   */
   public void decreaseVolume() {
     musicPlayer.decreaseVolume();
+  }
+
+  /*
+    Getter and Setter Methods
+   */
+  public State getState() {
+    return state;
+  }
+
+  public void setState(State state) {
+    this.state = state;
   }
 
 }
