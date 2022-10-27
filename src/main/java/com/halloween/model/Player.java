@@ -41,8 +41,8 @@ public class Player {
   }
 
   /**
-   * Removes an item from the player's current inventory when the item is used and returns
-   * the result of using (removing) the item.
+   * Removes an item from the player's current inventory when the item is used and returns the
+   * result of using (removing) the item.
    *
    * @param item The item the players wishes to use.
    * @return Returns the result (whether successful or not) of removing an item from the player's
