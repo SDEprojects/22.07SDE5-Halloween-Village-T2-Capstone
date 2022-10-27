@@ -5,11 +5,10 @@ import com.google.gson.JsonIOException;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
-import java.io.BufferedReader;
+import com.halloween.view.View;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -47,10 +46,10 @@ public class StoreGame {
           Reader reader = new InputStreamReader(new FileInputStream(f));
           return gson.fromJson(reader, type);
         } else {
-          System.out.println("There is no game to load! \n Starting a new game soon...");
+          View.printGameLoadFailed(true);
         }
       } catch (FileNotFoundException e) {
-        System.out.println("There is no game to load");
+        View.printGameLoadFailed(false);
       }
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
@@ -69,7 +68,7 @@ public class StoreGame {
     writeFile(state, "state.json");
     writeFile(player, "player.json");
     writeFile(neighborhood, "neighborhood.json");
-    System.out.println("Your game has been saved!");
+    View.printGameSaveSuccess();
   }
 
   /**
