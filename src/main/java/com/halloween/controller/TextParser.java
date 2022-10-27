@@ -1,5 +1,6 @@
 package com.halloween.controller;
 
+import com.halloween.view.View;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -35,7 +36,7 @@ public class TextParser {
     String input = "";
     String[] inputArray;
     do {
-      System.out.println("Enter a command: ");
+      View.printUserCommandPrompt();
       try {
         input = buffer.readLine().trim().toLowerCase();
       } catch (Exception e) {
@@ -58,7 +59,7 @@ public class TextParser {
 
     // if input array is greater than two it is not value
     if (input.length > 2) {
-      System.out.println("WARNING: Invalid input! Input can NOT be more than two words!");
+      View.printInvalidInputWarning(true);
       return false;
       // if input has one word it can either be help or quit otherwise false
     } else if (input.length == 1) {
@@ -103,7 +104,7 @@ public class TextParser {
         return true;
       }
     }
-    System.out.println("WARNING: Invalid input!");
+    View.printInvalidInputWarning(false);
     return valid;
   }
 
