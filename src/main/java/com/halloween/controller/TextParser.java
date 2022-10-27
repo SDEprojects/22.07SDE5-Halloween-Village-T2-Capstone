@@ -3,16 +3,16 @@ package com.halloween.controller;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.Buffer;
 import java.util.Set;
+
 
 public class TextParser {
 
+  private static Set<String> DIRECTIONS = Set.of(
+      "north", "east", "south", "west"
+  );
   private Reader reader;
   private BufferedReader buffer;
-  private static Set<String> DIRECTIONS = Set.of(
-      "north","east","south","west"
-  );
 
   public TextParser() {
     this.reader = new InputStreamReader(System.in);
@@ -48,11 +48,12 @@ public class TextParser {
       return false;
       // if input has one word it can either be help or quit otherwise false
     } else if (input.length == 1) {
-      if (input[0].equals("quit") || input[0].equals("help") || input[0].equals("knock") || input[0].equals("inventory") || input[0].equals("map") || input[0].equals("save")) {
+      if (input[0].equals("quit") || input[0].equals("help") || input[0].equals("knock")
+          || input[0].equals("inventory") || input[0].equals("map") || input[0].equals("save")) {
         return true;
       }
     } else {
-      if(input[0].equals("go") && DIRECTIONS.contains(input[1])){
+      if (input[0].equals("go") && DIRECTIONS.contains(input[1])) {
         return true;
       } else if (input[0].equals("get") && input[1].equals("item")) {
         return true;
@@ -70,11 +71,11 @@ public class TextParser {
         return true;
       } else if (input[0].equals("use")) {
         return true;
-      } else if (input[0].equals("map")){
+      } else if (input[0].equals("map")) {
         return true;
-      } else if (input[0].equals("save")){
+      } else if (input[0].equals("save")) {
         return true;
-      }else if (input[0].equals("start") && input[1].equals("music")) {
+      } else if (input[0].equals("start") && input[1].equals("music")) {
         return true;
       } else if (input[0].equals("stop") && input[1].equals("music")) {
         return true;
