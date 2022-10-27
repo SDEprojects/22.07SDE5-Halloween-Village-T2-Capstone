@@ -38,7 +38,7 @@ public class SoundEffects {
         soundVolumeControl.setValue(soundVolume);
         clip.start();
       } else {
-        System.out.println("Can't find file");
+        System.out.println("Error: Cannot find sound effect file.");
       }
 
     } catch (Exception ex) {
