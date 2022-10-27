@@ -52,7 +52,8 @@ public class Game {
   /**
    * Greets the user at the beginning of the game.
    *
-   * @throws IOException
+   * @throws IOException Thrown if an I/O error is produced by failed or interrupted I/O
+   *                     operations.
    */
   public void greetPlayer() throws IOException {
     if (player.getName() != null) { // If player name exists
