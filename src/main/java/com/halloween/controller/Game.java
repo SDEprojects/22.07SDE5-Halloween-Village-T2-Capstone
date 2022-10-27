@@ -15,6 +15,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This Game class initializes the game, manages the user status, and creates the Win scenarios for
+ * the game
+ */
 
 public class Game {
 
@@ -39,7 +43,8 @@ public class Game {
   //Greeting to user at the beginning of the game
   public void greetPlayer() throws IOException {
     if (player.getName() != null) {   // If player inputs name
-      System.out.printf(display.getNpcResponse("welcome_back") + "\n", player.getName());  // Print Welcome back + name
+      System.out.printf(display.getNpcResponse("welcome_back") + "\n",
+          player.getName());  // Print Welcome back + name
     } else {
       BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
       System.out.println(display.getNpcResponse("ask_name"));

@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Set;
 
+
 public class TextParser {
 
   private static Set<String> DIRECTIONS = Set.of(
