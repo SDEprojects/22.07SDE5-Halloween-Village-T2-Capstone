@@ -32,3 +32,6 @@ bin/
 
 # ignore intellij module configuration file
 *.iml
+
+# ignore DS_Store
+.DS_Store
