@@ -50,9 +50,8 @@ public class Main {
   private static void playGame(Game game, TextParser textParser) {
     // start the music
     game.startMusic();
-    // play sound effect
-    // This is to prevent NullPointerException from happening when the mute fx or the
-    // unmute fx command is used before any sound clip object is created
+    // play sound effect (this to prevent NullPointerException from happening when the mute fx
+    // or the unmute fx command is used before any sound clip object is created)
     playSound("/howl.wav");
 
     // allow the user to continue playing the game while the game's state is not terminal
@@ -60,7 +59,7 @@ public class Main {
       // show the current game's status
       game.showStatus();
       // parse the user input into an array of words
-      String []input = textParser.userInput();
+      String[] input = textParser.userInput();
 
       // check if the parsed user input matches a valid command and if so, invoke an appropriate
       // method related to the command
@@ -92,6 +91,8 @@ public class Main {
         game.knockOnDoor();
       } else if (input[0].equals("get")) {
         game.getItem();
+      } else if (input[0].equals("god")) {
+        game.godModeGetItem(input[1]);
       } else if (input[0].equals("use") && input[1] != null) {
         game.useItem(input[1]);
       }
