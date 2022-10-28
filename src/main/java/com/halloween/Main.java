@@ -7,11 +7,26 @@ import static com.halloween.view.SoundEffects.unmuteSoundEffects;
 import com.halloween.controller.Game;
 import com.halloween.controller.TextParser;
 import com.halloween.model.State;
+import java.awt.Color;
 import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 public class Main {
 
   public static void main(String[] args) throws IOException {
+    //JFrame = a Gui window to add components to
+    JFrame frame = new JFrame();
+    frame.setTitle("Halloween Village"); //Sets Title of the frame
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of application
+    //frame.setResizable(false); //Prevents frame from being resized
+    frame.setSize(500,500); //set the x-dimension, and y-dimension
+    frame.setVisible(true); //makes frame visible
+
+    ImageIcon image = new ImageIcon("Halloween.png"); //This will create an image icon
+    frame.setIconImage(image.getImage()); //This will change the icon of the frame.
+    frame.getContentPane().setBackground(new Color(0, 51, 153)); // Testing out background color
+
     Game game = new Game(); // an instance of the Game model (MVC)
     TextParser textParser = new TextParser(); // text parser used to parse the user input (command)
     boolean gameStarted = false; // variable used to decide whether a game has started or not
