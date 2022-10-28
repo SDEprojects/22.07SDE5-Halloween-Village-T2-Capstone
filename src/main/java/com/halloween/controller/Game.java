@@ -188,10 +188,10 @@ public class Game {
   public void getItem() {
     House house = neighborhood.getNeighborhood().get(player.getPosition());
     if (house.isKnocked() && house.getHouseItems().size() > 0) {
-      String temp = house.getHouseItems().get(0);
-      player.addItem(temp);
+      String item = house.getHouseItems().get(0);
+      player.addItem(item);
       house.removeItem();
-      display.printGetItemMessage(temp);
+      display.printGetItemMessage(item);
     } else if (house.isKnocked()) {
       display.printNoItemError();
     } else {
@@ -199,6 +199,15 @@ public class Game {
       display.knockDoor();
     }
     house.setKnocked(false);
+  }
+
+  public void godModeGetItem(String item) {
+    if (item.equals("ruby") || item.equals("badge") || (item.equals("potion"))) {
+      player.addItem(item);
+      display.printGetItemMessage(item);
+    } else {
+      display.printGetItemFailed();
+    }
   }
 
   /**
