@@ -162,6 +162,9 @@ public class View {
     System.out.println(north + east + south + west);
   }
 
+  public void printNoMovesLeftMessage(){
+    System.out.println("Sorry, you don't have any moves remaining...");
+  }
   public void printInvalidDirectionsMessage(String direction) {
     System.out.printf(getNpcResponse("invalid_direction"), direction);
   }

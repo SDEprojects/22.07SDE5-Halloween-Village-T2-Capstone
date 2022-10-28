@@ -173,7 +173,10 @@ public class Game {
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
     // set the previous house knocked to false before moving
     currentPosition.setKnocked(false);
-    if (playersMove.isEmpty() | userMovesCounter >10 ) {
+    if( userMovesCounter >10 ){
+        display.printNoMovesLeftMessage();
+    }
+    if (playersMove.isEmpty()) {
       display.printInvalidDirectionsMessage(direction);
       showValidMoves();
     } else {
