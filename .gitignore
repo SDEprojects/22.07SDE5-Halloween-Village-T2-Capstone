@@ -32,6 +32,7 @@ bin/
 # ignore intellij module configuration file
 *.iml
 
+
 # ignore DS_Store (Mac OS)
 .DS_Store
 
