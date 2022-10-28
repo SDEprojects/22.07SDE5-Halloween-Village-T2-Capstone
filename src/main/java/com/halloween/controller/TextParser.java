@@ -70,6 +70,9 @@ public class TextParser {
     } else {
       if (input[0].equals("go") && DIRECTIONS.contains(input[1])) {
         return true;
+      } else if (input[0].equals("god") && (input[1].equals("ruby") || input[1].equals("potion")
+          || input[1].equals("badge"))) {
+        return true;
       } else if (input[0].equals("get") && input[1].equals("item")) {
         return true;
       } else if (input[0].equals("knock")) {
