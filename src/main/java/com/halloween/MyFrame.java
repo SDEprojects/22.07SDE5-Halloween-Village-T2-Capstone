@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MyFrame extends JFrame implements ActionListener {
+public class MyFrame extends JFrame {
 
   JButton button1;  //Global component of button
   JButton button2;
@@ -20,18 +20,25 @@ public class MyFrame extends JFrame implements ActionListener {
     //JFrame = a GUI window to add components to
 
     button1 = new JButton("NEW GAME");
-    button2 = new JButton("LOAD GAME");
-    button3 = new JButton("HELP");
-    button4 = new JButton("QUIT");
-    button5 = new JButton("SAVE GAME");
-
     button1.setBounds(200,100,100,50);
+    button1.addActionListener(e -> System.out.println("Wanna Play a New Game?"));
+//
+    button2 = new JButton("LOAD GAME");
     button2.setBounds(200,100,100,50);
-    button3.setBounds(200,100,100,50);
-    button4.setBounds(200,100,100,50);
-    button5.setBounds(200, 100,100, 50);
+    button2.addActionListener(e -> System.out.println("Back in Action"));
 
-    button1.addActionListener(this);
+    button3 = new JButton("HELP");
+    button3.setBounds(200,100,100,50);
+    button3.addActionListener(e -> System.out.println("Here You Go"));
+
+    button4 = new JButton("QUIT");
+    button4.setBounds(200,100,100,50);
+    button4.addActionListener(e -> System.out.println("Leaving So Soon?"));
+
+    button5 = new JButton("SAVE GAME");
+    button5.setBounds(200, 100,100, 50);
+    button5.addActionListener(e -> System.out.println("Come Back"));
+
 
     this.setTitle("HALLOWEEN VILLAGE"); //Sets the title of the frame
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of the application
@@ -42,6 +49,7 @@ public class MyFrame extends JFrame implements ActionListener {
     this.add(button2);
     this.add(button3);
     this.add(button4);
+    this.add(button5);
 
     ImageIcon image = new ImageIcon("./resource/Halloween_Village_Logo.png");
     this.setIconImage(image.getImage());  //Change icon of the frame
@@ -55,10 +63,10 @@ public class MyFrame extends JFrame implements ActionListener {
     label.setIcon(image);
   }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    if(e.getSource()==button1) {
-      System.out.println("Check Up");
-    }
-  }
+//  @Override
+//  public void actionPerformed(ActionEvent e) {
+//    if(e.getSource()==button1) {
+//      System.out.println("Check Up");
+//    }
+//  }
 }
