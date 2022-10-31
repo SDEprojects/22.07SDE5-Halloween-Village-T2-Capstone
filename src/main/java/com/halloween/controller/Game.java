@@ -3,6 +3,7 @@ package com.halloween.controller;
 import static com.halloween.view.SoundEffects.playSound;
 
 import com.google.gson.Gson;
+import com.halloween.Main;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
@@ -22,13 +23,14 @@ import java.util.concurrent.TimeUnit;
 public class Game {
 
   private State state;
-  private View display = new View();
+
+  private static View display = new View();
+
   private Player player = new Player();
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
-
-  private static int userMovesCounter = 10;
+  private static int userMovesCounter = 2;
 
   /**
    * Initializes an instance of {@link Game}.
@@ -53,6 +55,10 @@ public class Game {
 
   public static int getUserMovesCounter() {
     return userMovesCounter;
+  }
+
+  public static View getDisplay() {
+    return display;
   }
 
   /**
@@ -179,10 +185,6 @@ public class Game {
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
     // set the previous house knocked to false before moving
     currentPosition.setKnocked(false);
-    if (userMovesCounter <= 0) {
-      display.printNoMovesLeftMessage();
-      quitGame();
-    }
     if (playersMove.isEmpty()) {
       display.printInvalidDirectionsMessage(direction);
       showValidMoves();
@@ -199,6 +201,10 @@ public class Game {
           isInteractiveNPC);
       playSound("/footsteps.wav");
       userMovesCounter -= 1;
+    }
+    if( userMovesCounter < 1 ){
+      display.printNoMovesLeftMessage();
+      quitGame();
     }
   }
 

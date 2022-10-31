@@ -2,6 +2,7 @@ package com.halloween.view;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.halloween.Main;
 import com.halloween.controller.Game;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -258,5 +259,13 @@ public class View {
       System.out.println(getNpcResponse("karen_defeated_ruby"));
     }
   }
+
+  public void printPlayNewGame(){
+    System.out.println("Would you like to play a new game?\n"
+        + "if not, enter:\n"
+        + "n\n"
+        + "enter anything else to play a new game");
+  }
+
 
 }

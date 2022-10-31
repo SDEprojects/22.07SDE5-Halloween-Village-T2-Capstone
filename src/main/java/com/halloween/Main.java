@@ -1,5 +1,6 @@
 package com.halloween;
 
+import static com.halloween.controller.Game.getDisplay;
 import static com.halloween.view.SoundEffects.muteSoundEffects;
 import static com.halloween.view.SoundEffects.playSound;
 import static com.halloween.view.SoundEffects.unmuteSoundEffects;
@@ -21,8 +22,9 @@ import javax.swing.SwingUtilities;
 public class Main {
 
   private static Game game;
-
-  public static Game getGame() {
+  private static String[] input;
+  private static TextParser textParser;
+  public static Game getGame(){
     return game;
   }
 
@@ -41,7 +43,7 @@ public class Main {
     frame.getContentPane().setBackground(new Color(0, 51, 153)); //change color of the background
 
     Game game = new Game(); // an instance of the Game model (MVC)
-    TextParser textParser = new TextParser(); // text parser used to parse the user input (command)
+    textParser = new TextParser(); // text parser used to parse the user input (command)
     boolean gameStarted = false; // variable used to decide whether a game has started or not
     // check if a game has started or not
     while (!gameStarted) {
@@ -87,7 +89,7 @@ public class Main {
       // show the current game's status
       game.showStatus();
       // parse the user input into an array of words
-      String[] input = textParser.userInput();
+      input = textParser.userInput();
 
       // check if the parsed user input matches a valid command and if so, invoke an appropriate
       // method related to the command
@@ -132,6 +134,15 @@ public class Main {
     } else {
       game.showLose();
       game.removeFiles();
+    }
+    getDisplay().printPlayNewGame();
+    playNewGame();
+  }
+
+  public static void playNewGame(){
+    String[] NewInput = textParser.userInput();
+    if(!NewInput[0].equals("n")) {
+    playGame(new Game(), textParser);
     }
   }
 
