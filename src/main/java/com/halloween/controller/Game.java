@@ -179,16 +179,24 @@ public class Game {
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
     // set the previous house knocked to false before moving
     currentPosition.setKnocked(false);
-    if( userMovesCounter <= 0 ){
-        display.printNoMovesLeftMessage();
-        quitGame();
+    if (userMovesCounter <= 0) {
+      display.printNoMovesLeftMessage();
+      quitGame();
     }
     if (playersMove.isEmpty()) {
       display.printInvalidDirectionsMessage(direction);
       showValidMoves();
     } else {
+      boolean isInteractiveNPC;
+      if (playersMove.equals("your house")) {
+        isInteractiveNPC = false;
+      } else {
+        isInteractiveNPC = true;
+      }
       player.setPosition(playersMove);
-      display.printPlayersMove(player.getName(), direction, player.getPosition());
+      String[] residents = neighborhood.getNeighborhood().get(playersMove).getResidents();
+      display.printPlayersMove(player.getName(), direction, player.getPosition(), residents,
+          isInteractiveNPC);
       playSound("/footsteps.wav");
       userMovesCounter -= 1;
     }
@@ -210,7 +218,6 @@ public class Game {
       display.knockDoorFirst();
       display.knockDoor();
     }
-    house.setKnocked(false);
   }
 
   public void godModeGetItem(String item) {
