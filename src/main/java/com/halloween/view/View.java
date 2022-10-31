@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -80,7 +81,7 @@ public class View {
     return npcResponse.getString(key) + "\n";
   }
 
-  public void printMovesCounter(){
+  public void printMovesCounter() {
     System.out.println("Remaining Moves: " + Game.getUserMovesCounter());
   }
 
@@ -167,15 +168,29 @@ public class View {
     System.out.println(north + east + south + west);
   }
 
-  public void printNoMovesLeftMessage(){
+  public void printNoMovesLeftMessage() {
     System.out.println("Sorry, you don't have any moves remaining...");
   }
+
   public void printInvalidDirectionsMessage(String direction) {
     System.out.printf(getNpcResponse("invalid_direction"), direction);
   }
 
-  public void printPlayersMove(String playerName, String direction, String playerPosition) {
+  public void printPlayersMove(String playerName, String direction, String playerPosition,
+      String[] residents, boolean isInteractiveNPC) {
     System.out.printf(getNpcResponse("players_move"), playerName, direction, playerPosition);
+    System.out.println();
+    if (residents.length == 1) {
+      System.out.printf(getNpcResponse("current_location_single_resident"),
+          Arrays.toString(residents));
+    }
+    if (residents.length > 1) {
+      System.out.printf(getNpcResponse("current_location_multiple_residents"),
+          Arrays.toString(residents));
+    }
+    if (!isInteractiveNPC) {
+      System.out.println(getNpcResponse("non_interactive_npc"));
+    }
   }
 
   public void printGetItemMessage(String temp) {

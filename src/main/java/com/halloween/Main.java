@@ -19,8 +19,10 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 public class Main {
+
   private static Game game;
-  public static Game getGame(){
+
+  public static Game getGame() {
     return game;
   }
 
@@ -31,14 +33,12 @@ public class Main {
     frame.setTitle("HALLOWEEN VILLAGE"); //Sets the title of the frame
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of the application
     frame.setResizable(false); //present frame from being resized
-    frame.setSize(600,600); //sets the x-dimensions, and y-dimensions of the frame
+    frame.setSize(600, 600); //sets the x-dimensions, and y-dimensions of the frame
     frame.setVisible(true); //makes frame visible
 
     ImageIcon image = new ImageIcon("./resource/Halloween_Village_Logo.png");
     frame.setIconImage(image.getImage());  //Change icon of the frame
     frame.getContentPane().setBackground(new Color(0, 51, 153)); //change color of the background
-
-
 
     Game game = new Game(); // an instance of the Game model (MVC)
     TextParser textParser = new TextParser(); // text parser used to parse the user input (command)
