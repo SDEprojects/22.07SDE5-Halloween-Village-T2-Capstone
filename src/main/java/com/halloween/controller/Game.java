@@ -28,6 +28,8 @@ public class Game {
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
 
+  private int userMovesCounter = 10;
+
   /**
    * Initializes an instance of {@link Game}.
    */
@@ -47,6 +49,10 @@ public class Game {
     this.state = state;
     this.player = player;
     this.neighborhood = neighborhood;
+  }
+
+  public int getUserMovesCounter() {
+    return userMovesCounter;
   }
 
   /**
@@ -172,6 +178,10 @@ public class Game {
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
     // set the previous house knocked to false before moving
     currentPosition.setKnocked(false);
+    if( userMovesCounter <= 0 ){
+        display.printNoMovesLeftMessage();
+        quitGame();
+    }
     if (playersMove.isEmpty()) {
       display.printInvalidDirectionsMessage(direction);
       showValidMoves();
@@ -179,6 +189,7 @@ public class Game {
       player.setPosition(playersMove);
       display.printPlayersMove(player.getName(), direction, player.getPosition());
       playSound("/footsteps.wav");
+      userMovesCounter -= 1;
     }
   }
 
