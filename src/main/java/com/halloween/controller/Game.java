@@ -28,7 +28,7 @@ public class Game {
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
 
-  private int userMovesCounter = 10;
+  private static int userMovesCounter = 10;
 
   /**
    * Initializes an instance of {@link Game}.
@@ -51,7 +51,7 @@ public class Game {
     this.neighborhood = neighborhood;
   }
 
-  public int getUserMovesCounter() {
+  public static int getUserMovesCounter() {
     return userMovesCounter;
   }
 
@@ -89,6 +89,7 @@ public class Game {
     // Displays items in inventory to user.
     display.printItemInInventory(player.getName(), player.getPosition(), playerItems);
     showValidMoves();
+    display.printMovesCounter();
   }
 
   /**

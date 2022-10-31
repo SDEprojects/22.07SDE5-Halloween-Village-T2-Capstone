@@ -2,6 +2,7 @@ package com.halloween.view;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.halloween.controller.Game;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -77,6 +78,10 @@ public class View {
    */
   public String getNpcResponse(String key) {
     return npcResponse.getString(key) + "\n";
+  }
+
+  public void printMovesCounter(){
+    System.out.println("Remaining Moves: " + Game.getUserMovesCounter());
   }
 
   public void printTitle() {
