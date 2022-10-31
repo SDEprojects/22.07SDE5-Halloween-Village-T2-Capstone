@@ -325,9 +325,9 @@ public class Game {
   public void useItem(String item) {
     // get the house the player is currently at
     House house = neighborhood.getNeighborhood().get(player.getPosition());
-    boolean successfullyUsedItem = player.removeItem(item);
     // if the house is knocked then try to use the item
     if (house.isKnocked()) {
+      boolean successfullyUsedItem = player.removeItem(item);
       showInventory();
       String response = successfullyUsedItem ? "remove_item" : "warning_remove_item";
       display.printRemoveItem(response, item);
