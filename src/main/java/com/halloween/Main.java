@@ -19,7 +19,10 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 public class Main {
-
+  private static Game game;
+  public static Game getGame(){
+    return game;
+  }
 
   public static void main(String[] args) throws IOException {
 
