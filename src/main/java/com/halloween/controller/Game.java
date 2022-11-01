@@ -3,7 +3,6 @@ package com.halloween.controller;
 import static com.halloween.view.SoundEffects.playSound;
 
 import com.google.gson.Gson;
-import com.halloween.Main;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
@@ -23,14 +22,12 @@ import java.util.concurrent.TimeUnit;
 public class Game {
 
   private State state;
-
-  private static View display = new View();
-
+  private View display = new View();
   private Player player = new Player();
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
-  private static int userMovesCounter = 2;
+  private int userMovesCounter = 10;
 
   /**
    * Initializes an instance of {@link Game}.
@@ -51,14 +48,6 @@ public class Game {
     this.state = state;
     this.player = player;
     this.neighborhood = neighborhood;
-  }
-
-  public static int getUserMovesCounter() {
-    return userMovesCounter;
-  }
-
-  public static View getDisplay() {
-    return display;
   }
 
   /**
@@ -95,7 +84,7 @@ public class Game {
     // Displays items in inventory to user.
     display.printItemInInventory(player.getName(), player.getPosition(), playerItems);
     showValidMoves();
-    display.printMovesCounter();
+    display.printMovesCounter(getUserMovesCounter());
   }
 
   /**
@@ -185,10 +174,13 @@ public class Game {
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
     // set the previous house knocked to false before moving
     currentPosition.setKnocked(false);
-    if (playersMove.isEmpty()) {
+    if (getUserMovesCounter() < 1) { // case where the player has less than 1 moves left
+      display.printNoMovesLeftMessage();
+      setState(State.LOSE);
+    } else if (playersMove.isEmpty()) { // in case the player has provided an invalid direction
       display.printInvalidDirectionsMessage(direction);
       showValidMoves();
-    } else {
+    } else { // in case the player has entered a valid direction
       boolean isInteractiveNPC;
       if (playersMove.equals("your house")) {
         isInteractiveNPC = false;
@@ -200,11 +192,7 @@ public class Game {
       display.printPlayersMove(player.getName(), direction, player.getPosition(), residents,
           isInteractiveNPC);
       playSound("/footsteps.wav");
-      userMovesCounter -= 1;
-    }
-    if( userMovesCounter < 1 ){
-      display.printNoMovesLeftMessage();
-      quitGame();
+      setUserMovesCounter(getUserMovesCounter() - 1);
     }
   }
 
@@ -231,7 +219,7 @@ public class Game {
       player.addItem(item);
       display.printGetItemMessage(item);
     } else {
-      display.printGetItemFailed();
+      display.printGodModeGetFailed();
     }
   }
 
@@ -451,8 +439,25 @@ public class Game {
     return state;
   }
 
+  public View getDisplay() {
+    return display;
+  }
+
   public void setState(State state) {
     this.state = state;
+  }
+
+  public int getUserMovesCounter() {
+    return userMovesCounter;
+  }
+
+  public void setUserMovesCounter(int userMovesCounter) {
+    this.userMovesCounter = userMovesCounter;
+  }
+
+  // this getter is for testing purposes
+  public Player getPlayer() {
+    return player;
   }
 
 }

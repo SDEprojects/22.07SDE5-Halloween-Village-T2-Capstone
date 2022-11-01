@@ -7,8 +7,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 /**
- * This class is responsible for all sound-effect-related audio, including the playing,
- * stopping, and changing the volume of sound effects.
+ * This class is responsible for all sound-effect-related audio, including the playing, stopping,
+ * and changing the volume of sound effects.
  * <p>For reference, sound effects include footsteps sound and knocking-on-the-door sound.</p>
  */
 public class SoundEffects {
@@ -76,7 +76,7 @@ public class SoundEffects {
   public void increaseVolume() {
     try {
       soundVolumeControl.setValue(soundVolumeControl.getValue() + 10.0f);
-    } catch(IllegalArgumentException ex){
+    } catch (IllegalArgumentException ex) {
       ex.printStackTrace();
     }
   }

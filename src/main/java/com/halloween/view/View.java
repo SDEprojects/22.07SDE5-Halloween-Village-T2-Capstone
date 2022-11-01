@@ -2,8 +2,6 @@ package com.halloween.view;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.halloween.Main;
-import com.halloween.controller.Game;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -82,8 +80,8 @@ public class View {
     return npcResponse.getString(key) + "\n";
   }
 
-  public void printMovesCounter() {
-    System.out.println("Remaining Moves: " + Game.getUserMovesCounter());
+  public void printMovesCounter(int userMovesCounter) {
+    System.out.println("Remaining Moves: " + userMovesCounter);
   }
 
   public void printTitle() {
@@ -202,8 +200,8 @@ public class View {
     System.out.println(getNpcResponse("no_item_error"));
   }
 
-  public void printGetItemFailed() {
-    System.out.println(getNpcResponse("Could not find the item"));
+  public void printGodModeGetFailed() {
+    System.out.println(getNpcResponse("no_item_error_god_mode"));
   }
 
   public void knockDoorFirst() {
@@ -260,12 +258,11 @@ public class View {
     }
   }
 
-  public void printPlayNewGame(){
+  public void printPlayNewGame() {
     System.out.println("Would you like to play a new game?\n"
         + "if not, enter:\n"
         + "n\n"
         + "enter anything else to play a new game");
   }
-
 
 }
