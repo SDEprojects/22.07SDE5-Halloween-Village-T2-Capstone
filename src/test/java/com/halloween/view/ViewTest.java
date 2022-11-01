@@ -7,6 +7,7 @@ import com.halloween.model.Player;
 import com.halloween.model.State;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -101,6 +102,35 @@ class ViewTest {
     outputArray = outputStreamCaptor.toString().trim().split(" ");
     remainingMoves = outputArray[outputArray.length - 1];
     assertEquals("10", remainingMoves);
+  }
+
+  /*
+  DONE: NPC INFORMATION DISPLAY TESTS
+ */
+  @Test
+  void NPC_information_is_correctly_displayed_when_user_moves_to_a_new_location() {
+    game.movePlayer("north"); // moved to neighbor's house
+    String[] outputArray = outputStreamCaptor.toString().trim().split(" ");
+    String neighbor = outputArray[outputArray.length - 3];
+    assertEquals("[neighbor]", neighbor);
+
+    game.movePlayer("east"); // moved to karen's house
+    outputArray = outputStreamCaptor.toString().trim().split(" ");
+    neighbor = outputArray[outputArray.length - 3];
+    assertEquals("[karen]", neighbor);
+
+    game.movePlayer("south"); // moved to freddy and jason's house
+    outputArray = outputStreamCaptor.toString().trim().split(" ");
+    neighbor = outputArray[outputArray.length - 4] + outputArray[outputArray.length - 3];
+    assertEquals("[freddy,jason]", neighbor);
+
+    game.movePlayer("west"); // moved to your house (NPC is mom)
+    outputArray = outputStreamCaptor.toString().trim().split("\n");
+    neighbor = outputArray[outputArray.length - 2].split(" ")[3];
+    String lastLine = outputArray[outputArray.length - 1];
+    assertEquals("[mom]", neighbor);
+    // This is a house with non-interactive house, so a message regarding that should be printed.
+    assertEquals("But they look busy. They won't answer even if you knock.", lastLine);
   }
 
 }

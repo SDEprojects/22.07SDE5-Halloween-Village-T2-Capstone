@@ -453,7 +453,7 @@ public class Game {
   }
 
   // this getter is for testing purposes
-  protected Player getPlayer() {
+  public Player getPlayer() {
     return player;
   }
 
