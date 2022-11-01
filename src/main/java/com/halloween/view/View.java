@@ -258,12 +258,11 @@ public class View {
     }
   }
 
-  public void printPlayNewGame(){
+  public void printPlayNewGame() {
     System.out.println("Would you like to play a new game?\n"
         + "if not, enter:\n"
         + "n\n"
         + "enter anything else to play a new game");
   }
-
 
 }

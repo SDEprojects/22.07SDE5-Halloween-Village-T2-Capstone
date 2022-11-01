@@ -1,6 +1,5 @@
 package com.halloween;
 
-import static com.halloween.controller.Game.getDisplay;
 import static com.halloween.view.SoundEffects.muteSoundEffects;
 import static com.halloween.view.SoundEffects.playSound;
 import static com.halloween.view.SoundEffects.unmuteSoundEffects;
@@ -15,7 +14,8 @@ public class Main {
   private static Game game;
   private static String[] input;
   private static TextParser textParser;
-  public static Game getGame(){
+
+  public static Game getGame() {
     return game;
   }
 
@@ -116,14 +116,14 @@ public class Main {
       game.showLose();
       game.removeFiles();
     }
-    getDisplay().printPlayNewGame();
+    game.getDisplay().printPlayNewGame();
     playNewGame();
   }
 
-  public static void playNewGame(){
+  public static void playNewGame() {
     String[] NewInput = textParser.userInput();
-    if(!NewInput[0].equals("n")) {
-    playGame(new Game(), textParser);
+    if (!NewInput[0].equals("n")) {
+      playGame(new Game(), textParser);
     }
   }
 
