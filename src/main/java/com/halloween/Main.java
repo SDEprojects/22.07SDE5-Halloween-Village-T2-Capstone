@@ -1,5 +1,6 @@
 package com.halloween;
 
+import static com.halloween.controller.Game.getDisplay;
 import static com.halloween.view.SoundEffects.muteSoundEffects;
 import static com.halloween.view.SoundEffects.playSound;
 import static com.halloween.view.SoundEffects.unmuteSoundEffects;
@@ -7,41 +8,23 @@ import static com.halloween.view.SoundEffects.unmuteSoundEffects;
 import com.halloween.controller.Game;
 import com.halloween.controller.TextParser;
 import com.halloween.model.State;
-import java.awt.Color;
 import java.io.IOException;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
 
 public class Main {
 
   private static Game game;
-
-  public static Game getGame() {
+  private static String[] input;
+  private static TextParser textParser;
+  public static Game getGame(){
     return game;
   }
 
   public static void main(String[] args) throws IOException {
 
-    //JFrame = a GUI window to add components to
-    MyFrame frame = new MyFrame(); //Creates a frame
-    frame.setTitle("HALLOWEEN VILLAGE"); //Sets the title of the frame
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of the application
-    frame.setResizable(false); //present frame from being resized
-    frame.setSize(600, 600); //sets the x-dimensions, and y-dimensions of the frame
-    frame.setVisible(true); //makes frame visible
-
-    ImageIcon image = new ImageIcon("./resource/Halloween_Village_Logo.png");
-    frame.setIconImage(image.getImage());  //Change icon of the frame
-    frame.getContentPane().setBackground(new Color(0, 51, 153)); //change color of the background
+    new MyFrame();  //extended
 
     Game game = new Game(); // an instance of the Game model (MVC)
-    TextParser textParser = new TextParser(); // text parser used to parse the user input (command)
+    textParser = new TextParser(); // text parser used to parse the user input (command)
     boolean gameStarted = false; // variable used to decide whether a game has started or not
     // check if a game has started or not
     while (!gameStarted) {
@@ -87,7 +70,7 @@ public class Main {
       // show the current game's status
       game.showStatus();
       // parse the user input into an array of words
-      String[] input = textParser.userInput();
+      input = textParser.userInput();
 
       // check if the parsed user input matches a valid command and if so, invoke an appropriate
       // method related to the command
@@ -132,6 +115,15 @@ public class Main {
     } else {
       game.showLose();
       game.removeFiles();
+    }
+    getDisplay().printPlayNewGame();
+    playNewGame();
+  }
+
+  public static void playNewGame(){
+    String[] NewInput = textParser.userInput();
+    if(!NewInput[0].equals("n")) {
+    playGame(new Game(), textParser);
     }
   }
 

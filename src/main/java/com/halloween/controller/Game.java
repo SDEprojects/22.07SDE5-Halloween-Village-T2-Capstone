@@ -3,6 +3,7 @@ package com.halloween.controller;
 import static com.halloween.view.SoundEffects.playSound;
 
 import com.google.gson.Gson;
+import com.halloween.Main;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
@@ -435,7 +436,6 @@ public class Game {
   /*
     Getter and Setter Methods
    */
-
   public State getState() {
     return state;
   }
