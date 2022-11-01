@@ -10,7 +10,6 @@
 # exclude all tmp files and directories
 *.tmp
 
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
@@ -32,3 +31,12 @@ bin/
 
 # ignore intellij module configuration file
 *.iml
+
+
+# ignore DS_Store (Mac OS)
+.DS_Store
+
+# ignore JSON files storing saved game data
+player.json
+state.json
+neighborhood.json

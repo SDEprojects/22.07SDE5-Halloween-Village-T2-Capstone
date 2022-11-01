@@ -11,26 +11,38 @@ import java.io.IOException;
 
 public class Main {
 
+  private static Game game;
+  private static String[] input;
+  private static TextParser textParser;
+  static boolean gameStarted;
+
+  public static Game getGame() {
+    return game;
+  }
+
   public static void main(String[] args) throws IOException {
-    Game game = new Game(); // an instance of the Game model (MVC)
-    TextParser textParser = new TextParser(); // text parser used to parse the user input (command)
-    boolean gameStarted = false; // variable used to decide whether a game has started or not
+
+    new MyFrame();  //extended
+
+    game = new Game(); // an instance of the Game model (MVC)
+    textParser = new TextParser(); // text parser used to parse the user input (command)
+    gameStarted = false; // variable used to decide whether a game has started or not
     // check if a game has started or not
     while (!gameStarted) {
       // if a game has not started yet, show the game menu and prompt the user to enter a command
       // and parse their command and save the parsed command as a variable
       game.showMenu();
-      String[] userInput = textParser.userInput();
+      input = textParser.userInput();
 
       // check if the parsed user input matches a valid command and if so, invoke an appropriate
       // method related to the command to either terminate the program or to start a game,
       // whether it be a new game or a saved game.
-      if (userInput[0].equals("quit")) {
+      if (input[0].equals("quit")) {
         game.quitGame();
-      } else if (userInput[0].equals("new") && userInput[1].equals("game")) {
+      } else if (input[0].equals("new") && input[1].equals("game")) {
         gameStarted = true;
         game.setState(State.PLAY);
-      } else if (userInput[0].equals("load") && userInput[1].equals("game")) {
+      } else if (input[0].equals("load") && input[1].equals("game")) {
         gameStarted = true;
         game = game.loadGame();
         game.setState(State.PLAY);
@@ -45,14 +57,14 @@ public class Main {
 
     // Play game until user wins, loses, or quits
     playGame(game, textParser);
+    playNewGame();
   }
 
-  private static void playGame(Game game, TextParser textParser) {
+  private static void playGame(Game game, TextParser textParser) throws IOException {
     // start the music
     game.startMusic();
-    // play sound effect
-    // This is to prevent NullPointerException from happening when the mute fx or the
-    // unmute fx command is used before any sound clip object is created
+    // play sound effect (this to prevent NullPointerException from happening when the mute fx
+    // or the unmute fx command is used before any sound clip object is created)
     playSound("/howl.wav");
 
     // allow the user to continue playing the game while the game's state is not terminal
@@ -60,12 +72,13 @@ public class Main {
       // show the current game's status
       game.showStatus();
       // parse the user input into an array of words
-      String []input = textParser.userInput();
+      input = textParser.userInput();
 
       // check if the parsed user input matches a valid command and if so, invoke an appropriate
       // method related to the command
       if (input[0].equals("quit")) {
-        game.quitGame();
+        game.getDisplay().printPlayNewGame();
+        playNewGame();
       } else if (input[0].equals("save")) {
         game.saveGame();
       } else if (input[0].equals("help")) {
@@ -92,17 +105,33 @@ public class Main {
         game.knockOnDoor();
       } else if (input[0].equals("get")) {
         game.getItem();
+      } else if (input[0].equals("god")) {
+        game.godModeGetItem(input[1]);
       } else if (input[0].equals("use") && input[1] != null) {
         game.useItem(input[1]);
+      }else if (input[0].equals("n") || input[0].equals("y")) {
+        game.getDisplay().printHowToStartNewGame();
       }
     }
     // at this point, the game's state is terminal so check the win/lose status of the game
     if (game.getState().equals(State.WIN)) {
       game.showWin();
-      game.removeFiles();
     } else {
       game.showLose();
-      game.removeFiles();
+    }
+    game.removeFiles();
+    game.getDisplay().printPlayNewGame();
+    playNewGame();
+  }
+
+  public static void playNewGame() throws IOException {
+    String[] newInput = textParser.userInput();
+    if (newInput[0].equals("n")) {
+      game.quitGame();
+    }else if(newInput[0].equals("y")){
+      gameStarted = true;
+      game.setState(State.PLAY);
+      main(newInput);
     }
   }
 

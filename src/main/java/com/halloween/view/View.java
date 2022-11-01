@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -77,6 +78,10 @@ public class View {
    */
   public String getNpcResponse(String key) {
     return npcResponse.getString(key) + "\n";
+  }
+
+  public void printMovesCounter(int userMovesCounter) {
+    System.out.println("Remaining Moves: " + userMovesCounter);
   }
 
   public void printTitle() {
@@ -162,12 +167,29 @@ public class View {
     System.out.println(north + east + south + west);
   }
 
+  public void printNoMovesLeftMessage() {
+    System.out.println("Sorry, you don't have any moves remaining...");
+  }
+
   public void printInvalidDirectionsMessage(String direction) {
     System.out.printf(getNpcResponse("invalid_direction"), direction);
   }
 
-  public void printPlayersMove(String playerName, String direction, String playerPosition) {
+  public void printPlayersMove(String playerName, String direction, String playerPosition,
+      String[] residents, boolean isInteractiveNPC) {
     System.out.printf(getNpcResponse("players_move"), playerName, direction, playerPosition);
+    System.out.println();
+    if (residents.length == 1) {
+      System.out.printf(getNpcResponse("current_location_single_resident"),
+          Arrays.toString(residents));
+    }
+    if (residents.length > 1) {
+      System.out.printf(getNpcResponse("current_location_multiple_residents"),
+          Arrays.toString(residents));
+    }
+    if (!isInteractiveNPC) {
+      System.out.println(getNpcResponse("non_interactive_npc"));
+    }
   }
 
   public void printGetItemMessage(String temp) {
@@ -176,6 +198,10 @@ public class View {
 
   public void printNoItemError() {
     System.out.println(getNpcResponse("no_item_error"));
+  }
+
+  public void printGodModeGetFailed() {
+    System.out.println(getNpcResponse("no_item_error_god_mode"));
   }
 
   public void knockDoorFirst() {
@@ -230,6 +256,21 @@ public class View {
     } else if (item.equals("ruby")) {
       System.out.println(getNpcResponse("karen_defeated_ruby"));
     }
+  }
+
+  public void printPlayNewGame() {
+    System.out.println("Would you like to play a new game?\n"
+        + "if not, enter:\n"
+        + "n\n"
+        + "if so, enter:\n"
+        + "y\n");
+  }
+
+  public void printHowToStartNewGame(){
+    System.out.println("To start a new game:\n"
+        + "1. input 'quit' command\n"
+        + "2. follow the prompt to begin a new game\n"
+        + "3. Otherwise, you may exit out of the current game\n\n");
   }
 
 }

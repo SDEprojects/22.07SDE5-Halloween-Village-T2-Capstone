@@ -27,6 +27,7 @@ public class Game {
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
+  private int userMovesCounter;
 
   /**
    * Initializes an instance of {@link Game}.
@@ -34,6 +35,7 @@ public class Game {
   public Game() {
     // game position starts at "your house" in game initially
     player.setPosition("your house");
+    userMovesCounter = 10;
   }
 
   /**
@@ -83,6 +85,7 @@ public class Game {
     // Displays items in inventory to user.
     display.printItemInInventory(player.getName(), player.getPosition(), playerItems);
     showValidMoves();
+    display.printMovesCounter(getUserMovesCounter());
   }
 
   /**
@@ -172,13 +175,25 @@ public class Game {
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
     // set the previous house knocked to false before moving
     currentPosition.setKnocked(false);
-    if (playersMove.isEmpty()) {
+    if (getUserMovesCounter() < 1) { // case where the player has less than 1 moves left
+      display.printNoMovesLeftMessage();
+      setState(State.LOSE);
+    } else if (playersMove.isEmpty()) { // in case the player has provided an invalid direction
       display.printInvalidDirectionsMessage(direction);
       showValidMoves();
-    } else {
+    } else { // in case the player has entered a valid direction
+      boolean isInteractiveNPC;
+      if (playersMove.equals("your house")) {
+        isInteractiveNPC = false;
+      } else {
+        isInteractiveNPC = true;
+      }
       player.setPosition(playersMove);
-      display.printPlayersMove(player.getName(), direction, player.getPosition());
+      String[] residents = neighborhood.getNeighborhood().get(playersMove).getResidents();
+      display.printPlayersMove(player.getName(), direction, player.getPosition(), residents,
+          isInteractiveNPC);
       playSound("/footsteps.wav");
+      setUserMovesCounter(getUserMovesCounter() - 1);
     }
   }
 
@@ -188,17 +203,25 @@ public class Game {
   public void getItem() {
     House house = neighborhood.getNeighborhood().get(player.getPosition());
     if (house.isKnocked() && house.getHouseItems().size() > 0) {
-      String temp = house.getHouseItems().get(0);
-      player.addItem(temp);
+      String item = house.getHouseItems().get(0);
+      player.addItem(item);
       house.removeItem();
-      display.printGetItemMessage(temp);
+      display.printGetItemMessage(item);
     } else if (house.isKnocked()) {
       display.printNoItemError();
     } else {
       display.knockDoorFirst();
       display.knockDoor();
     }
-    house.setKnocked(false);
+  }
+
+  public void godModeGetItem(String item) {
+    if (item.equals("ruby") || item.equals("badge") || (item.equals("potion"))) {
+      player.addItem(item);
+      display.printGetItemMessage(item);
+    } else {
+      display.printGodModeGetFailed();
+    }
   }
 
   /**
@@ -316,9 +339,9 @@ public class Game {
   public void useItem(String item) {
     // get the house the player is currently at
     House house = neighborhood.getNeighborhood().get(player.getPosition());
-    boolean successfullyUsedItem = player.removeItem(item);
     // if the house is knocked then try to use the item
     if (house.isKnocked()) {
+      boolean successfullyUsedItem = player.removeItem(item);
       showInventory();
       String response = successfullyUsedItem ? "remove_item" : "warning_remove_item";
       display.printRemoveItem(response, item);
@@ -417,8 +440,25 @@ public class Game {
     return state;
   }
 
+  public View getDisplay() {
+    return display;
+  }
+
   public void setState(State state) {
     this.state = state;
+  }
+
+  public int getUserMovesCounter() {
+    return userMovesCounter;
+  }
+
+  public void setUserMovesCounter(int userMovesCounter) {
+    this.userMovesCounter = userMovesCounter;
+  }
+
+  // this getter is for testing purposes
+  public Player getPlayer() {
+    return player;
   }
 
 }
