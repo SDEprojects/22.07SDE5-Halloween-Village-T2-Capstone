@@ -38,7 +38,8 @@ public class Main {
       // method related to the command to either terminate the program or to start a game,
       // whether it be a new game or a saved game.
       if (input[0].equals("quit")) {
-        game.quitGame();
+        game.getDisplay().printPlayNewGame();
+        playNewGame();
       } else if (input[0].equals("new") && input[1].equals("game")) {
         gameStarted = true;
         game.setState(State.PLAY);
