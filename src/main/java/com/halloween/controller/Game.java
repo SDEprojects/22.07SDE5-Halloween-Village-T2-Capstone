@@ -27,7 +27,7 @@ public class Game {
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
-  private int userMovesCounter = 10;
+  private int userMovesCounter;
 
   /**
    * Initializes an instance of {@link Game}.
@@ -35,6 +35,7 @@ public class Game {
   public Game() {
     // game position starts at "your house" in game initially
     player.setPosition("your house");
+    userMovesCounter = 10;
   }
 
   /**
