@@ -57,9 +57,9 @@ public class MyFrame extends JFrame {
     this.setVisible(true); //makes frame visible
 
     Container mainContainer = this.getContentPane();
-    mainContainer.setLayout(new BorderLayout(8,6));
+    mainContainer.setLayout(new BorderLayout(8, 6));
     mainContainer.setBackground(Color.ORANGE);
-    this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4, Color.BLACK));
+    this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLACK));
 //
 //    ImageIcon image = new ImageIcon("./resource/Halloween_Village_Logo.png");
 //    this.setIconImage(image.getImage());  //Change icon of the frame
@@ -80,20 +80,17 @@ public class MyFrame extends JFrame {
     //Middle Panel
     JPanel middlePanel = new JPanel();
     middlePanel.setBorder(new LineBorder(Color.BLACK, 3));
-    middlePanel.setLayout(new FlowLayout(4,4,4));
+    middlePanel.setLayout(new FlowLayout(4, 4, 4));
     middlePanel.setBackground(Color.CYAN);
 
     //Grid Layout
     JPanel gridPanel = new JPanel();
-    gridPanel.setBorder((Border) new GridLayout(4,1,5,5));
-    gridPanel.setLayout((LayoutManager) new LineBorder(Color.BLACK, 3));
+    gridPanel.setLayout(new GridLayout(4, 1, 5, 5));
+    gridPanel.setBorder(new LineBorder(Color.BLACK, 3));
     gridPanel.setBackground(Color.RED);
     gridPanel.add(button5);
-    gridPanel.add(button6);
-    gridPanel.add(button7);
-    gridPanel.add(button8);
 
-    JLabel label =new JLabel("Center Box", SwingConstants.CENTER);
+    JLabel label = new JLabel("Center Box", SwingConstants.CENTER);
     label.setOpaque(true);
     label.setBorder(new LineBorder(Color.BLACK, 3));
 
