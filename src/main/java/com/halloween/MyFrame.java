@@ -27,28 +27,27 @@ public class MyFrame extends JFrame {
   JButton button7;
   JButton button8;
 
-
   MyFrame() {
     //JFrame = a GUI window to add components to
 
     button1 = new JButton("NEW GAME");
-    button1.setBounds(200,100,100,50);
+    button1.setBounds(200, 100, 100, 50);
     button1.addActionListener(e -> System.out.println("Wanna Play a New Game?"));
 
     button2 = new JButton("LOAD GAME");
-    button2.setBounds(200,100,100,50);
+    button2.setBounds(200, 100, 100, 50);
     button2.addActionListener(e -> System.out.println("Back in Action"));
 
     button3 = new JButton("HELP");
-    button3.setBounds(200,100,100,50);
+    button3.setBounds(200, 100, 100, 50);
     button3.addActionListener(e -> System.out.println("Here You Go"));
 
     button4 = new JButton("QUIT");
-    button4.setBounds(200,100,100,50);
+    button4.setBounds(200, 100, 100, 50);
     button4.addActionListener(e -> System.out.println("Leaving So Soon?"));
 
     button5 = new JButton("SAVE GAME");
-    button5.setBounds(200, 100,100, 50);
+    button5.setBounds(200, 100, 100, 50);
     button5.addActionListener(e -> System.out.println("Come Back"));
 
     this.setTitle("HALLOWEEN VILLAGE"); //Sets the title of the frame
