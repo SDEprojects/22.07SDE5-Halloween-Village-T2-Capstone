@@ -123,8 +123,8 @@ class GameTest {
     game.movePlayer("north"); // 1
     game.movePlayer("east"); // 0
     game.movePlayer("east"); // remaining number of moves is less than 0, game should end
-    assertEquals(State.LOSE, game.getState());
-    assertTrue(game.getState().isTerminal());
+    assertEquals(State.LOSE, game.getState()); // ensure that the game's state is set to be lose
+    assertTrue(game.getState().isTerminal()); // ensure that the game's state is now terminal
   }
 
 }
