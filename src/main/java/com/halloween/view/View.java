@@ -266,7 +266,7 @@ public class View {
         + "y\n");
   }
 
-  public void printHowToStartNewGame(){
+  public void printHowToStartNewGame() {
     System.out.println("To start a new game:\n"
         + "1. input 'quit' command\n"
         + "2. follow the prompt to begin a new game\n"
