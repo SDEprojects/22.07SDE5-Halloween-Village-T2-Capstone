@@ -262,7 +262,15 @@ public class View {
     System.out.println("Would you like to play a new game?\n"
         + "if not, enter:\n"
         + "n\n"
-        + "enter anything else to play a new game");
+        + "if so, enter:\n"
+        + "y\n");
+  }
+
+  public void printHowToStartNewGame(){
+    System.out.println("To start a new game:\n"
+        + "1. input 'quit' command\n"
+        + "2. follow the prompt to begin a new game\n"
+        + "3. Otherwise, you may exit out of the current game\n\n");
   }
 
 }
