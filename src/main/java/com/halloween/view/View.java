@@ -201,8 +201,8 @@ public class View {
     System.out.println(getNpcResponse("no_item_error"));
   }
 
-  public void printGetItemFailed() {
-    System.out.println(getNpcResponse("Could not find the item"));
+  public void printGodModeGetFailed() {
+    System.out.println(getNpcResponse("no_item_error_god_mode"));
   }
 
   public void knockDoorFirst() {

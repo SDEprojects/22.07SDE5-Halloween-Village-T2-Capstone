@@ -225,7 +225,7 @@ public class Game {
       player.addItem(item);
       display.printGetItemMessage(item);
     } else {
-      display.printGetItemFailed();
+      display.printGodModeGetFailed();
     }
   }
 
@@ -447,6 +447,11 @@ public class Game {
 
   public void setState(State state) {
     this.state = state;
+  }
+
+  // this getter is for testing purposes
+  protected Player getPlayer() {
+    return player;
   }
 
 }
