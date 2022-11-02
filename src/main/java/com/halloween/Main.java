@@ -112,7 +112,7 @@ public class Main {
         game.godModeGetItem(input[1]);
       } else if (input[0].equals("use") && input[1] != null) {
         game.useItem(input[1]);
-      }else if (input[0].equals("n") || input[0].equals("y")) {
+      } else if (input[0].equals("n") || input[0].equals("y")) {
         game.getDisplay().printHowToStartNewGame();
       }
     }
@@ -132,7 +132,7 @@ public class Main {
     String[] newInput = textParser.userInput();
     if (newInput[0].equals("n")) {
       game.quitGame();
-    }else if(newInput[0].equals("y")){
+    } else if (newInput[0].equals("y")) {
       gameStarted = true;
       game.setState(State.PLAY);
       main(newInput);
