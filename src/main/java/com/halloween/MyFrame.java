@@ -85,13 +85,10 @@ public class MyFrame extends JFrame {
 
     //Grid Layout
     JPanel gridPanel = new JPanel();
-    gridPanel.setBorder((Border) new GridLayout(4,1,5,5));
-    gridPanel.setLayout((LayoutManager) new LineBorder(Color.BLACK, 3));
+    gridPanel.setLayout( new GridLayout(4,1,5,5));
+    gridPanel.setBorder(new LineBorder(Color.BLACK, 3));
     gridPanel.setBackground(Color.RED);
     gridPanel.add(button5);
-    gridPanel.add(button6);
-    gridPanel.add(button7);
-    gridPanel.add(button8);
 
     JLabel label =new JLabel("Center Box", SwingConstants.CENTER);
     label.setOpaque(true);

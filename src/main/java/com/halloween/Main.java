@@ -38,6 +38,7 @@ public class Main {
       // method related to the command to either terminate the program or to start a game,
       // whether it be a new game or a saved game.
       if (input[0].equals("quit")) {
+        game.stopMusic();
         game.getDisplay().printPlayNewGame();
         playNewGame();
       } else if (input[0].equals("new") && input[1].equals("game")) {
@@ -78,6 +79,7 @@ public class Main {
       // check if the parsed user input matches a valid command and if so, invoke an appropriate
       // method related to the command
       if (input[0].equals("quit")) {
+        game.stopMusic();
         game.getDisplay().printPlayNewGame();
         playNewGame();
       } else if (input[0].equals("save")) {
@@ -121,6 +123,7 @@ public class Main {
       game.showLose();
     }
     game.removeFiles();
+    game.stopMusic();
     game.getDisplay().printPlayNewGame();
     playNewGame();
   }
