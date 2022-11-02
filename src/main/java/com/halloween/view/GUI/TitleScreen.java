@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 
 public class TitleScreen {
 
-  private final Font TITLE_BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 25);
+  private final Font TITLE_BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 40);
   private JPanel titlePanel;
   private JPanel buttonsPanel;
 
@@ -23,12 +23,12 @@ public class TitleScreen {
 
   public JPanel createTitlePanel() {
     JPanel titlePanel = new JPanel();
-    titlePanel.setBounds(100, 100, 600, 150);
+    titlePanel.setBounds(200, 200, 1000, 200);
     titlePanel.setBackground(Color.black);
 
     JLabel titleLabel = new JLabel("HALLOWEEN VILLAGE");
     titleLabel.setForeground(Color.white);
-    titleLabel.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+    titleLabel.setFont(new Font("Times New Roman", Font.PLAIN, 80));
 
     // add label to title panel
     titlePanel.add(titleLabel);
@@ -38,7 +38,7 @@ public class TitleScreen {
 
   public JPanel createButtonsPanel() {
     JPanel buttonsPanel = new JPanel();
-    buttonsPanel.setBounds(300, 350, 200, 250);
+    buttonsPanel.setBounds(500, 550, 300, 400);
     buttonsPanel.setBackground(Color.black);
 
     JButton newGameButton = new JButton("NEW GAME");
@@ -54,8 +54,8 @@ public class TitleScreen {
       System.out.println("IMPLEMENT LOAD GAME");
     });
 
-    JButton quitButton = new JButton("QUIT");
-    loadGameButton.setFont(TITLE_BUTTON_FONT);
+    JButton quitButton = new JButton("QUIT GAME");
+    quitButton.setFont(TITLE_BUTTON_FONT);
     quitButton.addActionListener(e -> {
       // TODO: IMPLEMENT QUIT
       System.out.println("IMPLEMENT QUIT");
