@@ -63,7 +63,6 @@ public class Player {
   /*
     Getter and Setter Methods
    */
-
   public String getName() {
     return name;
   }
