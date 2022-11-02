@@ -5,6 +5,7 @@ import com.halloween.model.Player;
 import com.halloween.view.GUI.TitleScreen;
 
 public class GUI {
+
   TitleScreen titleScreen;
   Game game;
   Player player;

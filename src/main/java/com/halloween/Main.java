@@ -22,7 +22,6 @@ public class Main {
     GUI guiController = new GUI(game);
   }
 
-
   // TODO: BELOW IS THE TEXT-BASED VERSION'S MAIN METHOD. IT'S LEFT HERE FOR REFERENCE.
   //  REMOVE IT BEFORE RELEASE V2.3.
   //  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REMOVE BEFORE FLIGHT <<<<<
