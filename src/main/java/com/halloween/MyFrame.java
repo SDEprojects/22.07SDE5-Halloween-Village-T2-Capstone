@@ -1,54 +1,48 @@
 package com.halloween;
 
+import com.halloween.controller.Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class MyFrame extends JFrame {
 
-  JButton button1;  //Global component of button
-  JButton button2;
-  JButton button3;
-  JButton button4;
-  JButton button5;
-  JButton button6;
-  JButton button7;
-  JButton button8;
+  JButton newGameButton;  //Global component of button
+  JButton loadGameButton;
+  JButton saveGameButton;
+  JButton helpButton;
+  JButton quitButton;
+  JButton mapButton;
 
-  MyFrame() {
-    //JFrame = a GUI window to add components to
+  public MyFrame(Game game) {
+    newGameButton = new JButton("NEW GAME");
+    newGameButton.setBounds(200, 100, 100, 50);
+    newGameButton.addActionListener(e -> System.out.println("Wanna Play a New Game?"));
 
-    button1 = new JButton("NEW GAME");
-    button1.setBounds(200, 100, 100, 50);
-    button1.addActionListener(e -> System.out.println("Wanna Play a New Game?"));
+    loadGameButton = new JButton("LOAD GAME");
+    loadGameButton.setBounds(200, 100, 100, 50);
+    loadGameButton.addActionListener(e -> game.loadGame());
 
-    button2 = new JButton("LOAD GAME");
-    button2.setBounds(200, 100, 100, 50);
-    button2.addActionListener(e -> System.out.println("Back in Action"));
+    saveGameButton = new JButton("SAVE GAME");
+    saveGameButton.setBounds(200, 100, 100, 50);
+    saveGameButton.addActionListener(e -> game.saveGame());
 
-    button3 = new JButton("HELP");
-    button3.setBounds(200, 100, 100, 50);
-    button3.addActionListener(e -> System.out.println("Here You Go"));
+    helpButton = new JButton("HELP");
+    helpButton.setBounds(200, 100, 100, 50);
+    helpButton.addActionListener(e -> System.out.println("Here You Go"));
 
-    button4 = new JButton("QUIT");
-    button4.setBounds(200, 100, 100, 50);
-    button4.addActionListener(e -> System.out.println("Leaving So Soon?"));
-
-    button5 = new JButton("SAVE GAME");
-    button5.setBounds(200, 100, 100, 50);
-    button5.addActionListener(e -> System.out.println("Come Back"));
+    quitButton = new JButton("QUIT");
+    quitButton.setBounds(200, 100, 100, 50);
+    quitButton.addActionListener(e -> System.out.println("Leaving So Soon?"));
 
     this.setTitle("HALLOWEEN VILLAGE"); //Sets the title of the frame
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of the application
@@ -65,16 +59,19 @@ public class MyFrame extends JFrame {
 //    this.setIconImage(image.getImage());  //Change icon of the frame
 //    this.getContentPane().setBackground(new Color(0, 51, 153)); //change color of the background
 
-//    //TOP PANEL with Buttons
+    /*
+      TOP PANEL with Buttons
+     */
     JPanel topPanel = new JPanel(); //Creates the top panel
     topPanel.setBorder(new LineBorder(Color.BLACK, 3)); //Sets the border
     topPanel.setBackground(Color.ORANGE); //Sets the background
     topPanel.setLayout(new FlowLayout(5)); //Aligns the layout
     topPanel.setBounds(100, 100, 100, 100);
-    topPanel.add(button1);
-    topPanel.add(button2);
-    topPanel.add(button3);
-    topPanel.add(button4);
+    topPanel.add(newGameButton);
+    topPanel.add(loadGameButton);
+    topPanel.add(saveGameButton);
+    topPanel.add(helpButton);
+    topPanel.add(quitButton);
     mainContainer.add(topPanel, BorderLayout.NORTH);
 
     //Middle Panel
@@ -88,7 +85,7 @@ public class MyFrame extends JFrame {
     gridPanel.setLayout(new GridLayout(4, 1, 5, 5));
     gridPanel.setBorder(new LineBorder(Color.BLACK, 3));
     gridPanel.setBackground(Color.RED);
-    gridPanel.add(button5);
+    gridPanel.add(saveGameButton);
 
     JLabel label = new JLabel("Center Box", SwingConstants.CENTER);
     label.setOpaque(true);

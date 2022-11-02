@@ -21,12 +21,10 @@ public class Main {
   }
 
   public static void main(String[] args) throws IOException {
-
-    new MyFrame();  //extended
-
     game = new Game(); // an instance of the Game model (MVC)
     textParser = new TextParser(); // text parser used to parse the user input (command)
     gameStarted = false; // variable used to decide whether a game has started or not
+    new MyFrame(game);
     // check if a game has started or not
     while (!gameStarted) {
       // if a game has not started yet, show the game menu and prompt the user to enter a command
