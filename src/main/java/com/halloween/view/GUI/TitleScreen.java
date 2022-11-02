@@ -13,20 +13,15 @@ import javax.swing.JTextArea;
 public class TitleScreen {
 
   private final Font TITLE_BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 25);
-  Container container;
-  JButton newGameButton;
-  JButton loadGameButton;
-  JButton quitButton;
+  private JPanel titlePanel;
+  private JPanel buttonsPanel;
 
-  public TitleScreen(Game game) {
-    JFrame window = new JFrame();
-    window.setSize(800, 600); //sets the x-dimensions, and y-dimensions of the frame
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of the application
-    //this.setResizable(false); //present frame from being resized
-    window.setLayout(null);
-    window.getContentPane().setBackground(Color.black);
-    container = window.getContentPane();
+  public TitleScreen() {
+    titlePanel = createTitlePanel();
+    buttonsPanel = createButtonsPanel();
+  }
 
+  public JPanel createTitlePanel() {
     JPanel titlePanel = new JPanel();
     titlePanel.setBounds(100, 100, 600, 150);
     titlePanel.setBackground(Color.black);
@@ -35,63 +30,51 @@ public class TitleScreen {
     titleLabel.setForeground(Color.white);
     titleLabel.setFont(new Font("Times New Roman", Font.PLAIN, 50));
 
+    // add label to title panel
+    titlePanel.add(titleLabel);
+
+    return titlePanel;
+  }
+
+  public JPanel createButtonsPanel() {
     JPanel buttonsPanel = new JPanel();
     buttonsPanel.setBounds(300, 350, 200, 250);
     buttonsPanel.setBackground(Color.black);
 
-    newGameButton = new JButton("NEW GAME");
+    JButton newGameButton = new JButton("NEW GAME");
     newGameButton.setFont(TITLE_BUTTON_FONT);
     newGameButton.addActionListener(e -> {
       System.out.println("BACKGROUND STORY");
     });
 
-    loadGameButton = new JButton("LOAD GAME");
+    JButton loadGameButton = new JButton("LOAD GAME");
     loadGameButton.setFont(TITLE_BUTTON_FONT);
-    loadGameButton.addActionListener(e -> game.loadGame());
+    loadGameButton.addActionListener(e -> {
+      // TODO: IMPLEMENT LOAD GAME
+      System.out.println("IMPLEMENT LOAD GAME");
+    });
 
-    quitButton = new JButton("QUIT");
+    JButton quitButton = new JButton("QUIT");
     loadGameButton.setFont(TITLE_BUTTON_FONT);
-    quitButton.addActionListener(e -> game.quitGame());
-
-    // add label to title panel
-    titlePanel.add(titleLabel);
+    quitButton.addActionListener(e -> {
+      // TODO: IMPLEMENT QUIT
+      System.out.println("IMPLEMENT QUIT");
+    });
 
     // add buttons to buttons panel
     buttonsPanel.add(newGameButton);
     buttonsPanel.add(loadGameButton);
     buttonsPanel.add(quitButton);
 
-    // add all panels to the container
-    container.add(titlePanel);
-    container.add(buttonsPanel);
-
-    window.setVisible(true); //makes frame visible
-    window.repaint();
-
-//    Container mainContainer = this.getContentPane();
-//    mainContainer.setLayout(new BorderLayout(8, 6));
-//    mainContainer.setBackground(Color.ORANGE);
-//    this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLACK));
-////
-////    ImageIcon image = new ImageIcon("./resource/Halloween_Village_Logo.png");
-////    this.setIconImage(image.getImage());  //Change icon of the frame
-////    this.getContentPane().setBackground(new Color(0, 51, 153)); //change color of the background
+    return buttonsPanel;
   }
 
-  public void createGameScreen() {
-    JPanel mainTextPanel = new JPanel();
-    mainTextPanel.setBounds(100, 100, 600, 250);
-    mainTextPanel.setBackground(Color.blue);
-    container.add(mainTextPanel);
+  public JPanel getTitlePanel() {
+    return titlePanel;
+  }
 
-    JTextArea mainTextArea = new JTextArea();
-    mainTextArea.setBounds(100, 100, 600, 250);
-    mainTextArea.setBackground(Color.black);
-    mainTextArea.setForeground(Color.white);
-    mainTextArea.setFont(TITLE_BUTTON_FONT);
-    mainTextArea.setLineWrap(true);
-
-    mainTextPanel.add(mainTextArea);
+  public JPanel getButtonsPanel() {
+    return buttonsPanel;
   }
 
 }

@@ -1,8 +1,8 @@
 package com.halloween;
 
-import com.halloween.controller.GUI;
+import com.halloween.controller.Controller;
 import com.halloween.controller.Game;
-import com.halloween.view.GUI.mapScreen;
+import com.halloween.view.GUI.GuiView;
 import java.io.IOException;
 
 public class Main {
@@ -21,8 +21,10 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     Game game = new Game();
-    GUI guiController = new GUI(game);
-    new GUI(game);
+    GuiView view = new GuiView();
+    Controller controller = new Controller(game, view);
+
+    controller.startGame();
   }
 
   // TODO: BELOW IS THE TEXT-BASED VERSION'S MAIN METHOD. IT'S LEFT HERE FOR REFERENCE.
