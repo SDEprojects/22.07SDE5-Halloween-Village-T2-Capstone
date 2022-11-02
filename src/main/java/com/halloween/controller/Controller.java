@@ -3,9 +3,6 @@ package com.halloween.controller;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.view.GUI.GuiView;
-import com.halloween.view.GUI.TitleScreen;
-import com.halloween.view.GUI.mapScreen;
-import java.io.IOException;
 
 public class Controller {
 

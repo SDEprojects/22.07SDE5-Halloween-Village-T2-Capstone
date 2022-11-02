@@ -1,8 +1,8 @@
 package com.halloween.view.GUI;
 
-public class mainGameScreen {
+public class GameScreen {
 
-  public mainGameScreen() {
+  public GameScreen() {
 //    /*
 //      TOP PANEL with Buttons
 //     */

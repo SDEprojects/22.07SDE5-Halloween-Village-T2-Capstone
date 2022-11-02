@@ -34,4 +34,8 @@ public class GuiView {
     container.revalidate();
   }
 
+  public void displayMapScreen() {
+    // TODO: call map screen
+  }
+
 }
