@@ -52,8 +52,14 @@ public class GuiView {
   }
 
   public void displayGetUsernameScreen() {
-    System.out.println("MOOOOOOOOO");
     getGameInfoScreen().buildGetUsernameScreen();
+    container.repaint();
+    container.revalidate();
+  }
+
+  public void displayGameScreen() {
+    System.out.println("MAIN GAME SCREEN");
+    container.removeAll();
     container.repaint();
     container.revalidate();
   }

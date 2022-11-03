@@ -41,7 +41,7 @@ public class Controller {
 
     backStoryNextButton.addActionListener(e -> view.displayInstructionsScreen());
     instructionsNextButton.addActionListener(e -> view.displayGetUsernameScreen());
-    startGameButton.addActionListener(e -> System.out.println("GAME STARTED"));
+    startGameButton.addActionListener(e -> view.displayGameScreen());
   }
 
 }
