@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class View {
 
-  private ResourceBundle instructions;
+  private static ResourceBundle instructions;
   private ResourceBundle npcResponse;
   private BufferedReader reader = new BufferedReader(
       new InputStreamReader(getClass().getClassLoader().getResourceAsStream("dialogue.json")));
@@ -65,7 +65,7 @@ public class View {
    * @param key The name of the important information needed to be displayed.
    * @return Returns the actual content (text) of the important information.
    */
-  public String getImportantDisplay(String key) {
+  public static String getImportantDisplay(String key) {
     return instructions.getString(key) + "\n";
   }
 

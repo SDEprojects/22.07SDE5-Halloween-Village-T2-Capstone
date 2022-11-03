@@ -1,80 +1,79 @@
 package com.halloween.view.GUI;
 
-import com.halloween.controller.Game;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 public class TitleScreen {
 
-  private final Font TITLE_BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 40);
+  public static final Font TITLE_BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 40);
   private JPanel titlePanel;
-  private JPanel buttonsPanel;
+  private JPanel titleScreenButtonsPanel;
+  private JButton newGameButton;
+  private JButton loadGameButton;
+  private JButton quitButton;
 
   public TitleScreen() {
     titlePanel = createTitlePanel();
-    buttonsPanel = createButtonsPanel();
+    titleScreenButtonsPanel = createButtonsPanel();
   }
 
   public JPanel createTitlePanel() {
-    JPanel titlePanel = new JPanel();
-    titlePanel.setBounds(200, 200, 1000, 200);
-    titlePanel.setBackground(Color.black);
+    JPanel panel = new JPanel();
+    panel.setBounds(200, 200, 1000, 200);
+    panel.setBackground(Color.black);
 
     JLabel titleLabel = new JLabel("HALLOWEEN VILLAGE");
     titleLabel.setForeground(Color.white);
     titleLabel.setFont(new Font("Times New Roman", Font.PLAIN, 80));
 
     // add label to title panel
-    titlePanel.add(titleLabel);
+    panel.add(titleLabel);
 
-    return titlePanel;
+    return panel;
   }
 
   public JPanel createButtonsPanel() {
-    JPanel buttonsPanel = new JPanel();
-    buttonsPanel.setBounds(500, 550, 300, 400);
-    buttonsPanel.setBackground(Color.black);
+    JPanel panel = new JPanel();
+    panel.setBounds(550, 550, 300, 400);
+    panel.setBackground(Color.black);
 
-    JButton newGameButton = new JButton("NEW GAME");
+    newGameButton = new JButton("NEW GAME");
     newGameButton.setFont(TITLE_BUTTON_FONT);
-    newGameButton.addActionListener(e -> {
-      System.out.println("BACKGROUND STORY");
-    });
 
-    JButton loadGameButton = new JButton("LOAD GAME");
+    loadGameButton = new JButton("LOAD GAME");
     loadGameButton.setFont(TITLE_BUTTON_FONT);
-    loadGameButton.addActionListener(e -> {
-      // TODO: IMPLEMENT LOAD GAME
-      System.out.println("IMPLEMENT LOAD GAME");
-    });
 
-    JButton quitButton = new JButton("QUIT GAME");
+    quitButton = new JButton("QUIT GAME");
     quitButton.setFont(TITLE_BUTTON_FONT);
-    quitButton.addActionListener(e -> {
-      // TODO: IMPLEMENT QUIT
-      System.out.println("IMPLEMENT QUIT");
-    });
 
     // add buttons to buttons panel
-    buttonsPanel.add(newGameButton);
-    buttonsPanel.add(loadGameButton);
-    buttonsPanel.add(quitButton);
+    panel.add(newGameButton);
+    panel.add(loadGameButton);
+    panel.add(quitButton);
 
-    return buttonsPanel;
+    return panel;
   }
 
   public JPanel getTitlePanel() {
     return titlePanel;
   }
 
-  public JPanel getButtonsPanel() {
-    return buttonsPanel;
+  public JPanel getTitleScreenButtonsPanel() {
+    return titleScreenButtonsPanel;
   }
 
+  public JButton getNewGameButton() {
+    return newGameButton;
+  }
+
+  public JButton getLoadGameButton() {
+    return loadGameButton;
+  }
+
+  public JButton getQuitButton() {
+    return quitButton;
+  }
 }
