@@ -3,7 +3,6 @@ package com.halloween.view.GUI;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,21 +13,21 @@ public class GameScreen {
 
   private static final Font topButtonFont = new Font("Serif", Font.PLAIN, 40);
   private JPanel topPanel;
-  private JPanel gridPanel;
+  private JPanel leftPanel;
   private JPanel mainPanel;
+  private JLabel centerLabel;
   private JButton helpButton;
   private JButton mapButton;
   private JButton musicButton;
   private JButton fxButton;
   private JButton saveGameButton;
   private JButton quitButton;
-  private JLabel centerLabel;
 
   public GameScreen() {
-    topPanel = createTopPanel();
-    gridPanel = createGridPanel();
-    mainPanel = createMainPanel();
     centerLabel = createCenterLabel();
+    topPanel = createTopPanel();
+    leftPanel = createLeftPanel();
+    mainPanel = createMainPanel();
   }
 
   public JPanel createTopPanel() {
@@ -62,19 +61,27 @@ public class GameScreen {
     panel.setBorder(new LineBorder(Color.WHITE, 3)); //Sets the border
     panel.setBackground(Color.ORANGE); //Sets the background
     panel.setLayout(new FlowLayout(10)); //Aligns the layout
-    panel.setBounds(100, 50, 1200, 100);
+    panel.setBounds(0, 0, 1400, 100);
     return panel;
   }
 
   public JPanel createMainPanel() {
     JPanel panel = new JPanel();
     panel.setBorder(new LineBorder(Color.WHITE, 3));
-    panel.setBounds(100, 150, 1200, 650);
+    panel.setBounds(300, 100, 1200, 700);
     panel.setBackground(Color.CYAN);
-    panel.add(getGridPanel());
+    panel.add(getCenterLabel());
     return panel;
   }
-  
+
+  public JPanel createLeftPanel() {
+    JPanel panel = new JPanel();
+    panel.setBorder(new LineBorder(Color.WHITE, 3));
+    panel.setBounds(0, 100, 300, 700);
+    panel.setBackground(Color.RED);
+    return panel;
+  }
+
   public JLabel createCenterLabel() {
     JLabel label = new JLabel("Center Box", SwingConstants.CENTER);
     label.setOpaque(true);
@@ -87,8 +94,8 @@ public class GameScreen {
     return topPanel;
   }
 
-  public JPanel getGridPanel() {
-    return gridPanel;
+  public JPanel getLeftPanel() {
+    return leftPanel;
   }
 
   public JPanel getMainPanel() {

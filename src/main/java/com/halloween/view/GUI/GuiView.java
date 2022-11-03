@@ -63,7 +63,7 @@ public class GuiView {
     container.removeAll();
 
     container.add(gameScreen.getTopPanel(), BorderLayout.NORTH);
-    container.add(gameScreen.getCenterLabel(), BorderLayout.WEST);
+    container.add(gameScreen.getLeftPanel(), BorderLayout.WEST);
     container.add(gameScreen.getMainPanel(), BorderLayout.CENTER);
     container.repaint();
     container.revalidate();

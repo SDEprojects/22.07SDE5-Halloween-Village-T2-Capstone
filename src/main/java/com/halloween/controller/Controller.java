@@ -41,9 +41,7 @@ public class Controller {
       // TODO: ADD LOAD GAME BUTTON HANDLER
       System.out.println("LOAD GAME BUTTON NOT IMPLEMENTED");
     });
-    quitButton.addActionListener(e -> {
-      System.exit(0);
-    });
+    quitButton.addActionListener(e -> System.exit(0));
   }
 
   public void addGameInfoScreenButtonHandlers() {
