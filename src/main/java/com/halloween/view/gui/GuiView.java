@@ -11,15 +11,17 @@ public class GuiView {
   private Container container;
   private TitleScreen titleScreen;
   private GameInfoScreen gameInfoScreen;
+  private GameScreen gameScreen;
   private MapScreen mapScreen;
 
   private HelpScreen helpScreen;
 
-  public GuiView(View textGameView) {
+  public GuiView() {
     window = createWindow();
     container = window.getContentPane();
     titleScreen = new TitleScreen();
     gameInfoScreen = new GameInfoScreen();
+    gameScreen = new GameScreen();
     mapScreen = new MapScreen();
   }
 
@@ -62,8 +64,11 @@ public class GuiView {
   }
 
   public void displayGameScreen() {
-    System.out.println("MAIN GAME SCREEN"); // TODO: FOR DEBUGGING PURPOSES. REMOVE BEFORE RELEASE
     container.removeAll();
+
+    container.add(gameScreen.getTopPanel(), BorderLayout.NORTH);
+    container.add(gameScreen.getLeftPanel(), BorderLayout.WEST);
+    container.add(gameScreen.getMainPanel(), BorderLayout.CENTER);
     container.repaint();
     container.revalidate();
   }
@@ -93,6 +98,10 @@ public class GuiView {
 
   public GameInfoScreen getGameInfoScreen() {
     return gameInfoScreen;
+  }
+
+  public GameScreen getGameScreen() {
+    return gameScreen;
   }
 
   public MapScreen getMapScreen() {

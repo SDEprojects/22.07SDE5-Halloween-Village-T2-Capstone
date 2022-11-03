@@ -67,7 +67,7 @@ public class GameInfoScreen {
   }
 
   public void buildGetUsernameScreen() {
-    textArea.setText("Enter Your Name");
+    textArea.setText("Enter Your Name: ");
 
     JPanel infoScreenButtonPanel = getInfoScreenButtonPanel();
     infoScreenButtonPanel.removeAll();
