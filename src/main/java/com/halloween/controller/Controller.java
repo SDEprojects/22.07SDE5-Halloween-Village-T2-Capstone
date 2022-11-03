@@ -5,6 +5,8 @@ import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.gui.GameInfoScreen;
 import com.halloween.view.gui.GuiView;
+import com.halloween.view.gui.HelpScreen;
+import com.halloween.view.gui.MapScreen;
 import javax.swing.JButton;
 
 public class Controller {
@@ -47,6 +49,20 @@ public class Controller {
       game.getPlayer().setName(infoScreen.getTextArea().getText());
       view.displayGameScreen();
     });
+  }
+
+  public void addMapScreenButtonHandlers(){
+    MapScreen mapScreen = view.getMapScreen();
+    JButton backToGame = mapScreen.getBackToGameMapScreenButton();
+
+    backToGame.addActionListener(event -> view.displayMapScreen());
+  }
+
+  public void addHelpScreenButtonHandlers(){
+    HelpScreen helpScreen = view.getHelpScreen();
+    JButton backToGame = helpScreen.getBackToGameHelpScreenButton();
+
+    backToGame.addActionListener(event -> view.displayHelpScreen());
   }
 
 }
