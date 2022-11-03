@@ -68,11 +68,7 @@ public class GameInfoScreen {
   }
 
   public void buildGetUsernameScreen() {
-    textArea.setText("Please Enter Your Name");
-
-    JPanel infoTextPanel = getInfoTextPanel();
-    JTextField textField = new JTextField();
-    infoTextPanel.add(textField);
+    textArea.setText("Enter Your Name");
 
     JPanel infoScreenButtonPanel = getInfoScreenButtonPanel();
     infoScreenButtonPanel.removeAll();
@@ -81,6 +77,10 @@ public class GameInfoScreen {
 
   public JPanel getInfoTextPanel() {
     return infoTextPanel;
+  }
+
+  public JTextArea getTextArea() {
+    return textArea;
   }
 
   public JPanel getInfoScreenButtonPanel() {

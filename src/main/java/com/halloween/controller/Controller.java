@@ -2,6 +2,7 @@ package com.halloween.controller;
 
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
+import com.halloween.model.State;
 import com.halloween.view.GUI.GameInfoScreen;
 import com.halloween.view.GUI.GuiView;
 import javax.swing.JButton;
@@ -11,8 +12,8 @@ public class Controller {
   Game game;
   GuiView view;
   Player player;
-  String currentLocation;
   Neighborhood neighborhood;
+  State state;
 
   public Controller(Game game, GuiView view) {
     this.game = game;
@@ -41,7 +42,11 @@ public class Controller {
 
     backStoryNextButton.addActionListener(e -> view.displayInstructionsScreen());
     instructionsNextButton.addActionListener(e -> view.displayGetUsernameScreen());
-    startGameButton.addActionListener(e -> view.displayGameScreen());
+    startGameButton.addActionListener(e -> {
+      System.out.println("USERNAME = " + infoScreen.getTextArea().getText()); // TODO: DELETE BEFORE RELEASE
+      game.getPlayer().setName(infoScreen.getTextArea().getText());
+      view.displayGameScreen();
+    });
   }
 
 }

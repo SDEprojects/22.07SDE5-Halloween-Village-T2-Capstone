@@ -58,7 +58,7 @@ public class GuiView {
   }
 
   public void displayGameScreen() {
-    System.out.println("MAIN GAME SCREEN");
+    System.out.println("MAIN GAME SCREEN"); // TODO: FOR DEBUGGING PURPOSES. REMOVE BEFORE RELEASE
     container.removeAll();
     container.repaint();
     container.revalidate();
