@@ -11,11 +11,14 @@ public class Player {
   private String position;
   private ArrayList<String> items;
 
+  private int userMovesCounter;
+
   /**
    * Initializes an instance of {@link Player} with empty items.
    */
   public Player() {
     this.items = new ArrayList<>();
+    userMovesCounter = 15;
   }
 
   /**
@@ -29,6 +32,14 @@ public class Player {
     this.name = name;
     this.position = position;
     this.items = new ArrayList<>();
+  }
+
+  public int getUserMovesCounter() {
+    return userMovesCounter;
+  }
+
+  public void setUserMovesCounter(int userMovesCounter) {
+    this.userMovesCounter = userMovesCounter;
   }
 
   /**
