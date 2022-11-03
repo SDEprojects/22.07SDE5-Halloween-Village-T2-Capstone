@@ -20,10 +20,9 @@ public class Main {
 //    return game;
 //  }
 
-  public static void main(String[] args) throws IOException {
-    View textGameView = new View();
+  public static void main(String[] args) {
     Game game = new Game();
-    GuiView view = new GuiView(textGameView);
+    GuiView view = new GuiView();
     Controller controller = new Controller(game, view);
 
     controller.startProgram();

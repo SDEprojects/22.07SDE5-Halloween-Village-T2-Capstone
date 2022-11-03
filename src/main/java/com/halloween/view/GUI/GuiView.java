@@ -1,6 +1,6 @@
 package com.halloween.view.GUI;
 
-import com.halloween.view.View;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JFrame;
@@ -11,12 +11,14 @@ public class GuiView {
   private Container container;
   private TitleScreen titleScreen;
   private GameInfoScreen gameInfoScreen;
+  private GameScreen gameScreen;
 
-  public GuiView(View textGameView) {
+  public GuiView() {
     window = createWindow();
     container = window.getContentPane();
     titleScreen = new TitleScreen();
     gameInfoScreen = new GameInfoScreen();
+    gameScreen = new GameScreen();
   }
 
   public JFrame createWindow() {
@@ -58,14 +60,21 @@ public class GuiView {
   }
 
   public void displayGameScreen() {
-    System.out.println("MAIN GAME SCREEN"); // TODO: FOR DEBUGGING PURPOSES. REMOVE BEFORE RELEASE
     container.removeAll();
+
+    container.add(gameScreen.getTopPanel(), BorderLayout.NORTH);
+    container.add(gameScreen.getCenterLabel(), BorderLayout.WEST);
+    container.add(gameScreen.getMainPanel(), BorderLayout.CENTER);
     container.repaint();
     container.revalidate();
   }
 
+  public void displayHelpScreen() {
+    // TODO: IMPLEMENT HELP SCREEN
+  }
+
   public void displayMapScreen() {
-    // TODO: call map screen
+    // TODO: IMPLEMENT MAP SCREEN
   }
 
   /*
@@ -77,6 +86,10 @@ public class GuiView {
 
   public GameInfoScreen getGameInfoScreen() {
     return gameInfoScreen;
+  }
+
+  public GameScreen getGameScreen() {
+    return gameScreen;
   }
 
 }

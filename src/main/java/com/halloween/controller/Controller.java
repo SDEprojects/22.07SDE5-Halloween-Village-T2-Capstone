@@ -4,6 +4,7 @@ import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.GUI.GameInfoScreen;
+import com.halloween.view.GUI.GameScreen;
 import com.halloween.view.GUI.GuiView;
 import javax.swing.JButton;
 
@@ -27,11 +28,20 @@ public class Controller {
 
   public void addTitleScreenButtonHandlers() {
     JButton newGameButton = view.getTitleScreen().getNewGameButton();
+    JButton loadGameButton = view.getTitleScreen().getLoadGameButton();
+    JButton quitButton = view.getTitleScreen().getQuitButton();
+
     newGameButton.addActionListener(e -> {
       view.displayBackgroundStoryScreen();
       addGameInfoScreenButtonHandlers();
     });
-    // TODO: ADD LOAD GAME AND QUIT BUTTON HANDLERS
+    loadGameButton.addActionListener(e -> {
+      // TODO: ADD LOAD GAME BUTTON HANDLER
+      System.out.println("LOAD GAME BUTTON NOT IMPLEMENTED");
+    });
+    quitButton.addActionListener(e -> {
+      System.exit(0);
+    });
   }
 
   public void addGameInfoScreenButtonHandlers() {
@@ -43,10 +53,23 @@ public class Controller {
     backStoryNextButton.addActionListener(e -> view.displayInstructionsScreen());
     instructionsNextButton.addActionListener(e -> view.displayGetUsernameScreen());
     startGameButton.addActionListener(e -> {
-      System.out.println("USERNAME = " + infoScreen.getTextArea().getText()); // TODO: DELETE BEFORE RELEASE
       game.getPlayer().setName(infoScreen.getTextArea().getText());
       view.displayGameScreen();
+      addGameScreenButtonHandlers();
     });
+  }
+
+  public void addGameScreenButtonHandlers() {
+    GameScreen gameScreen = view.getGameScreen();
+    JButton helpButton = gameScreen.getHelpButton();
+    JButton mapButton = gameScreen.getMapButton();
+    JButton saveGameButton = gameScreen.getSaveGameButton();
+    JButton quitButton = gameScreen.getQuitButton();
+
+    helpButton.addActionListener(e -> view.displayHelpScreen());
+    mapButton.addActionListener(e -> view.displayMapScreen());
+    saveGameButton.addActionListener(e -> game.saveGame());
+    quitButton.addActionListener(e -> System.exit(0));
   }
 
 }
