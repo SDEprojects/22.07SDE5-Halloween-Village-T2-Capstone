@@ -6,6 +6,7 @@ import com.halloween.model.State;
 import com.halloween.view.GUI.GameInfoScreen;
 import com.halloween.view.GUI.GameScreen;
 import com.halloween.view.GUI.GuiView;
+import com.halloween.view.SoundEffects;
 import javax.swing.JButton;
 
 public class Controller {
@@ -23,6 +24,7 @@ public class Controller {
 
   public void startProgram() {
     view.displayTitleScreen();
+    game.startMusic();
     addTitleScreenButtonHandlers();
   }
 
@@ -63,11 +65,16 @@ public class Controller {
     GameScreen gameScreen = view.getGameScreen();
     JButton helpButton = gameScreen.getHelpButton();
     JButton mapButton = gameScreen.getMapButton();
+    JButton musicButton = gameScreen.getMusicButton();
+    JButton fxButton = gameScreen.getFxButton();
     JButton saveGameButton = gameScreen.getSaveGameButton();
     JButton quitButton = gameScreen.getQuitButton();
 
     helpButton.addActionListener(e -> view.displayHelpScreen());
     mapButton.addActionListener(e -> view.displayMapScreen());
+    // TODO: Extend musicButton and fxButton handlers so that it can turn on/off sound
+    musicButton.addActionListener(e -> game.stopMusic()); // Can only mute the sound at the moment
+    fxButton.addActionListener(e -> SoundEffects.muteSoundEffects()); // Can only mute fx
     saveGameButton.addActionListener(e -> game.saveGame());
     quitButton.addActionListener(e -> System.exit(0));
   }
