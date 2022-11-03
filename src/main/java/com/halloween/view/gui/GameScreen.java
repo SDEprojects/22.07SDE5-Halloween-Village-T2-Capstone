@@ -1,4 +1,4 @@
-package com.halloween.view.GUI;
+package com.halloween.view.gui;
 
 public class GameScreen {
 

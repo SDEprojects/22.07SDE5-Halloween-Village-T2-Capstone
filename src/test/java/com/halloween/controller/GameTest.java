@@ -126,46 +126,46 @@ class GameTest {
   @Test
   void movePlayer_should_decrement_remaining_moves_by_one_when_given_valid_direction() {
     // users get 10 moves initially
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(10, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("north");
-    assertEquals(9, game.getUserMovesCounter());
+    assertEquals(9, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("east");
-    assertEquals(8, game.getUserMovesCounter());
+    assertEquals(8, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("south");
-    assertEquals(7, game.getUserMovesCounter());
+    assertEquals(7, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("west");
-    assertEquals(6, game.getUserMovesCounter());
+    assertEquals(6, game.getPlayer().getUserMovesCounter());
   }
 
   @Test
   void movePlayer_should_NOT_decrement_remaining_moves_when_given_invalid_direction() {
     // user gets 10 moves initially
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(10, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("far"); // invalid direction
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(10, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("away"); // invalid direction
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(10, game.getPlayer().getUserMovesCounter());
   }
 
   @Test
   void userMovesCounter_should_remain_the_same_if_player_did_not_move() {
     // user gets 10 moves initially
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(10, game.getPlayer().getUserMovesCounter());
 
     player.addItem("ruby");
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(10, game.getPlayer().getUserMovesCounter());
 
     game.knockOnDoor();
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(10, game.getPlayer().getUserMovesCounter());
 
     game.useItem("ruby");
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(10, game.getPlayer().getUserMovesCounter());
   }
 
   @Test

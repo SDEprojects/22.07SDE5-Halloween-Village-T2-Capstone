@@ -3,8 +3,8 @@ package com.halloween.controller;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
-import com.halloween.view.GUI.GameInfoScreen;
-import com.halloween.view.GUI.GuiView;
+import com.halloween.view.gui.GameInfoScreen;
+import com.halloween.view.gui.GuiView;
 import javax.swing.JButton;
 
 public class Controller {

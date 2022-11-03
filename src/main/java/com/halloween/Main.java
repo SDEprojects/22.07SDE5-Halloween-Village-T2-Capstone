@@ -2,7 +2,7 @@ package com.halloween;
 
 import com.halloween.controller.Controller;
 import com.halloween.controller.Game;
-import com.halloween.view.GUI.GuiView;
+import com.halloween.view.gui.GuiView;
 import com.halloween.view.View;
 import java.io.IOException;
 
