@@ -27,7 +27,7 @@ public class Game {
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
-  private int userMovesCounter;
+
 
   /**
    * Initializes an instance of {@link Game}.
@@ -35,7 +35,6 @@ public class Game {
   public Game() {
     // game position starts at "your house" in game initially
     player.setPosition("your house");
-    userMovesCounter = 10;
   }
 
   /**
@@ -85,7 +84,7 @@ public class Game {
     // Displays items in inventory to user.
     display.printItemInInventory(player.getName(), player.getPosition(), playerItems);
     showValidMoves();
-    display.printMovesCounter(getUserMovesCounter());
+    display.printMovesCounter(player.getUserMovesCounter());
   }
 
   /**
@@ -175,7 +174,7 @@ public class Game {
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
     // set the previous house knocked to false before moving
     currentPosition.setKnocked(false);
-    if (getUserMovesCounter() < 1) { // case where the player has less than 1 moves left
+    if (player.getUserMovesCounter() < 1) { // case where the player has less than 1 moves left
       display.printNoMovesLeftMessage();
       setState(State.LOSE);
     } else if (playersMove.isEmpty()) { // in case the player has provided an invalid direction
@@ -193,7 +192,7 @@ public class Game {
       display.printPlayersMove(player.getName(), direction, player.getPosition(), residents,
           isInteractiveNPC);
       playSound("/footsteps.wav");
-      setUserMovesCounter(getUserMovesCounter() - 1);
+      player.setUserMovesCounter(player.getUserMovesCounter()- 1);
     }
   }
 
@@ -446,14 +445,6 @@ public class Game {
 
   public void setState(State state) {
     this.state = state;
-  }
-
-  public int getUserMovesCounter() {
-    return userMovesCounter;
-  }
-
-  public void setUserMovesCounter(int userMovesCounter) {
-    this.userMovesCounter = userMovesCounter;
   }
 
   // this getter is for testing purposes
