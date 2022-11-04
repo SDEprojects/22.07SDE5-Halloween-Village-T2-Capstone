@@ -76,10 +76,8 @@ public class Controller {
     });
 
     mapButton.addActionListener(event -> {
-      System.out.println("hiiiiiii");
       view.displayMapScreen();
       addMapScreenButtonHandlers();
-
     });
 
     // TODO: Extend musicButton and fxButton handlers so that it can turn on/off sound
