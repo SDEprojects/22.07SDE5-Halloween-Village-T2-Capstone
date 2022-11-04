@@ -1,6 +1,5 @@
 package com.halloween.view.gui;
 
-import com.halloween.view.View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -90,8 +89,9 @@ public class GuiView {
     container.revalidate();
   }
 
-  public void displayNoSavedGamePane() {
-    JOptionPane.showMessageDialog(null, "ERROR: NO SAVED GAME DATA FOUND");
+  public void displayLoadFailPane() {
+    JOptionPane.showMessageDialog(null,
+        "ERROR: FAILED TO LOAD GAME DATA.\nPLEASE START A NEW GAME.");
   }
 
   /*

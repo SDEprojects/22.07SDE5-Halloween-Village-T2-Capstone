@@ -2,7 +2,6 @@ package com.halloween.controller;
 
 import static com.halloween.view.SoundEffects.playSound;
 
-import com.google.gson.Gson;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
@@ -27,7 +26,6 @@ public class Game {
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
-
 
   /**
    * Initializes an instance of {@link Game}.
@@ -192,7 +190,7 @@ public class Game {
       display.printPlayersMove(player.getName(), direction, player.getPosition(), residents,
           isInteractiveNPC);
       playSound("/footsteps.wav");
-      player.setUserMovesCounter(player.getUserMovesCounter()- 1);
+      player.setUserMovesCounter(player.getUserMovesCounter() - 1);
     }
   }
 

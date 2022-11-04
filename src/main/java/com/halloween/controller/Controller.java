@@ -9,6 +9,10 @@ import com.halloween.view.gui.GameScreen;
 import com.halloween.view.gui.GuiView;
 import com.halloween.view.gui.HelpScreen;
 import com.halloween.view.gui.MapScreen;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.swing.JButton;
 
 public class Controller {
@@ -28,24 +32,30 @@ public class Controller {
   }
 
   public void loadGame() {
-    State state = StoreGame.loadGame("state.json", State.class);
-    Player player = StoreGame.loadGame("player.json", Player.class);
-    Neighborhood neighborhood = StoreGame.loadGame("neighborhood.json", Neighborhood.class);
-    if (state == null || player == null || neighborhood == null) {
-      view.displayNoSavedGamePane();
-      startGame(true);
-    } else {
-      game = new Game(state, player, neighborhood);
+    try (
+        Reader stateReader = Files.newBufferedReader(Paths.get("./state.json"));
+        Reader playerReader = Files.newBufferedReader(Paths.get("./player.json"));
+        Reader neighborhoodReader = Files.newBufferedReader(Paths.get("./neighborhood.json"));
+    ) {
+      State state = StoreGame.GSON.fromJson(stateReader, State.class);
+      Player player = StoreGame.GSON.fromJson(playerReader, Player.class);
+      Neighborhood neighborhood = StoreGame.GSON.fromJson(neighborhoodReader, Neighborhood.class);
+
+      if (state == null || player == null || neighborhood == null) {
+        view.displayLoadFailPane();
+      } else {
+        game = new Game(state, player, neighborhood);
+        startGame();
+      }
+    } catch (IOException e) {
+      view.displayLoadFailPane();
     }
   }
 
-  public void startGame(boolean isNewGame) {
-    if (isNewGame) {
-      // TODO: IMPLEMENT STARTING A NEW GAME
-    } else {
-      setGame(game.loadGame());
-
-    }
+  public void startGame() {
+    view.displayGameScreen();
+    addGameScreenButtonHandlers();
+    game.setState(State.PLAY);
   }
 
   public void addTitleScreenButtonHandlers() {
@@ -73,8 +83,7 @@ public class Controller {
     instructionsNextButton.addActionListener(e -> view.displayGetUsernameScreen());
     startGameButton.addActionListener(e -> {
       game.getPlayer().setName(infoScreen.getTextArea().getText());
-      view.displayGameScreen();
-      addGameScreenButtonHandlers();
+      startGame();
     });
   }
 
@@ -106,10 +115,6 @@ public class Controller {
     quitButton.addActionListener(e -> System.exit(0));
   }
 
-  public void setGame(Game game) {
-    this.game = game;
-  }
-
   public void addMapScreenButtonHandlers() {
     MapScreen mapScreen = view.getMapScreen();
     JButton backToGame = mapScreen.getBackToGameMapScreenButton();
@@ -122,6 +127,13 @@ public class Controller {
     JButton backToGame = helpScreen.getBackToGameHelpScreenButton();
 
     backToGame.addActionListener(event -> view.displayGameScreen());
+  }
+
+  /*
+    GETTER & SETTER METHODS
+   */
+  public void setGame(Game game) {
+    this.game = game;
   }
 
 }
