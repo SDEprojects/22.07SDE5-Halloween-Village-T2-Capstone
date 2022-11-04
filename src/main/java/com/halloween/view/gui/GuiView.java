@@ -1,5 +1,6 @@
 package com.halloween.view.gui;
 
+import com.halloween.model.Player;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -65,12 +66,15 @@ public class GuiView {
     container.revalidate();
   }
 
-  public void displayGameScreen() {
+  public void displayGameScreen(Player player) {
     container.removeAll();
 
     container.add(gameScreen.getTopPanel(), BorderLayout.NORTH);
-    container.add(gameScreen.getLeftPanel(), BorderLayout.WEST);
+    container.add(gameScreen.getSidePanel(), BorderLayout.WEST);
     container.add(gameScreen.getMainPanel(), BorderLayout.CENTER);
+    container.add(gameScreen.getBottomPanel(), BorderLayout.SOUTH);
+    gameScreen.getLocationLabel().setText(player.getPosition());
+    gameScreen.getInventoryLabel().setText(player.getItems().toString());
     container.repaint();
     container.revalidate();
   }

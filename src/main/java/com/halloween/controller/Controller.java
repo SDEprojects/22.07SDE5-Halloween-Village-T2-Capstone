@@ -53,7 +53,7 @@ public class Controller {
   }
 
   public void startGame() {
-    view.displayGameScreen();
+    view.displayGameScreen(game.getPlayer());
     addGameScreenButtonHandlers();
     game.setState(State.PLAY);
   }
@@ -89,44 +89,77 @@ public class Controller {
 
   public void addGameScreenButtonHandlers() {
     GameScreen gameScreen = view.getGameScreen();
+    // TOP PANEL BUTTONS
     JButton helpButton = gameScreen.getHelpButton();
     JButton mapButton = gameScreen.getMapButton();
     JButton musicButton = gameScreen.getMusicButton();
     JButton fxButton = gameScreen.getFxButton();
     JButton saveGameButton = gameScreen.getSaveGameButton();
     JButton quitButton = gameScreen.getQuitButton();
+    // BOTTOM PANEL BUTTONS
+    JButton goNorthButton = gameScreen.getGoNorthButton();
+    JButton goEastButton = gameScreen.getGoEastButton();
+    JButton goSouthButton = gameScreen.getGoSouthButton();
+    JButton goWestButton = gameScreen.getGoWestButton();
+    JButton knockButton = gameScreen.getKnockButton();
+    JButton getItemButton = gameScreen.getGetItemButton();
+    JButton useItemButton = gameScreen.getUseItemButton();
 
+    // TOP PANEL BUTTON HANDLERS
     helpButton.addActionListener(e -> {
       view.displayHelpScreen();
       addHelpScreenButtonHandlers();
     });
-
     mapButton.addActionListener(event -> {
       System.out.println("hiiiiiii");
       view.displayMapScreen();
       addMapScreenButtonHandlers();
-
     });
-
     // TODO: Extend musicButton and fxButton handlers so that it can turn on/off sound
     musicButton.addActionListener(e -> game.stopMusic()); // Can only mute the sound at the moment
     fxButton.addActionListener(e -> SoundEffects.muteSoundEffects()); // Can only mute fx
     saveGameButton.addActionListener(e -> game.saveGame());
     quitButton.addActionListener(e -> System.exit(0));
+
+    // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
+    goNorthButton.addActionListener(e -> {
+      game.movePlayer("north");
+      view.displayGameScreen(game.getPlayer()); // displays new game screen with updated information
+    });
+    goEastButton.addActionListener(e -> {
+      game.movePlayer("east");
+      view.displayGameScreen(game.getPlayer());
+    });
+    goSouthButton.addActionListener(e -> {
+      game.movePlayer("south");
+      view.displayGameScreen(game.getPlayer());
+    });
+    goWestButton.addActionListener(e -> {
+      game.movePlayer("west");
+      view.displayGameScreen(game.getPlayer());
+    });
+    knockButton.addActionListener(e -> {
+      game.knockOnDoor();
+      view.displayGameScreen(game.getPlayer());
+    });
+    getItemButton.addActionListener(e -> {
+      game.getItem();
+      view.displayGameScreen(game.getPlayer());
+    });
   }
 
   public void addMapScreenButtonHandlers() {
     MapScreen mapScreen = view.getMapScreen();
     JButton backToGame = mapScreen.getBackToGameMapScreenButton();
 
-    backToGame.addActionListener(event -> view.displayGameScreen());
+    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer()));
   }
 
   public void addHelpScreenButtonHandlers() {
     HelpScreen helpScreen = view.getHelpScreen();
     JButton backToGame = helpScreen.getBackToGameHelpScreenButton();
 
-    backToGame.addActionListener(event -> view.displayGameScreen());
+    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer()));
   }
 
   /*
