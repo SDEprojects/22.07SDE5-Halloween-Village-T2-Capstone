@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 
 public class MapScreen {
+
   private final Font BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 10);
   private JLabel label;
 

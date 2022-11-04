@@ -2,7 +2,6 @@ package com.halloween.controller;
 
 import static com.halloween.view.SoundEffects.playSound;
 
-import com.google.gson.Gson;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
@@ -27,7 +26,6 @@ public class Game {
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
-
 
   /**
    * Initializes an instance of {@link Game}.
@@ -192,7 +190,7 @@ public class Game {
       display.printPlayersMove(player.getName(), direction, player.getPosition(), residents,
           isInteractiveNPC);
       playSound("/footsteps.wav");
-      player.setUserMovesCounter(player.getUserMovesCounter()- 1);
+      player.setUserMovesCounter(player.getUserMovesCounter() - 1);
     }
   }
 
@@ -313,10 +311,9 @@ public class Game {
    * @return Returns a new instance of {@link Game}, loaded with data from a previously save game.
    */
   public Game loadGame() {
-    Gson gson = new Gson();
-    State state = storeGame.loadGame("state.json", State.class, gson);
-    Player player = storeGame.loadGame("player.json", Player.class, gson);
-    Neighborhood neighborhood = storeGame.loadGame("neighborhood.json", Neighborhood.class, gson);
+    State state = storeGame.loadGame("state.json", State.class);
+    Player player = storeGame.loadGame("player.json", Player.class);
+    Neighborhood neighborhood = storeGame.loadGame("neighborhood.json", Neighborhood.class);
     if (state == null || player == null || neighborhood == null) {
       return new Game();
     }
@@ -439,17 +436,28 @@ public class Game {
     return state;
   }
 
-  public View getDisplay() {
-    return display;
-  }
-
   public void setState(State state) {
     this.state = state;
   }
 
-  // this getter is for testing purposes
+  public View getDisplay() {
+    return display;
+  }
+
   public Player getPlayer() {
     return player;
+  }
+
+  public void setPlayer(Player player) {
+    this.player = player;
+  }
+
+  public Neighborhood getNeighborhood() {
+    return neighborhood;
+  }
+
+  public void setNeighborhood(Neighborhood neighborhood) {
+    this.neighborhood = neighborhood;
   }
 
 }
