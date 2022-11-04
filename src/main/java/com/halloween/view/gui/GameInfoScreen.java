@@ -1,4 +1,4 @@
-package com.halloween.view.GUI;
+package com.halloween.view.gui;
 
 import com.halloween.view.View;
 import java.awt.Color;
