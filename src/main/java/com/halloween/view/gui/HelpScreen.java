@@ -17,14 +17,16 @@ public class HelpScreen {
 
   public HelpScreen() {
     label = new JLabel();
-    label.setBounds(80, 100, 1400, 500);
+    label.setBounds(0, 0, 1400, 1000);
+//    label.setVisible(true);
 
-   text = new JTextArea(View.getImportantDisplay("help"));
+    text = new JTextArea(View.getImportantDisplay("help"));
+    text.setBounds(250, 30, 1100, 500);
     label.add(text);
 
     backToGameHelpScreenButton = new JButton("BACK TO GAME");
     backToGameHelpScreenButton.setFont(BUTTON_FONT);
-    backToGameHelpScreenButton.setBounds(650, 650, 200, 75);
+    backToGameHelpScreenButton.setBounds(680, 600, 200, 50);
     backToGameHelpScreenButton.addActionListener(event -> {
       System.out.println("this button should bring user back to game screen");
     });
@@ -36,11 +38,11 @@ public class HelpScreen {
     return backToGameHelpScreenButton;
   }
 
-//  public JLabel getHelpScreen() {
-//    return label;
+  public JLabel getHelpScreen() {
+    return label;
+  }
 
-//  }
-//  public JTextArea getText() {
-//    return text;
-//  }
+  public JTextArea getText() {
+    return text;
+  }
 }

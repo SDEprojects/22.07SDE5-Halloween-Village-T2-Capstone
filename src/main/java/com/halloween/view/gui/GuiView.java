@@ -1,6 +1,7 @@
 package com.halloween.view.gui;
 
 import com.halloween.view.View;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JFrame;
@@ -23,6 +24,7 @@ public class GuiView {
     gameInfoScreen = new GameInfoScreen();
     gameScreen = new GameScreen();
     mapScreen = new MapScreen();
+    helpScreen = new HelpScreen();
   }
 
   public JFrame createWindow() {
@@ -74,17 +76,15 @@ public class GuiView {
   }
 
   public void displayMapScreen() {
-    // TODO: call map screen
     container.removeAll();
-    getMapScreen();
+    container.add(getMapScreen().getMapScreen());
     container.repaint();
     container.revalidate();
   }
 
   public void displayHelpScreen() {
-    //TODO: call help screen
     container.removeAll();
-    getHelpScreen();
+    container.add(getHelpScreen().getHelpScreen());
     container.repaint();
     container.revalidate();
   }
