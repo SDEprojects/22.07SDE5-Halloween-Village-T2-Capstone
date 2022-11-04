@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class GuiView {
 
@@ -75,6 +76,10 @@ public class GuiView {
 
   public void displayMapScreen() {
     // TODO: IMPLEMENT MAP SCREEN
+  }
+
+  public void displayNoSavedGamePane() {
+    JOptionPane.showMessageDialog(null, "ERROR: NO SAVED GAME DATA FOUND");
   }
 
   /*

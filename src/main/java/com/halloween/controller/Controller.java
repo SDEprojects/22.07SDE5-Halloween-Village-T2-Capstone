@@ -13,9 +13,6 @@ public class Controller {
 
   Game game;
   GuiView view;
-  Player player;
-  Neighborhood neighborhood;
-  State state;
 
   public Controller(Game game, GuiView view) {
     this.game = game;
@@ -28,6 +25,27 @@ public class Controller {
     addTitleScreenButtonHandlers();
   }
 
+  public void loadGame() {
+    State state = StoreGame.loadGame("state.json", State.class);
+    Player player = StoreGame.loadGame("player.json", Player.class);
+    Neighborhood neighborhood = StoreGame.loadGame("neighborhood.json", Neighborhood.class);
+    if (state == null || player == null || neighborhood == null) {
+      view.displayNoSavedGamePane();
+      startGame(true);
+    } else {
+      game = new Game(state, player, neighborhood);
+    }
+  }
+
+  public void startGame(boolean isNewGame) {
+    if (isNewGame) {
+      // TODO: IMPLEMENT STARTING A NEW GAME
+    } else {
+      setGame(game.loadGame());
+
+    }
+  }
+
   public void addTitleScreenButtonHandlers() {
     JButton newGameButton = view.getTitleScreen().getNewGameButton();
     JButton loadGameButton = view.getTitleScreen().getLoadGameButton();
@@ -38,8 +56,7 @@ public class Controller {
       addGameInfoScreenButtonHandlers();
     });
     loadGameButton.addActionListener(e -> {
-      // TODO: ADD LOAD GAME BUTTON HANDLER
-      System.out.println("LOAD GAME BUTTON NOT IMPLEMENTED");
+      loadGame();
     });
     quitButton.addActionListener(e -> System.exit(0));
   }
@@ -75,6 +92,10 @@ public class Controller {
     fxButton.addActionListener(e -> SoundEffects.muteSoundEffects()); // Can only mute fx
     saveGameButton.addActionListener(e -> game.saveGame());
     quitButton.addActionListener(e -> System.exit(0));
+  }
+
+  public void setGame(Game game) {
+    this.game = game;
   }
 
 }
