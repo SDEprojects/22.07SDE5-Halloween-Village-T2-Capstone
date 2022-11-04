@@ -25,6 +25,8 @@ import java.nio.file.Path;
  */
 public class StoreGame {
 
+  public static final Gson GSON = new Gson();
+
   /**
    * Loads previously saved game data from a JSON file and returns .
    *
@@ -36,7 +38,7 @@ public class StoreGame {
    * @return Returns either an instance of model class if the load was successful. Otherwise,
    * returns null.
    */
-  public <T> T loadGame(String resourceFile, Type type, Gson gson) {
+  public static <T> T loadGame(String resourceFile, Type type) {
     try {
       URL url = StoreGame.class.getProtectionDomain().getCodeSource().getLocation();
       File jar = new File(url.toURI());
@@ -44,7 +46,7 @@ public class StoreGame {
       try {
         if (f.exists()) {
           Reader reader = new InputStreamReader(new FileInputStream(f));
-          return gson.fromJson(reader, type);
+          return GSON.fromJson(reader, type);
         } else {
           View.printGameLoadFailed(true);
         }
@@ -64,7 +66,7 @@ public class StoreGame {
    * @param player       The player's data (e.g., player's name).
    * @param neighborhood The neighborhood data (locations in the game).
    */
-  public void saveGame(State state, Player player, Neighborhood neighborhood) {
+  public static void saveGame(State state, Player player, Neighborhood neighborhood) {
     writeFile(state, "state.json");
     writeFile(player, "player.json");
     writeFile(neighborhood, "neighborhood.json");
@@ -78,12 +80,11 @@ public class StoreGame {
    * @param name       Name of the file in which game data will be written.
    * @param <T>        Type of the data/model class.
    */
-  private <T> void writeFile(T gameObject, String name) {
-    Gson gson = new Gson();
+  private static <T> void writeFile(T gameObject, String name) {
     try {
       String filepath = new File(name).getAbsolutePath();
       FileWriter writer = new FileWriter(filepath, false);
-      gson.toJson(gameObject, writer);
+      GSON.toJson(gameObject, writer);
       writer.close();
     } catch (IOException e) {
       e.printStackTrace();
@@ -95,7 +96,7 @@ public class StoreGame {
   /**
    * Removes three JSON files that comprise a complete game data.
    */
-  public void removeJsonFiles() {
+  public static void removeJsonFiles() {
     removeFile("state.json");
     removeFile("player.json");
     removeFile("neighborhood.json");
@@ -106,7 +107,7 @@ public class StoreGame {
    *
    * @param resourceFile The name of the file to be deleted.
    */
-  private void removeFile(String resourceFile) {
+  private static void removeFile(String resourceFile) {
     try {
       URL url = StoreGame.class.getProtectionDomain().getCodeSource().getLocation();
       File jar = new File(url.toURI());

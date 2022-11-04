@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 public class HelpScreen {
+
   private final Font BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 10);
 
   private JLabel label;
