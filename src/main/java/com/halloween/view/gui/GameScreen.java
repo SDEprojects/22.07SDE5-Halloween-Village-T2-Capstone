@@ -3,6 +3,7 @@ package com.halloween.view.gui;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,10 +17,17 @@ public class GameScreen {
   private JPanel topPanel;
   private JPanel sidePanel;
   private JPanel mainPanel;
+  private JPanel firstPanelBelowMain;
   private JPanel bottomPanel;
   private JLabel locationLabel;
-  private JLabel npcLabel;
   private JLabel inventoryLabel;
+
+  private JLabel remainingMovesLabel;
+
+  private JLabel npcLabel;
+
+  private JLabel gameTextLabel;
+
   private JButton helpButton;
   private JButton mapButton;
   private JButton musicButton;
@@ -33,14 +41,17 @@ public class GameScreen {
   private JButton knockButton;
   private JButton getItemButton;
   private JButton useItemButton;
-
   public GameScreen() {
     inventoryLabel = createInventoryLabel();
+    remainingMovesLabel = createRemainingMovesLabel();
     locationLabel = createLocationLabel();
+    npcLabel = createNpcLabel();
+    gameTextLabel = createGameTextLabel();
     topPanel = createTopPanel();
     sidePanel = createSidePanel();
     mainPanel = createMainPanel();
     bottomPanel = createBottomPanel();
+    firstPanelBelowMain = createFirstPanelBelowMain();
   }
 
   public JPanel createTopPanel() {
@@ -83,17 +94,36 @@ public class GameScreen {
     panel.setBorder(new LineBorder(Color.WHITE, 3));
     panel.setBounds(0, 100, 300, 700);
     panel.setBackground(Color.RED);
-    panel.add(new JLabel("INVENTORY"));
+//    panel.add(new JLabel(""));
     panel.add(getInventoryLabel());
+    panel.add(getRemainingMovesLabel());
     return panel;
+
   }
 
   public JPanel createMainPanel() {
     JPanel panel = new JPanel();
     panel.setBorder(new LineBorder(Color.WHITE, 3));
-    panel.setBounds(300, 100, 1200, 700);
+    panel.setBounds(300, 100, 1100, 80);
     panel.setBackground(Color.CYAN);
     panel.add(getLocationLabel());
+    return panel;
+  }
+
+  public JPanel createFirstPanelBelowMain() {
+    JPanel panel = new JPanel();
+
+//    GridLayout layout = new GridLayout(3, 2);
+//    panel.setLayout(layout);
+//    layout.addLayoutComponent("game text ",getGameTextLabel());
+//    layout.addLayoutComponent("npc ",getNpcLabel());
+
+    panel.setBorder(new LineBorder(Color.WHITE, 3));
+    panel.setBounds(300, 180, 1100, 620);
+    panel.setBackground(Color.GRAY);
+
+    panel.add(getGameTextLabel());
+    panel.add(getNpcLabel());
     return panel;
   }
 
@@ -139,7 +169,7 @@ public class GameScreen {
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
     label.setBorder(new LineBorder(Color.WHITE, 3));
-    label.setBounds(0, 100, 500, 100);
+    label.setBounds(0, 100, 200, 100);
     return label;
   }
 
@@ -148,14 +178,40 @@ public class GameScreen {
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
     label.setBorder(new LineBorder(Color.WHITE, 3));
-    label.setBounds(0, 550, 900, 300);
+//    label.setBounds(0, 550, 200, 300);
+    return label;
+  }
+
+  public  JLabel createRemainingMovesLabel(){
+    JLabel label = new JLabel("", SwingConstants.LEADING);
+    label.setFont(GAME_TEXT_FONT);
+    label.setOpaque(true);
+    label.setBorder(new LineBorder(Color.WHITE, 3));
+    label.setBounds(0, 10, 900, 100);
+    return label;
+  }
+
+  public  JLabel createNpcLabel(){
+    JLabel label = new JLabel("");
+    label.setFont(GAME_TEXT_FONT);
+    label.setOpaque(true);
+    label.setBorder(new LineBorder(Color.WHITE, 3));
+//    label.setBounds(0, 10, 900, 100);
+    return label;
+  }
+
+  public  JLabel createGameTextLabel(){
+    JLabel label = new JLabel("");
+    label.setFont(GAME_TEXT_FONT);
+    label.setOpaque(true);
+    label.setBorder(new LineBorder(Color.WHITE, 3));
+//    label.setBounds(10, 100, 100, 300);
     return label;
   }
 
   public JPanel getTopPanel() {
     return topPanel;
   }
-
   public JPanel getSidePanel() {
     return sidePanel;
   }
@@ -163,6 +219,11 @@ public class GameScreen {
   public JPanel getMainPanel() {
     return mainPanel;
   }
+
+  public JPanel getFirstPanelBelowMain() {
+    return firstPanelBelowMain;
+  }
+
 
   public JPanel getBottomPanel() {
     return bottomPanel;
@@ -174,6 +235,18 @@ public class GameScreen {
 
   public JLabel getInventoryLabel() {
     return inventoryLabel;
+  }
+
+  public JLabel getRemainingMovesLabel() {
+    return remainingMovesLabel;
+  }
+
+  public JLabel getNpcLabel() {
+    return npcLabel;
+  }
+
+  public JLabel getGameTextLabel() {
+    return gameTextLabel;
   }
 
   public JButton getHelpButton() {
