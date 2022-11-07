@@ -58,6 +58,20 @@ public class Controller {
     game.setState(State.PLAY);
   }
 
+  public void updateScreen(Game game) {
+    if (!game.getState().isTerminal()) { // if game's state is not terminal
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
+    } else { // if game's state is terminal, display game result
+      view.displayGameReulst(game);
+      game.removeFiles();
+      quitGame();
+    }
+  }
+
+  public void quitGame() {
+    System.exit(0);
+  }
+
   public void addTitleScreenButtonHandlers() {
     JButton newGameButton = view.getTitleScreen().getNewGameButton();
     JButton loadGameButton = view.getTitleScreen().getLoadGameButton();
@@ -70,7 +84,7 @@ public class Controller {
     loadGameButton.addActionListener(e -> {
       loadGame();
     });
-    quitButton.addActionListener(e -> System.exit(0));
+    quitButton.addActionListener(e -> quitGame());
   }
 
   public void addGameInfoScreenButtonHandlers() {
@@ -118,29 +132,28 @@ public class Controller {
     musicButton.addActionListener(e -> game.stopMusic()); // Can only mute the sound at the moment
     fxButton.addActionListener(e -> SoundEffects.muteSoundEffects()); // Can only mute fx
     saveGameButton.addActionListener(e -> game.saveGame());
-    quitButton.addActionListener(e -> System.exit(0));
+    quitButton.addActionListener(e -> quitGame());
 
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
     goNorthButton.addActionListener(e -> {
       game.movePlayer("north");
-      view.displayGameScreen(game.getPlayer(),
-          game.getNeighborhood()); // displays new game screen with updated information
+      updateScreen(game);
     });
     goEastButton.addActionListener(e -> {
       game.movePlayer("east");
-      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
+      updateScreen(game);
     });
     goSouthButton.addActionListener(e -> {
       game.movePlayer("south");
-      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
+      updateScreen(game);
     });
     goWestButton.addActionListener(e -> {
       game.movePlayer("west");
-      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
+      updateScreen(game);
     });
     knockButton.addActionListener(e -> {
       game.knockOnDoor();
-      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
+      updateScreen(game);
     });
     getItemButton.addActionListener(e -> {
       game.getItem();
