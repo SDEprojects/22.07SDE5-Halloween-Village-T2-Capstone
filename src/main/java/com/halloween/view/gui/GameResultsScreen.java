@@ -2,6 +2,7 @@ package com.halloween.view.gui;
 
 import com.halloween.view.View;
 import java.awt.Font;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -21,10 +22,14 @@ public class GameResultsScreen {
 
   public GameResultsScreen() {
     label = new JLabel();
-//    String winOrLoseImage = getcontroller.winOrLose();
-//    label.setIcon(new ImageIcon("src/main/resources/small_map.png"));
-    //add conditional showing one of the images
-
+    String winOrLoseToApplyCorrectImage = Main.getController().winOrLose();
+    String image = "";
+    if (winOrLoseToApplyCorrectImage.equals("win")){
+      image = "src/main/resources/you-win.png";
+    } else if (winOrLoseToApplyCorrectImage.equals("lose")){
+      image = "src/main/resources/you-lose.png";
+    }
+    label.setIcon(new ImageIcon(image));
     label.setBounds(0, 0, 1400, 1000);
 
 //    text = new JTextArea(View.getImportantDisplay("help"));

@@ -29,7 +29,7 @@ public class Main {
   }
 
 //  getters and setters
-  public Controller getController(){
+  public static Controller getController(){
     return controller;
   }
 

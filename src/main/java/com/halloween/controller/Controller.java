@@ -164,17 +164,22 @@ public class Controller {
         game.getNeighborhood()));
   }
 
-  public void winOrLose() {
+  public String winOrLose() {
+    String winOrLose = "";
     if (game.getState().equals(State.WIN)) {
       view.displayGameResultsScreen();
+      winOrLose = "win";
     }else if(game.getState().equals(State.LOSE)){
       view.displayGameResultsScreen();
       game.removeFiles();
+      winOrLose = "lose";
 //    game.getDisplay().printPlayNewGame();
 //    playNewGame();
       //TODO: new game logic (if time permits)
     }
+    return winOrLose;
   }
+
 
   /*
     GETTER & SETTER METHODS
