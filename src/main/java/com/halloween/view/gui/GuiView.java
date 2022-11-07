@@ -88,7 +88,12 @@ public class GuiView {
     showValidDirectionButtons(gameScreen, player, neighborhood);
 
     gameScreen.getLocationLabel().setText("Current Location:\t\t" + playerPosition);
-    gameScreen.getGameTextLabel().setText(View.getGreetings(playerPosition));
+    if (neighborhood.getNeighborhood().get(playerPosition).isKnocked()) {
+      gameScreen.getGameTextLabel().setText(View.getGreetings(playerPosition));
+      gameScreen.getGameTextLabel().setVisible(true);
+    } else {
+      gameScreen.getGameTextLabel().setVisible(false);
+    }
     gameScreen.getNpcLabel().setText("Resident(s):\t\t" + Arrays.toString(residents));
     gameScreen.getInventoryLabel().setText("Inventory:\t\t" + player.getItems().toString());
     gameScreen.getRemainingMovesLabel()
