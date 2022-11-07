@@ -19,14 +19,15 @@ public class View {
 
   private static ResourceBundle instructions;
   private ResourceBundle npcResponse;
-  private BufferedReader reader = new BufferedReader(
-      new InputStreamReader(getClass().getClassLoader().getResourceAsStream("dialogue.json")));
-  private Gson gson = new Gson();
-  private Type collectionType = new TypeToken<ArrayList<HashMap<String, HashMap<String, String>>>>() {
+  private static BufferedReader reader = new BufferedReader(
+      new InputStreamReader(View.class.getClassLoader().getResourceAsStream("dialogue.json")));
+  private static Gson gson = new Gson();
+  private static Type collectionType = new TypeToken<ArrayList<HashMap<String, HashMap<String, String>>>>() {
   }.getType();
-  private ArrayList<HashMap<String, HashMap<String, String>>> dialogueList = gson.fromJson(reader,
+  private static ArrayList<HashMap<String, HashMap<String, String>>> dialogueList = gson.fromJson(
+      reader,
       collectionType);
-  private HashMap<String, HashMap<String, String>> dialogue = (HashMap<String, HashMap<String, String>>) dialogueList.stream()
+  private static HashMap<String, HashMap<String, String>> dialogue = (HashMap<String, HashMap<String, String>>) dialogueList.stream()
       .collect(Collectors.toMap(map -> String.join("", map.keySet()),
           map -> map.get(String.join("", map.keySet()))));
 
@@ -48,6 +49,10 @@ public class View {
     System.out.println(dialogue.get(currentPosition).get("greet"));
   }
 
+  public static String getGreetings(String currentPosition) {
+    return dialogue.get(currentPosition).get("greet");
+  }
+
   /**
    * Displays a no-item message, indicating that there is no item to acquire at the desired
    * location.
@@ -56,6 +61,10 @@ public class View {
    */
   public void noItem(String currentPosition) {
     System.out.println(dialogue.get(currentPosition).get("no item"));
+  }
+
+  public static String getNoItemGreetings(String currentPosition) {
+    return dialogue.get(currentPosition).get("no item");
   }
 
   /**

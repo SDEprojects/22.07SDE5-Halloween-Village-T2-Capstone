@@ -33,6 +33,7 @@ public class GameInfoScreen {
     textArea.setForeground(Color.white);
     textArea.setFont(INFO_TEXT_FONT);
     textArea.setLineWrap(true);
+    textArea.setEditable(false);
 
     panel.add(textArea);
 

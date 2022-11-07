@@ -14,7 +14,7 @@ public class GameResultsScreen {
   private JPanel gameResultsPanel;
   private JLabel winLabel;
   private JLabel loseLabel;
-//  private JTextArea text;
+  //  private JTextArea text;
   JButton quitGameButton;
 
   public GameResultsScreen() {

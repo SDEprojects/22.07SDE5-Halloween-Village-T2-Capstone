@@ -28,8 +28,8 @@ public class Main {
     controller.startProgram();
   }
 
-//  getters and setters
-  public static Controller getController(){
+  //  getters and setters
+  public static Controller getController() {
     return controller;
   }
 

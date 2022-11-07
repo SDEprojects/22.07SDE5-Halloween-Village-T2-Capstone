@@ -5,12 +5,13 @@ import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
+import com.halloween.view.View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class GuiView {
@@ -75,20 +76,40 @@ public class GuiView {
 
   public void displayGameScreen(Player player, Neighborhood neighborhood) {
     container.removeAll();
+    container.add(getGameScreen().getTopPanel(), BorderLayout.NORTH);
+    container.add(getGameScreen().getSidePanel(), BorderLayout.WEST);
+    container.add(getGameScreen().getMainPanel(), BorderLayout.CENTER);
+    container.add(getGameScreen().getBottomPanel(), BorderLayout.SOUTH);
+    updateGameScreenMainPanel(player, neighborhood);
+    updateGameScreenSidePanel(player);
+    updateGameScreenBottomPanel(player, neighborhood);
 
-    container.add(gameScreen.getTopPanel(), BorderLayout.NORTH);
-    container.add(gameScreen.getSidePanel(), BorderLayout.WEST);
-    container.add(gameScreen.getMainPanel(), BorderLayout.CENTER);
-    container.add(gameScreen.getFirstPanelBelowMain(), BorderLayout.CENTER);
-    container.add(gameScreen.getBottomPanel(), BorderLayout.SOUTH);
-    showValidDirectionButtons(gameScreen, player, neighborhood);
+    container.revalidate();
+    container.repaint();
+  }
 
-    gameScreen.getLocationLabel().setText("Current Location:\t\t" + player.getPosition());
-    gameScreen.getGameTextLabel().setText("game text label");
-    gameScreen.getNpcLabel().setText("npc label");
-    gameScreen.getInventoryLabel().setText("Inventory:\t\t" + player.getItems().toString());
-    gameScreen.getRemainingMovesLabel()
-        .setText("Remaining Moves:\t\t" + player.getUserMovesCounter());
+  public void updateGameScreenMainPanel(Player player, Neighborhood neighborhood) {
+    String playerPosition = player.getPosition();
+    String[] residents = neighborhood.getNeighborhood().get(playerPosition).getResidents();
+
+    getGameScreen().getLocationLabel().setText("Current Location:\n" + playerPosition);
+    getGameScreen().getNpcLabel().setText("Resident(s):\t" + Arrays.toString(residents));
+
+    if (neighborhood.getNeighborhood().get(playerPosition).isKnocked()) {
+      getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
+      getGameScreen().getGameTextArea().setVisible(true);
+    } else {
+      getGameScreen().getGameTextArea().setVisible(false);
+    }
+
+    container.revalidate();
+    container.repaint();
+  }
+
+  public void updateGameScreenSidePanel(Player player) {
+    getGameScreen().getInventoryTextArea().setText("Inventory:\n" + player.getItems().toString());
+    getGameScreen().getRemainingMovesLabel()
+        .setText("Remaining Moves:\t" + player.getUserMovesCounter());
 
     container.revalidate();
     container.repaint();
@@ -125,12 +146,12 @@ public class GuiView {
         "ERROR: FAILED TO LOAD GAME DATA.\nPLEASE START A NEW GAME.");
   }
 
-  public void showValidDirectionButtons(GameScreen gameScreen, Player player,
+  public void updateGameScreenBottomPanel(Player player,
       Neighborhood neighborhood) {
-    JButton goNorthButton = gameScreen.getGoNorthButton();
-    JButton goEastButton = gameScreen.getGoEastButton();
-    JButton goSouthButton = gameScreen.getGoSouthButton();
-    JButton goWestButton = gameScreen.getGoWestButton();
+    JButton goNorthButton = getGameScreen().getGoNorthButton();
+    JButton goEastButton = getGameScreen().getGoEastButton();
+    JButton goSouthButton = getGameScreen().getGoSouthButton();
+    JButton goWestButton = getGameScreen().getGoWestButton();
 
     String[] directions = new String[]{"north", "east", "south", "west"};
     JButton[] buttons = new JButton[]{goNorthButton, goEastButton, goSouthButton, goWestButton};
