@@ -40,7 +40,7 @@ public class GuiView {
     JFrame window = new JFrame("Halloween Village");
     window.setSize(1400, 1000); //sets the x-dimensions, and y-dimensions of the frame
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of the application
-    //this.setResizable(false); //prevent frame from being resized
+    window.setResizable(false); //present frame from being resized
     window.setLayout(null);
     window.getContentPane().setBackground(Color.black);
     window.setVisible(true); //makes frame visible

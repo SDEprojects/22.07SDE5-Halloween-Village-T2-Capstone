@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.GridBagLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -80,8 +82,8 @@ public class GameScreen {
     panel.add(fxButton);
     panel.add(saveGameButton);
     panel.add(quitButton);
-    panel.setBorder(new LineBorder(Color.WHITE, 3)); //Sets the border
-    panel.setBackground(Color.ORANGE); //Sets the background
+    panel.setBorder(new LineBorder(Color.BLACK, 3)); //Sets the border
+    panel.setBackground(new Color(204, 102, 0)); //Sets the background
     panel.setLayout(new FlowLayout(10)); //Aligns the layout
     panel.setBounds(0, 0, 1400, 100);
     return panel;
@@ -89,9 +91,9 @@ public class GameScreen {
 
   public JPanel createSidePanel() {
     JPanel panel = new JPanel();
-    panel.setBorder(new LineBorder(Color.WHITE, 3));
+    panel.setBorder(new LineBorder(Color.BLACK, 4));
     panel.setBounds(0, 100, 300, 700);
-    panel.setBackground(Color.RED);
+    panel.setBackground(new Color(204, 102, 0));
 //    panel.add(new JLabel(""));
     panel.add(getInventoryTextArea());
     panel.add(getRemainingMovesLabel());
@@ -101,9 +103,9 @@ public class GameScreen {
 
   public JPanel createMainPanel() {
     JPanel panel = new JPanel();
-    panel.setBorder(new LineBorder(Color.WHITE, 3));
-    panel.setBounds(300, 100, 1100, 700);
-    panel.setBackground(Color.CYAN);
+    panel.setBorder(new LineBorder(Color.BLACK, 4));
+    panel.setBounds(300, 100, 1100, 80);
+    panel.setBackground(new Color(204, 102, 0));
     panel.add(getLocationLabel());
     panel.add(getNpcLabel());
     panel.add(getGameTextArea());
