@@ -18,6 +18,7 @@ public class Neighborhood {
 
   private HashMap<String, House> neighborhood;
   private String[] directions = new String[]{"north", "south", "east", "west"};
+  private static boolean isValidDirection;
 
   /**
    * Initializes an instance of {@link Neighborhood} by reading in JSON data from a file.
@@ -50,7 +51,7 @@ public class Neighborhood {
     possibleHouses.put(directions[1], currentPosition.getSouth());
     possibleHouses.put(directions[2], currentPosition.getEast());
     possibleHouses.put(directions[3], currentPosition.getWest());
-    boolean isValidDirection = Arrays.asList(directions).contains(direction);
+    isValidDirection = Arrays.asList(directions).contains(direction);
 
     if (isValidDirection && possibleHouses.get(direction) != null) {
       return possibleHouses.get(direction);
@@ -70,4 +71,7 @@ public class Neighborhood {
     this.neighborhood = neighborhood;
   }
 
+  public boolean getIsValidDirection() {
+    return isValidDirection;
+  }
 }

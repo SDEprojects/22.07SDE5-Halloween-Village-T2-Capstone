@@ -1,6 +1,8 @@
 package com.halloween.view.gui;
 
 import com.halloween.model.Player;
+import com.halloween.controller.Game;
+import com.halloween.controller.Controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -72,11 +74,18 @@ public class GuiView {
     container.add(gameScreen.getTopPanel(), BorderLayout.NORTH);
     container.add(gameScreen.getSidePanel(), BorderLayout.WEST);
     container.add(gameScreen.getMainPanel(), BorderLayout.CENTER);
+    container.add(gameScreen.getFirstPanelBelowMain(), BorderLayout.CENTER);
     container.add(gameScreen.getBottomPanel(), BorderLayout.SOUTH);
-    gameScreen.getLocationLabel().setText(player.getPosition());
-    gameScreen.getInventoryLabel().setText(player.getItems().toString());
-    container.repaint();
+
+    gameScreen.getLocationLabel().setText("Current Location:     " + player.getPosition());
+    gameScreen.getInventoryLabel().setText("Inventory     \n" + player.getItems().toString());
+    gameScreen.getRemainingMovesLabel().setText("Remaining Moves:     " + player.getUserMovesCounter());
+
+    gameScreen.getGameTextLabel().setText("game text label");
+    gameScreen.getNpcLabel().setText("npc label");
+
     container.revalidate();
+    container.repaint();
   }
 
   public void displayMapScreen() {
@@ -97,6 +106,7 @@ public class GuiView {
     JOptionPane.showMessageDialog(null,
         "ERROR: FAILED TO LOAD GAME DATA.\nPLEASE START A NEW GAME.");
   }
+
 
   /*
     GETTER & SETTER METHODS
