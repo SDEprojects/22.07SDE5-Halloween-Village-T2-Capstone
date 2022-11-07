@@ -96,11 +96,13 @@ public class GuiView {
     if (game.getState().equals(State.WIN)) {
       // TODO: Display Game Win Screen
       //  The line below is for testing purposes. Replace it with an actual win screen
-      JOptionPane.showMessageDialog(null, "CONGRATULATIONS, YOU WON!");
+      JOptionPane.showMessageDialog(null,
+          "CONGRATULATIONS, YOU WON! (SAVED GAME DATA WILL BE DELETED)");
+
     } else if (game.getState().equals(State.LOSE)) {
       // TODO: Display Game Lose Screen
       //  The line below is for testing purposes. Replace it with an actual lose screen
-      JOptionPane.showMessageDialog(null, "UH-OH, YOU LOST!");
+      JOptionPane.showMessageDialog(null, "UH-OH, YOU LOST! (SAVED GAME DATA WILL BE DELETED)");
     }
     container.revalidate();
     container.repaint();

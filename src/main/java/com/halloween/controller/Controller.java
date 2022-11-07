@@ -64,7 +64,12 @@ public class Controller {
     } else { // if game's state is terminal, display game result
       view.displayGameReulst(game);
       game.removeFiles();
+      quitGame();
     }
+  }
+
+  public void quitGame() {
+    System.exit(0);
   }
 
   public void addTitleScreenButtonHandlers() {
@@ -79,7 +84,7 @@ public class Controller {
     loadGameButton.addActionListener(e -> {
       loadGame();
     });
-    quitButton.addActionListener(e -> System.exit(0));
+    quitButton.addActionListener(e -> quitGame());
   }
 
   public void addGameInfoScreenButtonHandlers() {
@@ -127,7 +132,7 @@ public class Controller {
     musicButton.addActionListener(e -> game.stopMusic()); // Can only mute the sound at the moment
     fxButton.addActionListener(e -> SoundEffects.muteSoundEffects()); // Can only mute fx
     saveGameButton.addActionListener(e -> game.saveGame());
-    quitButton.addActionListener(e -> System.exit(0));
+    quitButton.addActionListener(e -> quitGame());
 
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
     goNorthButton.addActionListener(e -> {
