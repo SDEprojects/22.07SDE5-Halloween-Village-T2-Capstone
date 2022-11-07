@@ -1,34 +1,39 @@
 package com.halloween.view.gui;
 
-import com.halloween.controller.Game;
-import com.halloween.view.View;
 import java.awt.Font;
-import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import com.halloween.controller.Controller;
-import com.halloween.Main;
+import javax.swing.JPanel;
 
 public class GameResultsScreen {
 
-  private final Font BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 10);
-
-  private JLabel label;
-  private ImageIcon loseImage;
-  private ImageIcon winImage;
-
-
+  private static final Font BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 10);
+  private static final ImageIcon WIN_IMAGE = new ImageIcon("src/main/resources/you-win.png");
+  private static final ImageIcon LOSE_IMAGE = new ImageIcon("src/main/resources/you-lose.png");
+  private JPanel gameResultsPanel;
+  private JLabel winLabel;
+  private JLabel loseLabel;
 //  private JTextArea text;
 
   JButton backToGameHelpScreenButton;
 
   public GameResultsScreen() {
-    label = new JLabel();
-    label.setBounds(0, 0, 1400, 1000);
-    winImage = new ImageIcon("src/main/resources/you-win.png");
-    loseImage = new ImageIcon("src/main/resources/you-lose.png");
+    gameResultsPanel = new JPanel();
+    gameResultsPanel.setBounds(0, 0, 1400, 1000);
+
+    winLabel = new JLabel();
+    winLabel.setBounds(0, 0, 1400, 1000);
+    winLabel.setIcon(WIN_IMAGE);
+    winLabel.setVisible(false);
+
+    loseLabel = new JLabel();
+    loseLabel.setBounds(0, 0, 1400, 1000);
+    loseLabel.setIcon(LOSE_IMAGE);
+    loseLabel.setVisible(false);
+
+    gameResultsPanel.add(winLabel);
+    gameResultsPanel.add(loseLabel);
 
 //    text = new JTextArea(View.getImportantDisplay("help"));
 //    text.setBounds(250, 30, 1100, 500);
@@ -44,18 +49,20 @@ public class GameResultsScreen {
 //    return backToGameHelpScreenButton;
 //  }
 
-  public JLabel getGameResultLabel() {
-    return label;
+
+  public JPanel getGameResultsPanel() {
+    return gameResultsPanel;
   }
 
-  public ImageIcon getLoseImage() {
-    return loseImage;
+  public JLabel getWinLabel() {
+    return winLabel;
   }
 
-  public ImageIcon getWinImage() {
-    return winImage;
+  public JLabel getLoseLabel() {
+    return loseLabel;
   }
-//  public JTextArea getText() {
+
+  //  public JTextArea getText() {
 //    return text;
 //  }
 
