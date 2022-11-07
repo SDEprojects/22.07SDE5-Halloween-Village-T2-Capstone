@@ -1,6 +1,5 @@
 package com.halloween.view.gui;
 
-import com.halloween.controller.Controller;
 import com.halloween.controller.Game;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
@@ -9,9 +8,9 @@ import com.halloween.model.State;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class GuiView {
@@ -97,11 +96,11 @@ public class GuiView {
 
   public void displayGameResult(Game game) {
     container.removeAll();
-    container.add(getGameResultsScreen().getGameResultLabel());
+    container.add(getGameResultsScreen().getGameResultsPanel());
     if (game.getState().equals(State.WIN)) {
-      getGameResultsScreen().getGameResultLabel().setIcon(gameResultsScreen.getWinImage());
+      getGameResultsScreen().getWinLabel().setVisible(true);
     } else if (game.getState().equals(State.LOSE)) {
-      getGameResultsScreen().getGameResultLabel().setIcon(gameResultsScreen.getLoseImage());
+      gameResultsScreen.getLoseLabel().setVisible(true);
     }
     container.revalidate();
     container.repaint();
@@ -120,13 +119,6 @@ public class GuiView {
     container.repaint();
     container.revalidate();
   }
-
-//  public void displayGameResultsScreen(){
-//    container.removeAll();
-//    container.add(getGameResultsScreen().getGameResultsScreen());
-//    container.repaint();
-//    container.revalidate();
-//  }
 
   public void displayLoadFailPane() {
     JOptionPane.showMessageDialog(null,
@@ -151,7 +143,6 @@ public class GuiView {
         buttons[i].setVisible(true);
       }
     }
-
   }
 
   /*
@@ -177,7 +168,7 @@ public class GuiView {
     return helpScreen;
   }
 
-  public GameResultsScreen getGameResultsScreen(){
+  public GameResultsScreen getGameResultsScreen() {
     return gameResultsScreen;
   }
 

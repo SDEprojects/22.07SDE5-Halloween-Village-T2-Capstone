@@ -60,16 +60,15 @@ public class Controller {
 
   public void updateScreen(Game game) throws InterruptedException {
     if (!game.getState().isTerminal()) { // if game's state is not terminal
+      // display game screen
       view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     } else { // if game's state is terminal, display game result
       view.displayGameResult(game);
-      game.removeFiles();
-      Thread.sleep(5000);
-      quitGame();
     }
   }
 
   public void quitGame() {
+
     System.exit(0);
   }
 
@@ -82,9 +81,7 @@ public class Controller {
       view.displayBackgroundStoryScreen();
       addGameInfoScreenButtonHandlers();
     });
-    loadGameButton.addActionListener(e -> {
-      loadGame();
-    });
+    loadGameButton.addActionListener(e -> loadGame());
     quitButton.addActionListener(e -> quitGame());
   }
 
@@ -202,7 +199,6 @@ public class Controller {
   /*
     GETTER & SETTER METHODS
    */
-
   public void setGame(Game game) {
     this.game = game;
   }
