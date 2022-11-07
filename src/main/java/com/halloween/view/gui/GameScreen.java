@@ -201,7 +201,7 @@ public class GameScreen {
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
     label.setBorder(new LineBorder(Color.WHITE, 3));
-//    label.setBounds(10, 100, 100, 300);
+    label.setBounds(10, 100, 100, 300);
     return label;
   }
 

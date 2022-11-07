@@ -5,6 +5,7 @@ import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
+import com.halloween.view.View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -87,12 +88,11 @@ public class GuiView {
     showValidDirectionButtons(gameScreen, player, neighborhood);
 
     gameScreen.getLocationLabel().setText("Current Location:\t\t" + playerPosition);
-    gameScreen.getGameTextLabel().setText("game text label");
+    gameScreen.getGameTextLabel().setText(View.getGreetings(playerPosition));
     gameScreen.getNpcLabel().setText("Resident(s):\t\t" + Arrays.toString(residents));
     gameScreen.getInventoryLabel().setText("Inventory:\t\t" + player.getItems().toString());
     gameScreen.getRemainingMovesLabel()
         .setText("Remaining Moves:\t\t" + player.getUserMovesCounter());
-
     container.revalidate();
     container.repaint();
   }
