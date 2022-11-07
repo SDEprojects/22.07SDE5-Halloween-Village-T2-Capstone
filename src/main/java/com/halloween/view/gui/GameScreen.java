@@ -221,7 +221,6 @@ public class GameScreen {
     return firstPanelBelowMain;
   }
 
-
   public JPanel getBottomPanel() {
     return bottomPanel;
   }

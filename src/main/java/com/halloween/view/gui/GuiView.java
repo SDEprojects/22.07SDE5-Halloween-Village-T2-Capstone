@@ -1,8 +1,10 @@
 package com.halloween.view.gui;
 
+import com.halloween.controller.Game;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
+import com.halloween.model.State;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -87,6 +89,23 @@ public class GuiView {
     gameScreen.getRemainingMovesLabel()
         .setText("Remaining Moves:\t\t" + player.getUserMovesCounter());
 
+    container.revalidate();
+    container.repaint();
+  }
+
+  public void displayGameReulst(Game game) {
+    container.removeAll();
+    if (game.getState().equals(State.WIN)) {
+      // TODO: Display Game Win Screen
+      //  The line below is for testing purposes. Replace it with an actual win screen
+      JOptionPane.showMessageDialog(null,
+          "CONGRATULATIONS, YOU WON! (SAVED GAME DATA WILL BE DELETED)");
+
+    } else if (game.getState().equals(State.LOSE)) {
+      // TODO: Display Game Lose Screen
+      //  The line below is for testing purposes. Replace it with an actual lose screen
+      JOptionPane.showMessageDialog(null, "UH-OH, YOU LOST! (SAVED GAME DATA WILL BE DELETED)");
+    }
     container.revalidate();
     container.repaint();
   }
