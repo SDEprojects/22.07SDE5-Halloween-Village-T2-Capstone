@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.GridBagLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -104,7 +101,7 @@ public class GameScreen {
   public JPanel createMainPanel() {
     JPanel panel = new JPanel();
     panel.setBorder(new LineBorder(Color.BLACK, 4));
-    panel.setBounds(300, 100, 1100, 80);
+    panel.setBounds(300, 100, 1100, 700);
     panel.setBackground(new Color(204, 102, 0));
     panel.add(getLocationLabel());
     panel.add(getNpcLabel());

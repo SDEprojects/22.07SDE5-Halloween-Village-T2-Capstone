@@ -66,7 +66,7 @@ public class Controller {
       view.updateGameScreenMainPanel(game.getPlayer(), game.getNeighborhood());
       view.updateGameScreenSidePanel(game.getPlayer());
       view.updateGameScreenBottomPanel(game.getPlayer(), game.getNeighborhood());
-    // if game's state is terminal, update the game screen and display game result after 10 seconds
+      // if game's state is terminal, update the game screen and display game result after 10 seconds
     } else {
       try {
         Thread.sleep(10000);
@@ -185,7 +185,7 @@ public class Controller {
         game.getNeighborhood()));
   }
 
-  public void addGameResultScreenButtonHandler(){
+  public void addGameResultScreenButtonHandler() {
     GameResultsScreen resultScreen = view.getGameResultsScreen();
     JButton quitButton = resultScreen.getQuitGameButton();
 
@@ -203,7 +203,7 @@ public class Controller {
     this.game = game;
   }
 
-  public Game getGame(){
+  public Game getGame() {
     return game;
   }
 

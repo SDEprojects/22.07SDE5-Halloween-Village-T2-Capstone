@@ -24,7 +24,8 @@ public class View {
   private static Gson gson = new Gson();
   private static Type collectionType = new TypeToken<ArrayList<HashMap<String, HashMap<String, String>>>>() {
   }.getType();
-  private static ArrayList<HashMap<String, HashMap<String, String>>> dialogueList = gson.fromJson(reader,
+  private static ArrayList<HashMap<String, HashMap<String, String>>> dialogueList = gson.fromJson(
+      reader,
       collectionType);
   private static HashMap<String, HashMap<String, String>> dialogue = (HashMap<String, HashMap<String, String>>) dialogueList.stream()
       .collect(Collectors.toMap(map -> String.join("", map.keySet()),
