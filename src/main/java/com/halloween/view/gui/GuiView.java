@@ -77,12 +77,11 @@ public class GuiView {
     container.add(gameScreen.getFirstPanelBelowMain(), BorderLayout.CENTER);
     container.add(gameScreen.getBottomPanel(), BorderLayout.SOUTH);
 
-    gameScreen.getLocationLabel().setText("Current Location:     " + player.getPosition());
-    gameScreen.getInventoryLabel().setText("Inventory     \n" + player.getItems().toString());
-    gameScreen.getRemainingMovesLabel().setText("Remaining Moves:     " + player.getUserMovesCounter());
-
+    gameScreen.getLocationLabel().setText("Current Location:\t\t" + player.getPosition());
     gameScreen.getGameTextLabel().setText("game text label");
     gameScreen.getNpcLabel().setText("npc label");
+    gameScreen.getInventoryLabel().setText("Inventory:\t\t" + player.getItems().toString());
+    gameScreen.getRemainingMovesLabel().setText("Remaining Moves:\t\t" + player.getUserMovesCounter());
 
     container.revalidate();
     container.repaint();
@@ -106,7 +105,6 @@ public class GuiView {
     JOptionPane.showMessageDialog(null,
         "ERROR: FAILED TO LOAD GAME DATA.\nPLEASE START A NEW GAME.");
   }
-
 
   /*
     GETTER & SETTER METHODS

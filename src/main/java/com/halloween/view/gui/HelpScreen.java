@@ -32,7 +32,6 @@ public class HelpScreen {
       System.out.println("this button should bring user back to game screen");
     });
     label.add(backToGameHelpScreenButton);
-
   }
 
   public JButton getBackToGameHelpScreenButton() {
@@ -46,4 +45,5 @@ public class HelpScreen {
   public JTextArea getText() {
     return text;
   }
+
 }

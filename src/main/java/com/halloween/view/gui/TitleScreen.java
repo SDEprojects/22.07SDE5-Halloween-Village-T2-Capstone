@@ -76,4 +76,5 @@ public class TitleScreen {
   public JButton getQuitButton() {
     return quitButton;
   }
+
 }
