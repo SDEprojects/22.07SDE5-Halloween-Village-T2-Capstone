@@ -58,12 +58,13 @@ public class Controller {
     game.setState(State.PLAY);
   }
 
-  public void updateScreen(Game game) {
+  public void updateScreen(Game game) throws InterruptedException {
     if (!game.getState().isTerminal()) { // if game's state is not terminal
       view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     } else { // if game's state is terminal, display game result
-      view.displayGameReulst(game);
+      view.displayGameResult(game);
       game.removeFiles();
+      Thread.sleep(5000);
       quitGame();
     }
   }
@@ -137,23 +138,43 @@ public class Controller {
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
     goNorthButton.addActionListener(e -> {
       game.movePlayer("north");
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     goEastButton.addActionListener(e -> {
       game.movePlayer("east");
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     goSouthButton.addActionListener(e -> {
       game.movePlayer("south");
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     goWestButton.addActionListener(e -> {
       game.movePlayer("west");
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     knockButton.addActionListener(e -> {
       game.knockOnDoor();
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     getItemButton.addActionListener(e -> {
       game.getItem();
@@ -177,22 +198,6 @@ public class Controller {
         game.getNeighborhood()));
   }
 
-  public String winOrLose() {
-    String winOrLose = "";
-    if (game.getState().equals(State.WIN)) {
-      view.displayGameResultsScreen();
-      winOrLose = "win";
-    }else if(game.getState().equals(State.LOSE)){
-      view.displayGameResultsScreen();
-      game.removeFiles();
-      winOrLose = "lose";
-//    game.getDisplay().printPlayNewGame();
-//    playNewGame();
-      //TODO: new game logic (if time permits)
-    }
-    return winOrLose;
-  }
-
 
   /*
     GETTER & SETTER METHODS
@@ -200,6 +205,10 @@ public class Controller {
 
   public void setGame(Game game) {
     this.game = game;
+  }
+
+  public Game getGame(){
+    return game;
   }
 
 }

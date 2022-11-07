@@ -1,5 +1,6 @@
 package com.halloween.view.gui;
 
+import com.halloween.controller.Controller;
 import com.halloween.controller.Game;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
@@ -8,6 +9,7 @@ import com.halloween.model.State;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -93,18 +95,13 @@ public class GuiView {
     container.repaint();
   }
 
-  public void displayGameReulst(Game game) {
+  public void displayGameResult(Game game) {
     container.removeAll();
+    container.add(getGameResultsScreen().getGameResultLabel());
     if (game.getState().equals(State.WIN)) {
-      // TODO: Display Game Win Screen
-      //  The line below is for testing purposes. Replace it with an actual win screen
-      JOptionPane.showMessageDialog(null,
-          "CONGRATULATIONS, YOU WON! (SAVED GAME DATA WILL BE DELETED)");
-
+      getGameResultsScreen().getGameResultLabel().setIcon(gameResultsScreen.getWinImage());
     } else if (game.getState().equals(State.LOSE)) {
-      // TODO: Display Game Lose Screen
-      //  The line below is for testing purposes. Replace it with an actual lose screen
-      JOptionPane.showMessageDialog(null, "UH-OH, YOU LOST! (SAVED GAME DATA WILL BE DELETED)");
+      getGameResultsScreen().getGameResultLabel().setIcon(gameResultsScreen.getLoseImage());
     }
     container.revalidate();
     container.repaint();
@@ -124,12 +121,12 @@ public class GuiView {
     container.revalidate();
   }
 
-  public void displayGameResultsScreen(){
-    container.removeAll();
-    container.add(getGameResultsScreen().getGameResultsScreen());
-    container.repaint();
-    container.revalidate();
-  }
+//  public void displayGameResultsScreen(){
+//    container.removeAll();
+//    container.add(getGameResultsScreen().getGameResultsScreen());
+//    container.repaint();
+//    container.revalidate();
+//  }
 
   public void displayLoadFailPane() {
     JOptionPane.showMessageDialog(null,
