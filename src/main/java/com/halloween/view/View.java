@@ -62,6 +62,10 @@ public class View {
     System.out.println(dialogue.get(currentPosition).get("no item"));
   }
 
+  public static String getNoItemGreetings(String currentPosition) {
+    return dialogue.get(currentPosition).get("no item");
+  }
+
   /**
    * Displays important information related to the game, such as the game title, background story,
    * win/lose messages, and other critical information about the game.

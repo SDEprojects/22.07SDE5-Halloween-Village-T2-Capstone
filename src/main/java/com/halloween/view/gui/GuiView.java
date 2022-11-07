@@ -12,7 +12,6 @@ import java.awt.Container;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class GuiView {
@@ -76,28 +75,42 @@ public class GuiView {
   }
 
   public void displayGameScreen(Player player, Neighborhood neighborhood) {
+    container.removeAll();
+    container.add(getGameScreen().getTopPanel(), BorderLayout.NORTH);
+    container.add(getGameScreen().getSidePanel(), BorderLayout.WEST);
+    container.add(getGameScreen().getMainPanel(), BorderLayout.CENTER);
+    container.add(getGameScreen().getBottomPanel(), BorderLayout.SOUTH);
+    updateGameScreenMainPanel(player, neighborhood);
+    updateGameScreenSidePanel(player);
+    updateGameScreenBottomPanel(getGameScreen(), player, neighborhood);
+
+    container.revalidate();
+    container.repaint();
+  }
+
+  public void updateGameScreenMainPanel(Player player, Neighborhood neighborhood) {
     String playerPosition = player.getPosition();
     String[] residents = neighborhood.getNeighborhood().get(playerPosition).getResidents();
-    container.removeAll();
 
-    container.add(gameScreen.getTopPanel(), BorderLayout.NORTH);
-    container.add(gameScreen.getSidePanel(), BorderLayout.WEST);
-    container.add(gameScreen.getMainPanel(), BorderLayout.CENTER);
-    container.add(gameScreen.getFirstPanelBelowMain(), BorderLayout.CENTER);
-    container.add(gameScreen.getBottomPanel(), BorderLayout.SOUTH);
-    showValidDirectionButtons(gameScreen, player, neighborhood);
+    getGameScreen().getLocationLabel().setText("Current Location:\t\t" + playerPosition);
+    getGameScreen().getNpcLabel().setText("Resident(s):\t\t" + Arrays.toString(residents));
 
-    gameScreen.getLocationLabel().setText("Current Location:\t\t" + playerPosition);
     if (neighborhood.getNeighborhood().get(playerPosition).isKnocked()) {
-      gameScreen.getGameTextLabel().setText(View.getGreetings(playerPosition));
-      gameScreen.getGameTextLabel().setVisible(true);
+      getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
+      getGameScreen().getGameTextArea().setVisible(true);
     } else {
-      gameScreen.getGameTextLabel().setVisible(false);
+      getGameScreen().getGameTextArea().setVisible(false);
     }
-    gameScreen.getNpcLabel().setText("Resident(s):\t\t" + Arrays.toString(residents));
-    gameScreen.getInventoryLabel().setText("Inventory:\t\t" + player.getItems().toString());
-    gameScreen.getRemainingMovesLabel()
+
+    container.revalidate();
+    container.repaint();
+  }
+
+  public void updateGameScreenSidePanel(Player player) {
+    getGameScreen().getInventoryTextArea().setText("Inventory:\t\t" + player.getItems().toString());
+    getGameScreen().getRemainingMovesLabel()
         .setText("Remaining Moves:\t\t" + player.getUserMovesCounter());
+
     container.revalidate();
     container.repaint();
   }
@@ -133,7 +146,7 @@ public class GuiView {
         "ERROR: FAILED TO LOAD GAME DATA.\nPLEASE START A NEW GAME.");
   }
 
-  public void showValidDirectionButtons(GameScreen gameScreen, Player player,
+  public void updateGameScreenBottomPanel(GameScreen gameScreen, Player player,
       Neighborhood neighborhood) {
     JButton goNorthButton = gameScreen.getGoNorthButton();
     JButton goEastButton = gameScreen.getGoEastButton();

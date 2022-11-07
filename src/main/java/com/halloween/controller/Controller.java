@@ -61,12 +61,18 @@ public class Controller {
   }
 
   public void updateScreen(Game game) {
-    if (!game.getState().isTerminal()) { // if game's state is not terminal
-      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
-    } else { // if game's state is terminal, display game result
+    if (!game.getState().isTerminal()) { // if game's state is not terminal (still playing)
+      // update the main panel and side panel
+      view.updateGameScreenMainPanel(game.getPlayer(), game.getNeighborhood());
+      view.updateGameScreenSidePanel(game.getPlayer());
+    // if game's state is terminal, update the game screen and display game result after 10 seconds
+    } else {
+      try {
+        Thread.sleep(10000);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
       view.displayGameResult(game);
-      game.removeFiles();
-      quitGame();
     }
   }
 
@@ -158,7 +164,7 @@ public class Controller {
     });
     getItemButton.addActionListener(e -> {
       game.getItem();
-      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
+      updateScreen(game);
     });
   }
 
