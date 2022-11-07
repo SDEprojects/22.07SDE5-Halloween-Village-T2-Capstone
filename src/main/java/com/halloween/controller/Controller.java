@@ -5,6 +5,7 @@ import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.SoundEffects;
 import com.halloween.view.gui.GameInfoScreen;
+import com.halloween.view.gui.GameResultsScreen;
 import com.halloween.view.gui.GameScreen;
 import com.halloween.view.gui.GuiView;
 import com.halloween.view.gui.HelpScreen;
@@ -56,6 +57,7 @@ public class Controller {
     view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     addGameScreenButtonHandlers();
     game.setState(State.PLAY);
+    addGameResultScreenButtonHandler();
   }
 
   public void updateScreen(Game game) {
@@ -69,6 +71,7 @@ public class Controller {
   }
 
   public void quitGame() {
+
     System.exit(0);
   }
 
@@ -81,9 +84,7 @@ public class Controller {
       view.displayBackgroundStoryScreen();
       addGameInfoScreenButtonHandlers();
     });
-    loadGameButton.addActionListener(e -> {
-      loadGame();
-    });
+    loadGameButton.addActionListener(e -> loadGame());
     quitButton.addActionListener(e -> quitGame());
   }
 
@@ -177,6 +178,17 @@ public class Controller {
         game.getNeighborhood()));
   }
 
+  public void addGameResultScreenButtonHandler(){
+    GameResultsScreen resultScreen = view.getGameResultsScreen();
+    JButton quitButton = resultScreen.getQuitGameButton();
+
+    quitButton.addActionListener(e -> {
+      view.displayGameResult(game);
+      game.quitGame();
+    });
+  }
+
+
   /*
     GETTER & SETTER METHODS
    */
@@ -184,4 +196,10 @@ public class Controller {
     this.game = game;
   }
 
+  public Game getGame(){
+    return game;
+  }
+
 }
+
+
