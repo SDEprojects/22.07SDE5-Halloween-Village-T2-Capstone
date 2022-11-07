@@ -8,6 +8,7 @@ import com.halloween.model.State;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -36,7 +37,7 @@ public class GuiView {
     JFrame window = new JFrame("Halloween Village");
     window.setSize(1400, 1000); //sets the x-dimensions, and y-dimensions of the frame
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of the application
-    //this.setResizable(false); //present frame from being resized
+    //this.setResizable(false); //prevent frame from being resized
     window.setLayout(null);
     window.getContentPane().setBackground(Color.black);
     window.setVisible(true); //makes frame visible
@@ -71,6 +72,8 @@ public class GuiView {
   }
 
   public void displayGameScreen(Player player, Neighborhood neighborhood) {
+    String playerPosition = player.getPosition();
+    String[] residents = neighborhood.getNeighborhood().get(playerPosition).getResidents();
     container.removeAll();
 
     container.add(gameScreen.getTopPanel(), BorderLayout.NORTH);
@@ -80,9 +83,9 @@ public class GuiView {
     container.add(gameScreen.getBottomPanel(), BorderLayout.SOUTH);
     showValidDirectionButtons(gameScreen, player, neighborhood);
 
-    gameScreen.getLocationLabel().setText("Current Location:\t\t" + player.getPosition());
+    gameScreen.getLocationLabel().setText("Current Location:\t\t" + playerPosition);
     gameScreen.getGameTextLabel().setText("game text label");
-    gameScreen.getNpcLabel().setText("npc label");
+    gameScreen.getNpcLabel().setText("Resident(s):\t\t" + Arrays.toString(residents));
     gameScreen.getInventoryLabel().setText("Inventory:\t\t" + player.getItems().toString());
     gameScreen.getRemainingMovesLabel()
         .setText("Remaining Moves:\t\t" + player.getUserMovesCounter());
@@ -91,7 +94,7 @@ public class GuiView {
     container.repaint();
   }
 
-  public void displayGameReulst(Game game) {
+  public void displayGameResult(Game game) {
     container.removeAll();
     if (game.getState().equals(State.WIN)) {
       // TODO: Display Game Win Screen
@@ -145,7 +148,6 @@ public class GuiView {
         buttons[i].setVisible(true);
       }
     }
-
   }
 
   /*

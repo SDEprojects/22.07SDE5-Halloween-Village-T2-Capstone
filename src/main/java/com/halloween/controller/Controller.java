@@ -62,7 +62,7 @@ public class Controller {
     if (!game.getState().isTerminal()) { // if game's state is not terminal
       view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     } else { // if game's state is terminal, display game result
-      view.displayGameReulst(game);
+      view.displayGameResult(game);
       game.removeFiles();
       quitGame();
     }
