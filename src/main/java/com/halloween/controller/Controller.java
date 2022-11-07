@@ -53,7 +53,7 @@ public class Controller {
   }
 
   public void startGame() {
-    view.displayGameScreen(game.getPlayer());
+    view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     addGameScreenButtonHandlers();
     game.setState(State.PLAY);
   }
@@ -123,27 +123,27 @@ public class Controller {
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
     goNorthButton.addActionListener(e -> {
       game.movePlayer("north");
-      view.displayGameScreen(game.getPlayer()); // displays new game screen with updated information
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood()); // displays new game screen with updated information
     });
     goEastButton.addActionListener(e -> {
       game.movePlayer("east");
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
     goSouthButton.addActionListener(e -> {
       game.movePlayer("south");
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
     goWestButton.addActionListener(e -> {
       game.movePlayer("west");
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
     knockButton.addActionListener(e -> {
       game.knockOnDoor();
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
     getItemButton.addActionListener(e -> {
       game.getItem();
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
   }
 
@@ -151,14 +151,16 @@ public class Controller {
     MapScreen mapScreen = view.getMapScreen();
     JButton backToGame = mapScreen.getBackToGameMapScreenButton();
 
-    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer()));
+    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer(),
+        game.getNeighborhood()));
   }
 
   public void addHelpScreenButtonHandlers() {
     HelpScreen helpScreen = view.getHelpScreen();
     JButton backToGame = helpScreen.getBackToGameHelpScreenButton();
 
-    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer()));
+    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer(),
+        game.getNeighborhood()));
   }
 
   /*
