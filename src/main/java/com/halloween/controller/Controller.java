@@ -3,7 +3,6 @@ package com.halloween.controller;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
-import com.halloween.controller.Game;
 import com.halloween.view.SoundEffects;
 import com.halloween.view.gui.GameInfoScreen;
 import com.halloween.view.gui.GameScreen;
@@ -14,20 +13,16 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ResourceBundle;
 import javax.swing.JButton;
-
 
 public class Controller {
 
   Game game;
   GuiView view;
-  private ResourceBundle npcResponse;
 
   public Controller(Game game, GuiView view) {
     this.game = game;
     this.view = view;
-    npcResponse = ResourceBundle.getBundle("npcResponse");
   }
 
   public void startProgram() {
@@ -58,7 +53,7 @@ public class Controller {
   }
 
   public void startGame() {
-    view.displayGameScreen(game.getPlayer());
+    view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     addGameScreenButtonHandlers();
     game.setState(State.PLAY);
   }
@@ -128,35 +123,28 @@ public class Controller {
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
     goNorthButton.addActionListener(e -> {
       game.movePlayer("north");
-      view.displayGameScreen(game.getPlayer()); // displays new game screen with updated information
+      view.displayGameScreen(game.getPlayer(),
+          game.getNeighborhood()); // displays new game screen with updated information
     });
     goEastButton.addActionListener(e -> {
-      if (game.getNeighborhood().getIsValidDirection()) {
-        game.movePlayer("east");
-        view.displayGameScreen(game.getPlayer());
-      }
-      if (!game.getNeighborhood().getIsValidDirection()){
-
-//        view.displayGameScreen(getNpcResponse("invalid_direction"));
-        //TODO: not a priority, but i was trying to display on game screen that the move isnt valid
-
-      }
-      });
+      game.movePlayer("east");
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
+    });
     goSouthButton.addActionListener(e -> {
       game.movePlayer("south");
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
     goWestButton.addActionListener(e -> {
       game.movePlayer("west");
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
     knockButton.addActionListener(e -> {
       game.knockOnDoor();
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
     getItemButton.addActionListener(e -> {
       game.getItem();
-      view.displayGameScreen(game.getPlayer());
+      view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     });
   }
 
@@ -164,24 +152,21 @@ public class Controller {
     MapScreen mapScreen = view.getMapScreen();
     JButton backToGame = mapScreen.getBackToGameMapScreenButton();
 
-    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer()));
+    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer(),
+        game.getNeighborhood()));
   }
 
   public void addHelpScreenButtonHandlers() {
     HelpScreen helpScreen = view.getHelpScreen();
     JButton backToGame = helpScreen.getBackToGameHelpScreenButton();
 
-    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer()));
+    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer(),
+        game.getNeighborhood()));
   }
 
   /*
     GETTER & SETTER METHODS
    */
-
-  public String getNpcResponse(String key) {
-    return npcResponse.getString(key) + "\n";
-  }
-
   public void setGame(Game game) {
     this.game = game;
   }

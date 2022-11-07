@@ -225,11 +225,10 @@ public class Game {
    * Allows the player to knock on the door for the current location and have an interaction.
    */
   public void knockOnDoor() {
-    House house = neighborhood.getNeighborhood().get(player.getPosition());
-    house.setKnocked(true);
-
     String knock = "/door-knock.wav";
     playSound(knock);
+    House house = neighborhood.getNeighborhood().get(player.getPosition());
+    house.setKnocked(true);
 
     ArrayList<String> playerItems = player.getItems();
     // If we knock on karen's house or the saw house we need to have check for specific items in our inventory

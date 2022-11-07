@@ -20,13 +20,9 @@ public class GameScreen {
   private JPanel bottomPanel;
   private JLabel locationLabel;
   private JLabel inventoryLabel;
-
   private JLabel remainingMovesLabel;
-
   private JLabel npcLabel;
-
   private JLabel gameTextLabel;
-
   private JButton helpButton;
   private JButton mapButton;
   private JButton musicButton;
@@ -40,6 +36,7 @@ public class GameScreen {
   private JButton knockButton;
   private JButton getItemButton;
   private JButton useItemButton;
+
   public GameScreen() {
     inventoryLabel = createInventoryLabel();
     remainingMovesLabel = createRemainingMovesLabel();
@@ -181,7 +178,7 @@ public class GameScreen {
     return label;
   }
 
-  public  JLabel createRemainingMovesLabel(){
+  public JLabel createRemainingMovesLabel() {
     JLabel label = new JLabel("", SwingConstants.LEADING);
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
@@ -190,7 +187,7 @@ public class GameScreen {
     return label;
   }
 
-  public  JLabel createNpcLabel(){
+  public JLabel createNpcLabel() {
     JLabel label = new JLabel("");
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
@@ -199,7 +196,7 @@ public class GameScreen {
     return label;
   }
 
-  public  JLabel createGameTextLabel(){
+  public JLabel createGameTextLabel() {
     JLabel label = new JLabel("");
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
@@ -211,6 +208,7 @@ public class GameScreen {
   public JPanel getTopPanel() {
     return topPanel;
   }
+
   public JPanel getSidePanel() {
     return sidePanel;
   }

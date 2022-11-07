@@ -8,7 +8,8 @@ import javax.swing.JPanel;
 
 public class TitleScreen {
 
-  public static final Font TITLE_BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 40);
+  public static final Font GAME_TITLE_FONT = new Font("Serif", Font.BOLD, 80);
+  public static final Font TITLE_BUTTON_FONT = new Font("Serif", Font.PLAIN, 40);
   private JPanel titlePanel;
   private JPanel titleScreenButtonsPanel;
   private JButton newGameButton;
@@ -27,7 +28,7 @@ public class TitleScreen {
 
     JLabel titleLabel = new JLabel("HALLOWEEN VILLAGE");
     titleLabel.setForeground(Color.white);
-    titleLabel.setFont(new Font("Times New Roman", Font.PLAIN, 80));
+    titleLabel.setFont(GAME_TITLE_FONT);
 
     // add label to title panel
     panel.add(titleLabel);
@@ -76,4 +77,5 @@ public class TitleScreen {
   public JButton getQuitButton() {
     return quitButton;
   }
+
 }
