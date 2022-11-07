@@ -65,6 +65,7 @@ public class Controller {
       // update the main panel and side panel
       view.updateGameScreenMainPanel(game.getPlayer(), game.getNeighborhood());
       view.updateGameScreenSidePanel(game.getPlayer());
+      view.updateGameScreenBottomPanel(game.getPlayer(), game.getNeighborhood());
     // if game's state is terminal, update the game screen and display game result after 10 seconds
     } else {
       try {

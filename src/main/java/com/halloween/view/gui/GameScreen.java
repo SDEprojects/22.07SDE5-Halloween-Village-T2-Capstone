@@ -1,8 +1,11 @@
 package com.halloween.view.gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -104,6 +107,8 @@ public class GameScreen {
     panel.add(getLocationLabel());
     panel.add(getNpcLabel());
     panel.add(getGameTextArea());
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
     return panel;
   }
 
@@ -160,7 +165,7 @@ public class GameScreen {
     textArea.setOpaque(true);
     textArea.setEditable(false);
     textArea.setLineWrap(true);
-    textArea.setBounds(10, 10, 280, 600);
+    textArea.setBounds(10, 10, 280, 500);
     return textArea;
   }
 
@@ -185,7 +190,7 @@ public class GameScreen {
   public JTextArea createGameTextArea() {
     JTextArea textArea = new JTextArea("");
     textArea.setFont(GAME_TEXT_FONT);
-    textArea.setBounds(0, 0, 500, 500);
+    textArea.setBounds(50, 50, 1000, 400);
     textArea.setBorder(new LineBorder(Color.WHITE, 3));
     textArea.setOpaque(true);
     textArea.setEditable(false);

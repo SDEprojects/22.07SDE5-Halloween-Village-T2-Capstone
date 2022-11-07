@@ -82,7 +82,7 @@ public class GuiView {
     container.add(getGameScreen().getBottomPanel(), BorderLayout.SOUTH);
     updateGameScreenMainPanel(player, neighborhood);
     updateGameScreenSidePanel(player);
-    updateGameScreenBottomPanel(getGameScreen(), player, neighborhood);
+    updateGameScreenBottomPanel(player, neighborhood);
 
     container.revalidate();
     container.repaint();
@@ -92,8 +92,8 @@ public class GuiView {
     String playerPosition = player.getPosition();
     String[] residents = neighborhood.getNeighborhood().get(playerPosition).getResidents();
 
-    getGameScreen().getLocationLabel().setText("Current Location:\t\t" + playerPosition);
-    getGameScreen().getNpcLabel().setText("Resident(s):\t\t" + Arrays.toString(residents));
+    getGameScreen().getLocationLabel().setText("Current Location:\n" + playerPosition);
+    getGameScreen().getNpcLabel().setText("Resident(s):\t" + Arrays.toString(residents));
 
     if (neighborhood.getNeighborhood().get(playerPosition).isKnocked()) {
       getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
@@ -107,9 +107,9 @@ public class GuiView {
   }
 
   public void updateGameScreenSidePanel(Player player) {
-    getGameScreen().getInventoryTextArea().setText("Inventory:\t\t" + player.getItems().toString());
+    getGameScreen().getInventoryTextArea().setText("Inventory:\n" + player.getItems().toString());
     getGameScreen().getRemainingMovesLabel()
-        .setText("Remaining Moves:\t\t" + player.getUserMovesCounter());
+        .setText("Remaining Moves:\t" + player.getUserMovesCounter());
 
     container.revalidate();
     container.repaint();
@@ -146,12 +146,12 @@ public class GuiView {
         "ERROR: FAILED TO LOAD GAME DATA.\nPLEASE START A NEW GAME.");
   }
 
-  public void updateGameScreenBottomPanel(GameScreen gameScreen, Player player,
+  public void updateGameScreenBottomPanel(Player player,
       Neighborhood neighborhood) {
-    JButton goNorthButton = gameScreen.getGoNorthButton();
-    JButton goEastButton = gameScreen.getGoEastButton();
-    JButton goSouthButton = gameScreen.getGoSouthButton();
-    JButton goWestButton = gameScreen.getGoWestButton();
+    JButton goNorthButton = getGameScreen().getGoNorthButton();
+    JButton goEastButton = getGameScreen().getGoEastButton();
+    JButton goSouthButton = getGameScreen().getGoSouthButton();
+    JButton goWestButton = getGameScreen().getGoWestButton();
 
     String[] directions = new String[]{"north", "east", "south", "west"};
     JButton[] buttons = new JButton[]{goNorthButton, goEastButton, goSouthButton, goWestButton};
