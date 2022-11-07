@@ -164,11 +164,26 @@ public class Controller {
         game.getNeighborhood()));
   }
 
+  public void winOrLose() {
+    if (game.getState().equals(State.WIN)) {
+      view.displayGameResultsScreen();
+    }else if(game.getState().equals(State.LOSE)){
+      view.displayGameResultsScreen();
+      game.removeFiles();
+//    game.getDisplay().printPlayNewGame();
+//    playNewGame();
+      //TODO: new game logic (if time permits)
+    }
+  }
+
   /*
     GETTER & SETTER METHODS
    */
+
   public void setGame(Game game) {
     this.game = game;
   }
 
 }
+
+

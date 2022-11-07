@@ -18,12 +18,19 @@ public class Main {
 //    return game;
 //  }
 
+  private static Controller controller;
+
   public static void main(String[] args) {
     Game game = new Game();
     GuiView view = new GuiView();
-    Controller controller = new Controller(game, view);
+    controller = new Controller(game, view);
 
     controller.startProgram();
+  }
+
+//  getters and setters
+  public Controller getController(){
+    return controller;
   }
 
   // TODO: BELOW IS THE TEXT-BASED VERSION'S MAIN METHOD. IT'S LEFT HERE FOR REFERENCE.

@@ -2,28 +2,34 @@ package com.halloween.view.gui;
 
 import com.halloween.view.View;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import com.halloween.controller.Controller;
+import com.halloween.Main;
 
-public class HelpScreen {
+public class GameResultsScreen {
 
   private final Font BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 10);
 
   private JLabel label;
 
-  private JTextArea text;
+//  private JTextArea text;
 
   JButton backToGameHelpScreenButton;
 
-  public HelpScreen() {
+  public GameResultsScreen() {
     label = new JLabel();
-    label.setBounds(0, 0, 1400, 1000);
-//    label.setVisible(true);
+//    String winOrLoseImage = getcontroller.winOrLose();
+//    label.setIcon(new ImageIcon("src/main/resources/small_map.png"));
+    //add conditional showing one of the images
 
-    text = new JTextArea(View.getImportantDisplay("help"));
-    text.setBounds(250, 30, 1100, 500);
-    label.add(text);
+    label.setBounds(0, 0, 1400, 1000);
+
+//    text = new JTextArea(View.getImportantDisplay("help"));
+//    text.setBounds(250, 30, 1100, 500);
+//    label.add(text);
 
     backToGameHelpScreenButton = new JButton("BACK TO GAME");
     backToGameHelpScreenButton.setFont(BUTTON_FONT);
@@ -31,16 +37,16 @@ public class HelpScreen {
     label.add(backToGameHelpScreenButton);
   }
 
-  public JButton getBackToGameHelpScreenButton() {
+  public JButton getBackToGameGameResultsScreenButton() {
     return backToGameHelpScreenButton;
   }
 
-  public JLabel getHelpScreen() {
+  public JLabel getGameResultsScreen() {
     return label;
   }
 
-  public JTextArea getText() {
-    return text;
-  }
+//  public JTextArea getText() {
+//    return text;
+//  }
 
 }

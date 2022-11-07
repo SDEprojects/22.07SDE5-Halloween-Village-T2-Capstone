@@ -19,6 +19,7 @@ public class GuiView {
   private GameScreen gameScreen;
   private MapScreen mapScreen;
   private HelpScreen helpScreen;
+  private GameResultsScreen gameResultsScreen;
 
   public GuiView() {
     window = createWindow();
@@ -28,6 +29,7 @@ public class GuiView {
     gameScreen = new GameScreen();
     mapScreen = new MapScreen();
     helpScreen = new HelpScreen();
+    gameResultsScreen = new GameResultsScreen();
   }
 
   public JFrame createWindow() {
@@ -103,6 +105,13 @@ public class GuiView {
     container.revalidate();
   }
 
+  public void displayGameResultsScreen(){
+    container.removeAll();
+    container.add(getGameResultsScreen().getGameResultsScreen());
+    container.repaint();
+    container.revalidate();
+  }
+
   public void displayLoadFailPane() {
     JOptionPane.showMessageDialog(null,
         "ERROR: FAILED TO LOAD GAME DATA.\nPLEASE START A NEW GAME.");
@@ -150,6 +159,10 @@ public class GuiView {
 
   public HelpScreen getHelpScreen() {
     return helpScreen;
+  }
+
+  public GameResultsScreen getGameResultsScreen(){
+    return gameResultsScreen;
   }
 
 }
