@@ -43,7 +43,7 @@ public class HelpScreen {
     return label;
   }
 
-  public JTextArea getText() {
-    return text;
-  }
+//  public JTextArea getText() {
+//    return text;
+//  }
 }
