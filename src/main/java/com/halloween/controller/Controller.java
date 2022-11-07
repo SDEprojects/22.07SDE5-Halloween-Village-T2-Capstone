@@ -123,7 +123,8 @@ public class Controller {
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
     goNorthButton.addActionListener(e -> {
       game.movePlayer("north");
-      view.displayGameScreen(game.getPlayer(), game.getNeighborhood()); // displays new game screen with updated information
+      view.displayGameScreen(game.getPlayer(),
+          game.getNeighborhood()); // displays new game screen with updated information
     });
     goEastButton.addActionListener(e -> {
       game.movePlayer("east");

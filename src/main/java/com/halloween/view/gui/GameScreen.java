@@ -128,19 +128,15 @@ public class GameScreen {
 
     goNorthButton = new JButton("GO NORTH");
     goNorthButton.setFont(TOP_BUTTON_FONT);
-    goNorthButton.setVisible(false);
 
     goEastButton = new JButton("GO EAST");
     goEastButton.setFont(TOP_BUTTON_FONT);
-    goEastButton.setVisible(false);
 
     goSouthButton = new JButton("GO SOUTH");
     goSouthButton.setFont(TOP_BUTTON_FONT);
-    goSouthButton.setVisible(false);
 
     goWestButton = new JButton("GO WEST");
     goWestButton.setFont(TOP_BUTTON_FONT);
-    goWestButton.setVisible(false);
 
     knockButton = new JButton("KNOCK");
     knockButton.setFont(TOP_BUTTON_FONT);
