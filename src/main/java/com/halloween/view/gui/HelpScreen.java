@@ -28,9 +28,6 @@ public class HelpScreen {
     backToGameHelpScreenButton = new JButton("BACK TO GAME");
     backToGameHelpScreenButton.setFont(BUTTON_FONT);
     backToGameHelpScreenButton.setBounds(680, 600, 200, 50);
-    backToGameHelpScreenButton.addActionListener(event -> {
-      System.out.println("this button should bring user back to game screen");
-    });
     label.add(backToGameHelpScreenButton);
   }
 
