@@ -5,6 +5,7 @@ import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.SoundEffects;
 import com.halloween.view.gui.GameInfoScreen;
+import com.halloween.view.gui.GameResultsScreen;
 import com.halloween.view.gui.GameScreen;
 import com.halloween.view.gui.GuiView;
 import com.halloween.view.gui.HelpScreen;
@@ -56,6 +57,7 @@ public class Controller {
     view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     addGameScreenButtonHandlers();
     game.setState(State.PLAY);
+    addGameResultScreenButtonHandler();
   }
 
   public void updateScreen(Game game) throws InterruptedException {
@@ -193,6 +195,16 @@ public class Controller {
 
     backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer(),
         game.getNeighborhood()));
+  }
+
+  public void addGameResultScreenButtonHandler(){
+    GameResultsScreen resultScreen = view.getGameResultsScreen();
+    JButton quitButton = resultScreen.getQuitGameButton();
+
+    quitButton.addActionListener(e -> {
+      view.displayGameResult(game);
+      game.quitGame();
+    });
   }
 
 
