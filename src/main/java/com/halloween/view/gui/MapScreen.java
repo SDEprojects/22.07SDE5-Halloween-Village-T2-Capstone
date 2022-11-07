@@ -21,9 +21,6 @@ public class MapScreen {
     backToGameMapScreenButton = new JButton("BACK TO GAME");
     backToGameMapScreenButton.setFont(BUTTON_FONT);
     backToGameMapScreenButton.setBounds(350, 10, 200, 75);
-    backToGameMapScreenButton.addActionListener(event -> {
-      System.out.println("this button should bring user back to game screen");
-    });
     label.add(backToGameMapScreenButton);
   }
 

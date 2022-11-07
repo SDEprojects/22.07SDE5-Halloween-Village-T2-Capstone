@@ -58,17 +58,17 @@ public class Controller {
     game.setState(State.PLAY);
   }
 
-  public void updateScreen(Game game) {
+  public void updateScreen(Game game) throws InterruptedException {
     if (!game.getState().isTerminal()) { // if game's state is not terminal
+      // display game screen
       view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     } else { // if game's state is terminal, display game result
       view.displayGameResult(game);
-      game.removeFiles();
-      quitGame();
     }
   }
 
   public void quitGame() {
+
     System.exit(0);
   }
 
@@ -81,9 +81,7 @@ public class Controller {
       view.displayBackgroundStoryScreen();
       addGameInfoScreenButtonHandlers();
     });
-    loadGameButton.addActionListener(e -> {
-      loadGame();
-    });
+    loadGameButton.addActionListener(e -> loadGame());
     quitButton.addActionListener(e -> quitGame());
   }
 
@@ -137,23 +135,43 @@ public class Controller {
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
     goNorthButton.addActionListener(e -> {
       game.movePlayer("north");
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     goEastButton.addActionListener(e -> {
       game.movePlayer("east");
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     goSouthButton.addActionListener(e -> {
       game.movePlayer("south");
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     goWestButton.addActionListener(e -> {
       game.movePlayer("west");
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     knockButton.addActionListener(e -> {
       game.knockOnDoor();
-      updateScreen(game);
+      try {
+        updateScreen(game);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     getItemButton.addActionListener(e -> {
       game.getItem();
@@ -177,6 +195,7 @@ public class Controller {
         game.getNeighborhood()));
   }
 
+
   /*
     GETTER & SETTER METHODS
    */
@@ -184,4 +203,10 @@ public class Controller {
     this.game = game;
   }
 
+  public Game getGame(){
+    return game;
+  }
+
 }
+
+

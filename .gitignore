@@ -34,7 +34,7 @@ bin/
 
 
 # ignore DS_Store (Mac OS)
-.DS_Store
+*.DS_Store
 
 # ignore JSON files storing saved game data
 player.json

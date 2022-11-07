@@ -11,6 +11,7 @@ import java.awt.Container;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class GuiView {
@@ -22,6 +23,7 @@ public class GuiView {
   private GameScreen gameScreen;
   private MapScreen mapScreen;
   private HelpScreen helpScreen;
+  private GameResultsScreen gameResultsScreen;
 
   public GuiView() {
     window = createWindow();
@@ -31,6 +33,7 @@ public class GuiView {
     gameScreen = new GameScreen();
     mapScreen = new MapScreen();
     helpScreen = new HelpScreen();
+    gameResultsScreen = new GameResultsScreen();
   }
 
   public JFrame createWindow() {
@@ -96,16 +99,11 @@ public class GuiView {
 
   public void displayGameResult(Game game) {
     container.removeAll();
+    container.add(getGameResultsScreen().getGameResultsPanel());
     if (game.getState().equals(State.WIN)) {
-      // TODO: Display Game Win Screen
-      //  The line below is for testing purposes. Replace it with an actual win screen
-      JOptionPane.showMessageDialog(null,
-          "CONGRATULATIONS, YOU WON! (SAVED GAME DATA WILL BE DELETED)");
-
+      getGameResultsScreen().getWinLabel().setVisible(true);
     } else if (game.getState().equals(State.LOSE)) {
-      // TODO: Display Game Lose Screen
-      //  The line below is for testing purposes. Replace it with an actual lose screen
-      JOptionPane.showMessageDialog(null, "UH-OH, YOU LOST! (SAVED GAME DATA WILL BE DELETED)");
+      gameResultsScreen.getLoseLabel().setVisible(true);
     }
     container.revalidate();
     container.repaint();
@@ -171,6 +169,10 @@ public class GuiView {
 
   public HelpScreen getHelpScreen() {
     return helpScreen;
+  }
+
+  public GameResultsScreen getGameResultsScreen() {
+    return gameResultsScreen;
   }
 
 }
