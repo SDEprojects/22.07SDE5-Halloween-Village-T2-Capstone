@@ -7,7 +7,12 @@ import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.PlayMusic;
+import com.halloween.view.View;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This Game class initializes the game, manages the user status, and creates the Win scenarios for
@@ -16,6 +21,7 @@ import java.util.ArrayList;
 public class Game {
 
   private State state;
+  private View display = new View();
   private Player player = new Player();
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
@@ -135,12 +141,13 @@ public class Game {
     if (item.equals("cat-hair") || item.equals("beer") || item.equals("dentures")) {
       playSound("/bubbles.wav");
       house.addItem(item);
+    } else {
     }
     ArrayList<String> witchHouseItems = house.getHouseItems();
     if (witchHouseItems.contains("cat-hair") && witchHouseItems.contains("beer")
         && witchHouseItems.contains("dentures")) {
       // NOTE: potion is a hidden item, so we don't store it in the house
-      player.addItem("potion");
+      getPlayer().addItem("potion");
       playSound("/witch.wav");
     }
   }
@@ -154,8 +161,6 @@ public class Game {
     if (item.equals("badge") || item.equals("potion") || item.equals("ruby")) {
       setState(State.WIN);
       playSound("/girl_scream.wav");
-    } else {
-      return;
     }
   }
 
