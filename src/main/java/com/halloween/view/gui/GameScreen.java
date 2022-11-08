@@ -70,7 +70,7 @@ public class GameScreen {
     saveGameButton = new JButton("SAVE GAME");
     saveGameButton.setFont(TOP_BUTTON_FONT);
 
-    quitButton = new JButton("QUIT GAME");
+    quitButton = new JButton("QUIT");
     quitButton.setBackground(Color.RED);
     quitButton.setOpaque(true);
     quitButton.setFont(TOP_BUTTON_FONT);
@@ -85,7 +85,7 @@ public class GameScreen {
     panel.setBorder(new LineBorder(Color.BLACK, 3)); //Sets the border
     panel.setBackground(Color.BLACK); //Sets the background
     panel.setLayout(new FlowLayout(3)); //Aligns the layout
-    panel.setBounds(150, 30, 1100, 70);
+    panel.setBounds(100, 30, 1100, 70);
     return panel;
   }
 
