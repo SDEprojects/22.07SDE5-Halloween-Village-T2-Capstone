@@ -99,7 +99,6 @@ public class Game {
       return false;
     } // otherwise, thing will free us from the trap, and be removed from the inventory
     else {
-      player.removeItem("thing");
       return true;
     }
   }
@@ -164,8 +163,9 @@ public class Game {
     }
   }
 
-  public void draculaUseItem(String item) {
+  public void draculaUseItem(String item, House house) {
     if (item.equals("tooth")) {
+      house.addItem(item);
       getPlayer().addItem("ruby");
     }
   }

@@ -84,14 +84,13 @@ public class GuiView {
     container.add(getGameScreen().getBottomPanel(), BorderLayout.SOUTH);
     updateGameScreenMainPanel(game);
     updateGameScreenSidePanel(game.getPlayer());
-    updateGameScreenBottomPanel(game.getPlayer(), game.getNeighborhood());
+    updateGameScreenBottomPanel(game);
 
-    container.revalidate();
     container.repaint();
+    container.revalidate();
   }
 
   public void updateGameScreenMainPanel(Game game) {
-
     String playerPosition = game.getPlayer().getPosition();
     String[] residents = game.getNeighborhood().getNeighborhood().get(playerPosition)
         .getResidents();
@@ -109,8 +108,8 @@ public class GuiView {
       getGameScreen().getGameTextArea().setVisible(false);
     }
 
-    container.revalidate();
     container.repaint();
+    container.revalidate();
   }
 
   public void updateGameScreenSidePanel(Player player) {
@@ -118,11 +117,13 @@ public class GuiView {
     getGameScreen().getRemainingMovesLabel()
         .setText("Remaining Moves:\t" + player.getUserMovesCounter());
 
-    container.revalidate();
     container.repaint();
+    container.revalidate();
   }
 
-  public void updateGameScreenBottomPanel(Player player, Neighborhood neighborhood) {
+  public void updateGameScreenBottomPanel(Game game) {
+    Player player = game.getPlayer();
+    Neighborhood neighborhood = game.getNeighborhood();
     String playerPosition = player.getPosition();
     House currentHouse = neighborhood.getNeighborhood().get(playerPosition);
     JButton goNorthButton = getGameScreen().getGoNorthButton();
@@ -174,16 +175,21 @@ public class GuiView {
 
     // reset the text in the use item text field
     useItemTextField.setText("     ");
+
+    // hide everything in the bottom panel if game over
+    if (game.getState().isTerminal()) {
+      getGameScreen().getBottomPanel().setVisible(false);
+    }
   }
 
-  private void updateGameTextAreaContent(Game game, House house, String playerPosition) {
+  public void updateGameTextAreaContent(Game game, House house, String playerPosition) {
     String houseName = house.getHouseName();
     // check if current house is a special house (e.g., Karen's House)
     if (Controller.checkSpecialHouse(houseName)) {
       if (houseName.equals("karen's house")) { // if current house is Karen's House
         // check if player has correct items to win Karen
         if (game.playerHasCorrectKarenItem(game.getPlayer().getItems())) {
-          getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
+          getGameScreen().getGameTextArea().setText(View.getNpcResponse("karen_calling_cops"));
         } else { // if player has no items to win karen
           getGameScreen().getGameTextArea().setText(View.getNoItemGreetings(playerPosition));
         }
@@ -203,6 +209,9 @@ public class GuiView {
         getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
       }
     }
+
+    container.repaint();
+    container.revalidate();
   }
 
   public void displayGameResult(Game game) {
@@ -213,8 +222,8 @@ public class GuiView {
     } else if (game.getState().equals(State.LOSE)) {
       gameResultsScreen.getLoseLabel().setVisible(true);
     }
-    container.revalidate();
     container.repaint();
+    container.revalidate();
   }
 
   public void displayMapScreen() {
