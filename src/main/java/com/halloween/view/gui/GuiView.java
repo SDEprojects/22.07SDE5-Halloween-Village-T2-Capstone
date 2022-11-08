@@ -159,7 +159,7 @@ public class GuiView {
     // hide get item button if house hasn't been knocked
     if (!currentHouse.isKnocked()) {
       getItemButton.setVisible(false);
-    // hide get item button if house has no item
+      // hide get item button if house has no item
     } else if (currentHouse.getHouseItems().size() < 1) {
       getItemButton.setVisible(false);
     } else {
