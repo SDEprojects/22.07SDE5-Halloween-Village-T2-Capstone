@@ -32,8 +32,6 @@ public class StoreGame {
    *
    * @param resourceFile Name of the resource file to read in.
    * @param type         The type of the model class that matches the data to be read.
-   * @param gson         An instance of {@link Gson} used to convert JSON data to Java object and
-   *                     vice versa.
    * @param <T>          Type of the data/model class.
    * @return Returns either an instance of model class if the load was successful. Otherwise,
    * returns null.
