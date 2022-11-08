@@ -156,10 +156,7 @@ public class Controller {
       if (SoundEffects.isPlaying()) {
         SoundEffects.muteSoundEffects();
       } else {
-        SoundEffects.increaseVolume();
-        SoundEffects.increaseVolume();
-        SoundEffects.increaseVolume();
-
+        SoundEffects.unmuteSoundEffects();
       }
     }); // Can only mute fx
     saveGameButton.addActionListener(e -> getGame().saveGame());

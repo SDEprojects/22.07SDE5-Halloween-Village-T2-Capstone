@@ -17,6 +17,7 @@ public class GameScreen {
 
   private static final Font TOP_BUTTON_FONT = new Font("Serif", Font.PLAIN, 40);
   private static final Font GAME_TEXT_FONT = new Font("Serif", Font.PLAIN, 25);
+  private static final Color BACK_COLOR = new Color(204, 102, 0);
   private JPanel topPanel;
   private JPanel sidePanel;
   private JPanel mainPanel;
@@ -82,9 +83,9 @@ public class GameScreen {
     panel.add(saveGameButton);
     panel.add(quitButton);
     panel.setBorder(new LineBorder(Color.BLACK, 3)); //Sets the border
-    panel.setBackground(new Color(204, 102, 0)); //Sets the background
-    panel.setLayout(new FlowLayout(10)); //Aligns the layout
-    panel.setBounds(0, 0, 1400, 100);
+    panel.setBackground(Color.BLACK); //Sets the background
+    panel.setLayout(new FlowLayout(3)); //Aligns the layout
+    panel.setBounds(150, 30, 1100, 70);
     return panel;
   }
 
@@ -92,7 +93,7 @@ public class GameScreen {
     JPanel panel = new JPanel();
     panel.setBorder(new LineBorder(Color.BLACK, 4));
     panel.setBounds(0, 100, 300, 700);
-    panel.setBackground(new Color(204, 102, 0));
+    panel.setBackground(BACK_COLOR);
 //    panel.add(new JLabel(""));
     panel.add(getInventoryTextArea());
     panel.add(getRemainingMovesLabel());
@@ -104,7 +105,7 @@ public class GameScreen {
     JPanel panel = new JPanel();
     panel.setBorder(new LineBorder(Color.BLACK, 4));
     panel.setBounds(300, 100, 1100, 700);
-    panel.setBackground(new Color(204, 102, 0));
+    panel.setBackground(BACK_COLOR);
     panel.add(getLocationLabel());
     panel.add(getNpcLabel());
     panel.add(getGameTextArea());
@@ -137,7 +138,7 @@ public class GameScreen {
     useItemButton = new JButton("USE");
     useItemButton.setFont(TOP_BUTTON_FONT);
 
-    useItemTextField = new JTextField("     ");
+    useItemTextField = new JTextField("", 7);
     useItemTextField.setFont(TOP_BUTTON_FONT);
     useItemTextField.setBounds(0, 0, 250, 50);
 
@@ -149,9 +150,9 @@ public class GameScreen {
     panel.add(getItemButton);
     panel.add(useItemButton);
     panel.add(useItemTextField);
-    panel.setBorder(new LineBorder(Color.WHITE, 3)); //Sets the border
+    panel.setBorder(new LineBorder(Color.BLACK, 5)); //Sets the border
     panel.setBounds(0, 800, 1400, 200);
-    panel.setBackground(Color.WHITE); //Sets the background
+    panel.setBackground(Color.BLACK); //Sets the background
     return panel;
   }
 
@@ -159,15 +160,16 @@ public class GameScreen {
     JLabel label = new JLabel("", SwingConstants.CENTER);
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
-    label.setBorder(new LineBorder(Color.WHITE, 3));
+    label.setBorder(new LineBorder(Color.BLACK, 10));
     label.setBounds(0, 100, 200, 100);
     return label;
   }
 
   public JTextArea createInventoryTextArea() {
     JTextArea textArea = new JTextArea("");
+    textArea.setBackground(BACK_COLOR);
     textArea.setFont(GAME_TEXT_FONT);
-    textArea.setBorder(new LineBorder(Color.WHITE, 3));
+    textArea.setBorder(new LineBorder(BACK_COLOR, 10));
     textArea.setOpaque(true);
     textArea.setEditable(false);
     textArea.setLineWrap(true);
@@ -177,9 +179,10 @@ public class GameScreen {
 
   public JLabel createRemainingMovesLabel() {
     JLabel label = new JLabel("", SwingConstants.LEADING);
+    label.setBackground(BACK_COLOR);
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
-    label.setBorder(new LineBorder(Color.WHITE, 3));
+    label.setBorder(new LineBorder(BACK_COLOR, 10));
     label.setBounds(0, 10, 900, 100);
     return label;
   }
@@ -188,7 +191,7 @@ public class GameScreen {
     JLabel label = new JLabel("");
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
-    label.setBorder(new LineBorder(Color.WHITE, 3));
+    label.setBorder(new LineBorder(Color.BLACK, 10));
 //    label.setBounds(0, 10, 900, 100);
     return label;
   }
@@ -197,7 +200,7 @@ public class GameScreen {
     JTextArea textArea = new JTextArea("");
     textArea.setFont(GAME_TEXT_FONT);
     textArea.setBounds(50, 50, 1000, 400);
-    textArea.setBorder(new LineBorder(Color.WHITE, 3));
+    textArea.setBorder(new LineBorder(Color.BLACK, 10));
     textArea.setOpaque(true);
     textArea.setEditable(false);
     textArea.setLineWrap(true);
