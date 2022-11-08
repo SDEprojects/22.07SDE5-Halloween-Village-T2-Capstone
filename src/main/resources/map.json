@@ -79,17 +79,17 @@
   },
   {
     "houseName": "addam's family house",
-      "houseItems": [
-        "thing"
-      ],
-      "residents": [
-        "wednesday addams"
-      ],
-      "knocked": false,
-      "north": "amityville mansion",
-      "east": "mayor's house",
-      "south": null,
-      "west": null
+    "houseItems": [
+      "thing"
+    ],
+    "residents": [
+      "wednesday addams"
+    ],
+    "knocked": false,
+    "north": "amityville mansion",
+    "east": "mayor's house",
+    "south": null,
+    "west": null
   },
   {
     "houseName": "mayor's house",

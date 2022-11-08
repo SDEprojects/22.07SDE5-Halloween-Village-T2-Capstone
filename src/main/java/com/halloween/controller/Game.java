@@ -2,18 +2,13 @@ package com.halloween.controller;
 
 import static com.halloween.view.SoundEffects.playSound;
 
-import com.google.gson.Gson;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.PlayMusic;
 import com.halloween.view.View;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This Game class initializes the game, manages the user status, and creates the Win scenarios for
@@ -27,7 +22,6 @@ public class Game {
   private Neighborhood neighborhood = new Neighborhood();
   private StoreGame storeGame = new StoreGame();
   private PlayMusic musicPlayer = new PlayMusic();
-  private int userMovesCounter;
 
   /**
    * Initializes an instance of {@link Game}.
@@ -35,7 +29,6 @@ public class Game {
   public Game() {
     // game position starts at "your house" in game initially
     player.setPosition("your house");
-    userMovesCounter = 10;
   }
 
   /**
@@ -52,120 +45,6 @@ public class Game {
   }
 
   /**
-   * Greets the user at the beginning of the game.
-   *
-   * @throws IOException Thrown if an I/O error is produced by failed or interrupted I/O
-   *                     operations.
-   */
-  public void greetPlayer() throws IOException {
-    if (player.getName() != null) { // If player name exists
-      display.printWelcomeBackMessage(player.getName());
-    } else {
-      BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
-      display.printAskName();
-      player.setName(buffer.readLine().trim());
-      if (player.getName().equals("quit")) {
-        quitGame();
-      }
-      display.printWelcomeMessage(player.getName());
-    }
-  }
-
-  /**
-   * Displays the current status of the game.
-   */
-  public void showStatus() {
-    House currentPosition = neighborhood.getNeighborhood().get(player.getPosition());
-    String playerItems = player.getItems().isEmpty() ? "nothing" : player.getItems().toString();
-    //Displays message if the house has nothing to collect
-    String houseItems = currentPosition.getHouseItems().isEmpty() ? "a whole lot of nothing"
-        : currentPosition.getHouseItems().toString();
-    // Displays item in current house
-    display.printHouseItem(currentPosition.getHouseName(), houseItems);
-    // Displays items in inventory to user.
-    display.printItemInInventory(player.getName(), player.getPosition(), playerItems);
-    showValidMoves();
-    display.printMovesCounter(getUserMovesCounter());
-  }
-
-  /**
-   * Displays the game menu.
-   */
-  public void showMenu() {
-    display.printMenu();
-  }
-
-  /**
-   * Displays the game title (flash screen).
-   */
-  public void showTitle() {
-    display.printTitle();
-  }
-
-  /**
-   * Displays the game's background story.
-   */
-  public void showBackstory() {
-    display.printBackStory();
-  }
-
-  /**
-   * Displays the game's basic instructions.
-   */
-  public void showInstructions() {
-    display.printInstructions();
-  }
-
-  /**
-   * Displays all available commands.
-   */
-  public void showHelp() {
-    display.printHelp();
-  }
-
-  /**
-   * Displays the player's inventory.
-   */
-  public void showInventory() {
-    display.printInventoryMessage(player.getItems());
-  }
-
-  /**
-   * Displays the game's world map (neighborhood).
-   */
-  public void showMap() {
-    display.printMap();
-  }
-
-  /**
-   * Displays valid locations that the player can visit from the current location.
-   */
-  public void showValidMoves() {
-    House currentPosition = neighborhood.getNeighborhood().get(player.getPosition());
-    String north =
-        currentPosition.getNorth() != null ? "\nnorth: " + currentPosition.getNorth() : "";
-    String east = currentPosition.getEast() != null ? "\neast: " + currentPosition.getEast() : "";
-    String south =
-        currentPosition.getSouth() != null ? "\nsouth: " + currentPosition.getSouth() : "";
-    String west = currentPosition.getWest() != null ? "\nwest: " + currentPosition.getWest() : "";
-    display.printValidMoves(north, east, south, west);
-  }
-
-  /**
-   * Displays the game win message.
-   */
-  public void showWin() {
-    display.printWinMessage();
-  }
-
-  /**
-   * Displays the game lose message.
-   */
-  public void showLose() {
-    display.printLoseMessage();
-  }
-
-  /**
    * Moves the player to a new location.
    *
    * @param direction The direction that the player desires to move to.
@@ -173,27 +52,15 @@ public class Game {
   public void movePlayer(String direction) {
     House currentPosition = neighborhood.getNeighborhood().get(player.getPosition());
     String playersMove = neighborhood.isValidDirection(direction, currentPosition);
+
     // set the previous house knocked to false before moving
     currentPosition.setKnocked(false);
-    if (getUserMovesCounter() < 1) { // case where the player has less than 1 moves left
-      display.printNoMovesLeftMessage();
+    if (player.getUserMovesCounter() < 1) { // case where the player has less than 1 moves left
       setState(State.LOSE);
-    } else if (playersMove.isEmpty()) { // in case the player has provided an invalid direction
-      display.printInvalidDirectionsMessage(direction);
-      showValidMoves();
-    } else { // in case the player has entered a valid direction
-      boolean isInteractiveNPC;
-      if (playersMove.equals("your house")) {
-        isInteractiveNPC = false;
-      } else {
-        isInteractiveNPC = true;
-      }
-      player.setPosition(playersMove);
-      String[] residents = neighborhood.getNeighborhood().get(playersMove).getResidents();
-      display.printPlayersMove(player.getName(), direction, player.getPosition(), residents,
-          isInteractiveNPC);
+    } else {
       playSound("/footsteps.wav");
-      setUserMovesCounter(getUserMovesCounter() - 1);
+      player.setPosition(playersMove);
+      player.setUserMovesCounter(player.getUserMovesCounter() - 1);
     }
   }
 
@@ -206,21 +73,6 @@ public class Game {
       String item = house.getHouseItems().get(0);
       player.addItem(item);
       house.removeItem();
-      display.printGetItemMessage(item);
-    } else if (house.isKnocked()) {
-      display.printNoItemError();
-    } else {
-      display.knockDoorFirst();
-      display.knockDoor();
-    }
-  }
-
-  public void godModeGetItem(String item) {
-    if (item.equals("ruby") || item.equals("badge") || (item.equals("potion"))) {
-      player.addItem(item);
-      display.printGetItemMessage(item);
-    } else {
-      display.printGodModeGetFailed();
     }
   }
 
@@ -228,43 +80,26 @@ public class Game {
    * Allows the player to knock on the door for the current location and have an interaction.
    */
   public void knockOnDoor() {
-    House house = neighborhood.getNeighborhood().get(player.getPosition());
-    house.setKnocked(true);
-
     String knock = "/door-knock.wav";
     playSound(knock);
-
-    ArrayList<String> playerItems = player.getItems();
-    // If we knock on karen's house or the saw house we need to have check for specific items in our inventory
-    // If we do not have the items, then we lose the game
-    // If we knock on karen's door
-    if (house.getHouseName().equals("karen's house")) {
-      knockOnKarenHouse(playerItems);
-      // if knock on the saw house
-    } else if (house.getHouseName().equals("saw house")) {
-      knockOnSawHouse(playerItems);
-      // for all other houses (besides karen's house and saw house) we do the following
-    } else if (house.getHouseItems().isEmpty()) {
-      display.noItem(player.getPosition());
-    } else {
-      display.greet(player.getPosition());
-    }
+    House house = getNeighborhood().getNeighborhood().get(getPlayer().getPosition());
+    house.setKnocked(true);
   }
 
   /**
    * Allows the player to knock at the Saw House location.
    *
    * @param playerItems A list of items that the player has (inventory).
+   * @return Returns a boolean representing if player has correct items to escape Saw or not.
    */
-  private void knockOnSawHouse(ArrayList<String> playerItems) {
+  public boolean playerHasCorrectSawItem(ArrayList<String> playerItems) {
     // check for "thing" in not in our items then we lose the game
     if (!playerItems.contains("thing")) {
-      display.noItem(player.getPosition());
       setState(State.LOSE);
+      return false;
     } // otherwise, thing will free us from the trap, and be removed from the inventory
     else {
-      display.greet(player.getPosition());
-      player.removeItem("thing");
+      return true;
     }
   }
 
@@ -272,33 +107,20 @@ public class Game {
    * Allows the player to knock at the Karen's House location.
    *
    * @param playerItems A list of items that the player has (inventory).
+   * @return Returns a boolean representing if player has correct items to win Karen or not.
    */
-  private void knockOnKarenHouse(ArrayList<String> playerItems) {
+  public boolean playerHasCorrectKarenItem(ArrayList<String> playerItems) {
     // if we have a badge, potion, or ruby, then do nothing
     if (playerItems.contains("badge") || playerItems.contains("potion") || playerItems.contains(
         "ruby")) {
-      display.printKarenCallingCops();
+      return true;
     }
     // if we don't have a badge, potion, or ruby we lose the game
     else {
-      display.greet(player.getPosition());
-      display.printPlayerArrested();
       playSound("/evil-shreik.wav");
-      try {
-        TimeUnit.SECONDS.sleep(3);  // Wait 2 seconds
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
       setState(State.LOSE);
+      return false;
     }
-  }
-
-  /**
-   * Allows the player to exit the game.
-   */
-  public void quitGame() {
-    display.printExitGameMessage();
-    System.exit(0);
   }
 
   /**
@@ -309,82 +131,21 @@ public class Game {
   }
 
   /**
-   * Allows the player to load a previously saved game.
-   *
-   * @return Returns a new instance of {@link Game}, loaded with data from a previously save game.
-   */
-  public Game loadGame() {
-    Gson gson = new Gson();
-    State state = storeGame.loadGame("state.json", State.class, gson);
-    Player player = storeGame.loadGame("player.json", Player.class, gson);
-    Neighborhood neighborhood = storeGame.loadGame("neighborhood.json", Neighborhood.class, gson);
-    if (state == null || player == null || neighborhood == null) {
-      return new Game();
-    }
-    return new Game(state, player, neighborhood);
-  }
-
-  /**
-   * Removes JSON files where game data is stored.
-   */
-  public void removeFiles() {
-    storeGame.removeJsonFiles();
-  }
-
-  /**
-   * Allows the player to use an item at the current location.
-   *
-   * @param item The item to be used at the current location.
-   */
-  public void useItem(String item) {
-    // get the house the player is currently at
-    House house = neighborhood.getNeighborhood().get(player.getPosition());
-    // if the house is knocked then try to use the item
-    if (house.isKnocked()) {
-      boolean successfullyUsedItem = player.removeItem(item);
-      showInventory();
-      String response = successfullyUsedItem ? "remove_item" : "warning_remove_item";
-      display.printRemoveItem(response, item);
-      if (!successfullyUsedItem) {
-        return;
-      }
-    } else {
-      display.printKnockToUseItem();
-      return;
-    }
-    // if we use the badge at karen's house then we win the game
-    if (house.getHouseName().equals("karen's house")) {
-      karenUseItem(item);
-    } else if (house.getHouseName().equals("dracula's mansion") && item.equals("tooth")) {
-      display.printDraculaTooth();
-      // added dracula's ruby to our inventory
-      // NOTE: dracula's tooth is a hidden item, so we don't store it in the house
-      player.addItem("ruby");
-    } else if (house.getHouseName().equals("witch's den")) {
-      witchUseItem(item, house);
-    }
-  }
-
-  /**
    * Allows the player to use items at the Witch's Den location.
    *
    * @param item  The item to be used at Witch's Den.
    * @param house An instance of {@link House}, representing the Witch's Den.
    */
-  private void witchUseItem(String item, House house) {
+  public void witchUseItem(String item, House house) {
     if (item.equals("cat-hair") || item.equals("beer") || item.equals("dentures")) {
-      display.printGiveWitchItem(item);
       playSound("/bubbles.wav");
       house.addItem(item);
-    } else {
-      display.printIncorrectWitchItem(item);
     }
     ArrayList<String> witchHouseItems = house.getHouseItems();
     if (witchHouseItems.contains("cat-hair") && witchHouseItems.contains("beer")
         && witchHouseItems.contains("dentures")) {
-      display.printCompleteWitchPotion();
       // NOTE: potion is a hidden item, so we don't store it in the house
-      player.addItem("potion");
+      getPlayer().addItem("potion");
       playSound("/witch.wav");
     }
   }
@@ -396,12 +157,16 @@ public class Game {
    */
   public void karenUseItem(String item) {
     if (item.equals("badge") || item.equals("potion") || item.equals("ruby")) {
-      display.printKarenDefeated(item);
+      setState(State.WIN);
       playSound("/girl_scream.wav");
-    } else {
-      return;
     }
-    setState(State.WIN);
+  }
+
+  public void draculaUseItem(String item, House house) {
+    if (item.equals("tooth")) {
+      house.addItem(item);
+      getPlayer().addItem("ruby");
+    }
   }
 
   /**
@@ -440,25 +205,28 @@ public class Game {
     return state;
   }
 
-  public View getDisplay() {
-    return display;
-  }
-
   public void setState(State state) {
     this.state = state;
   }
 
-  public int getUserMovesCounter() {
-    return userMovesCounter;
-  }
-
-  public void setUserMovesCounter(int userMovesCounter) {
-    this.userMovesCounter = userMovesCounter;
-  }
-
-  // this getter is for testing purposes
   public Player getPlayer() {
     return player;
+  }
+
+  public void setPlayer(Player player) {
+    this.player = player;
+  }
+
+  public Neighborhood getNeighborhood() {
+    return neighborhood;
+  }
+
+  public void setNeighborhood(Neighborhood neighborhood) {
+    this.neighborhood = neighborhood;
+  }
+
+  public PlayMusic getMusicPlayer() {
+    return musicPlayer;
   }
 
 }

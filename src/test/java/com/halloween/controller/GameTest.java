@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.halloween.model.Player;
 import com.halloween.model.State;
-import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -83,89 +82,36 @@ class GameTest {
   }
 
   /*
-    DONE: GOD MODE CHEAT TESTS
-   */
-  @Test
-  void godModeGetItem_should_add_valid_items_to_inventory() {
-    // ArrayLists maintain insertion order. For more info, refer to the link below.
-    // (https://docs.oracle.com/javase/7/docs/api/java/util/List.html).
-    ArrayList<String> items = player.getItems();
-
-    game.godModeGetItem("ruby");
-    assertEquals(1, items.size());
-    assertEquals("ruby", items.get(0));
-
-    game.godModeGetItem("badge");
-    assertEquals(2, items.size());
-    assertEquals("ruby", items.get(0));
-    assertEquals("badge", items.get(1));
-
-    game.godModeGetItem("potion");
-    assertEquals(3, items.size());
-    assertEquals("ruby", items.get(0));
-    assertEquals("badge", items.get(1));
-    assertEquals("potion", items.get(2));
-  }
-
-  @Test
-  void godModeGetItem_should_NOT_add_invalid_items_to_inventory() {
-    // this test only checks the correct behavior of the godModeGetItem method.
-    // test for the correctness of messages being displayed is in ViewTest.
-    ArrayList<String> items = player.getItems();
-
-    game.godModeGetItem("candy");
-    assertEquals(0, items.size());
-
-    game.godModeGetItem("cake");
-    assertEquals(0, items.size());
-  }
-
-  /*
     DONE: PLAYER MOVES COUNTER TESTS
    */
   @Test
   void movePlayer_should_decrement_remaining_moves_by_one_when_given_valid_direction() {
-    // users get 10 moves initially
-    assertEquals(10, game.getUserMovesCounter());
+    // users get 15 moves initially
+    assertEquals(15, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("north");
-    assertEquals(9, game.getUserMovesCounter());
+    assertEquals(14, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("east");
-    assertEquals(8, game.getUserMovesCounter());
+    assertEquals(13, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("south");
-    assertEquals(7, game.getUserMovesCounter());
+    assertEquals(12, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("west");
-    assertEquals(6, game.getUserMovesCounter());
+    assertEquals(11, game.getPlayer().getUserMovesCounter());
   }
 
   @Test
   void movePlayer_should_NOT_decrement_remaining_moves_when_given_invalid_direction() {
-    // user gets 10 moves initially
-    assertEquals(10, game.getUserMovesCounter());
+    // user gets 15 moves initially
+    assertEquals(15, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("far"); // invalid direction
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(15, game.getPlayer().getUserMovesCounter());
 
     game.movePlayer("away"); // invalid direction
-    assertEquals(10, game.getUserMovesCounter());
-  }
-
-  @Test
-  void userMovesCounter_should_remain_the_same_if_player_did_not_move() {
-    // user gets 10 moves initially
-    assertEquals(10, game.getUserMovesCounter());
-
-    player.addItem("ruby");
-    assertEquals(10, game.getUserMovesCounter());
-
-    game.knockOnDoor();
-    assertEquals(10, game.getUserMovesCounter());
-
-    game.useItem("ruby");
-    assertEquals(10, game.getUserMovesCounter());
+    assertEquals(15, game.getPlayer().getUserMovesCounter());
   }
 
   @Test
@@ -186,99 +132,6 @@ class GameTest {
     game.movePlayer("east"); // remaining number of moves is less than 0, game should end
     assertEquals(State.LOSE, game.getState()); // ensure that the game's state is set to be lose
     assertTrue(game.getState().isTerminal()); // ensure that the game's state is now terminal
-  }
-
-  /*
-    DONE: ITEM USE TESTS
-   */
-  @Test
-  void player_should_be_able_to_use_an_item_they_have_in_inventory() {
-    player.addItem("ruby");
-    player.addItem("candy");
-    player.addItem("thing");
-    // knock door first to interact with the location
-    game.knockOnDoor();
-
-    // use ruby
-    game.useItem("ruby");
-    // there should be 2 items in the inventory now
-    assertEquals(2, player.getItems().size());
-    // first item should be candy now
-    assertEquals("candy", player.getItems().get(0));
-    // second item should be thing now
-    assertEquals("thing", player.getItems().get(1));
-
-    // use candy
-    game.useItem("candy");
-    // there should be 1 item in the inventory now
-    assertEquals(1, player.getItems().size());
-    // the only item left is thing
-    assertEquals("thing", player.getItems().get(0));
-
-    // use thing
-    game.useItem("thing");
-    // there should be no item in the inventory now
-    assertEquals(0, player.getItems().size());
-  }
-
-  @Test
-  void player_should_NOT_be_able_to_use_an_item_they_do_not_have() {
-    player.addItem("ruby");
-    player.addItem("candy");
-    player.addItem("thing");
-    // knock door first to interact with the location
-    game.knockOnDoor();
-
-    // use badge
-    game.useItem("badge");
-    // there should be 3 items in the inventory now
-    assertEquals(3, player.getItems().size());
-    // first item should still be ruby
-    assertEquals("ruby", player.getItems().get(0));
-    // second item should still be candy
-    assertEquals("candy", player.getItems().get(1));
-    // third item should still be thing
-    assertEquals("thing", player.getItems().get(2));
-  }
-
-  @Test
-  void item_should_NOT_be_used_if_player_did_not_knock_before() {
-    player.addItem("ruby");
-    player.addItem("candy");
-    player.addItem("thing");
-
-    // use ruby
-    game.useItem("ruby");
-    // there should be 3 items in the inventory now
-    assertEquals(3, player.getItems().size());
-    // first item should still be ruby
-    assertEquals("ruby", player.getItems().get(0));
-    // second item should still be candy
-    assertEquals("candy", player.getItems().get(1));
-    // third item should still be thing
-    assertEquals("thing", player.getItems().get(2));
-
-    // use candy
-    game.useItem("candy");
-    // there should be 3 items in the inventory now
-    assertEquals(3, player.getItems().size());
-    // first item should still be ruby
-    assertEquals("ruby", player.getItems().get(0));
-    // second item should still be candy
-    assertEquals("candy", player.getItems().get(1));
-    // third item should still be thing
-    assertEquals("thing", player.getItems().get(2));
-
-    // use thing
-    game.useItem("thing");
-    // there should be 3 items in the inventory now
-    assertEquals(3, player.getItems().size());
-    // first item should still be ruby
-    assertEquals("ruby", player.getItems().get(0));
-    // second item should still be candy
-    assertEquals("candy", player.getItems().get(1));
-    // third item should still be thing
-    assertEquals("thing", player.getItems().get(2));
   }
 
 }
