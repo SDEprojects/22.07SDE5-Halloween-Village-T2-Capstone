@@ -14,6 +14,7 @@ public class PlayMusic {
 
   private Clip clip;
   private FloatControl musicVolume;
+  private boolean isPlaying;
 
   /**
    * Plays the background music from a desired music file.
@@ -48,7 +49,7 @@ public class PlayMusic {
         // start the music
         clip.start();
       }
-
+      setPlaying(true);
     } catch (Exception ex) {
       ex.printStackTrace();
     }
@@ -61,6 +62,7 @@ public class PlayMusic {
     // check if clip exists and if it does, stop the clip
     if (clip != null) {
       clip.stop();
+      setPlaying(false);
     }
     clip = null;
   }
@@ -85,6 +87,14 @@ public class PlayMusic {
     } catch (IllegalArgumentException ex) {
       ex.printStackTrace();
     }
+  }
+
+  public boolean isPlaying() {
+    return isPlaying;
+  }
+
+  public void setPlaying(boolean playing) {
+    isPlaying = playing;
   }
 
 }

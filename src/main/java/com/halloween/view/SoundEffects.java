@@ -17,6 +17,7 @@ public class SoundEffects {
   private static FloatControl soundVolumeControl;
   private static float soundVolume = (-10.0f);
   private static float minSoundVolume = (-80.0f);
+  private static boolean isPlaying;
 
   /**
    * Plays a sound effect.
@@ -37,6 +38,7 @@ public class SoundEffects {
         soundVolumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         soundVolumeControl.setValue(soundVolume);
         clip.start();
+        setPlaying(true);
       } else {
         System.out.println("Error: Cannot find sound effect file.");
       }
@@ -53,6 +55,7 @@ public class SoundEffects {
     try {
       soundVolume = (-80.0f);
       soundVolumeControl.setValue(soundVolume);
+      setPlaying(false);
     } catch (IllegalArgumentException ex) {
       ex.printStackTrace();
     }
@@ -65,6 +68,8 @@ public class SoundEffects {
     try {
       soundVolume = (-10.0f);
       soundVolumeControl.setValue(soundVolume);
+      clip.start();
+      setPlaying(true);
     } catch (IllegalArgumentException ex) {
       ex.printStackTrace();
     }
@@ -73,7 +78,7 @@ public class SoundEffects {
   /**
    * Increases the volume of sound effects.
    */
-  public void increaseVolume() {
+  public static void increaseVolume() {
     try {
       soundVolumeControl.setValue(soundVolumeControl.getValue() + 10.0f);
     } catch (IllegalArgumentException ex) {
@@ -90,6 +95,14 @@ public class SoundEffects {
     } catch (IllegalArgumentException ex) {
       ex.printStackTrace();
     }
+  }
+
+  public static boolean isPlaying() {
+    return isPlaying;
+  }
+
+  public static void setPlaying(boolean playing) {
+    isPlaying = playing;
   }
 
 }
