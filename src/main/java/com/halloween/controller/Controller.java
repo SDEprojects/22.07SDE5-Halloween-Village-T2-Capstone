@@ -59,7 +59,7 @@ public class Controller {
 
   public void startGame() {
     playSound("/howl.wav");
-    getView().displayGameScreen(getGame().getPlayer(), getGame().getNeighborhood());
+    getView().displayGameScreen(getGame());
     addGameScreenButtonHandlers();
     getGame().setState(State.PLAY);
     addGameResultScreenButtonHandler();
@@ -68,7 +68,7 @@ public class Controller {
   public void updateScreen(boolean updateMainPanel, boolean updateSidePanel,
       boolean updateBottomPanel) {
     if (updateMainPanel) {
-      getView().updateGameScreenMainPanel(getGame().getPlayer(), getGame().getNeighborhood());
+      getView().updateGameScreenMainPanel(getGame());
     }
     if (updateSidePanel) {
       getView().updateGameScreenSidePanel(getGame().getPlayer());
@@ -116,7 +116,7 @@ public class Controller {
     backStoryNextButton.addActionListener(e -> getView().displayInstructionsScreen());
     instructionsNextButton.addActionListener(e -> getView().displayGetUsernameScreen());
     startGameButton.addActionListener(e -> {
-      getGame().getPlayer().setName(infoScreen.getTextArea().getText());
+      getGame().getPlayer().setName(infoScreen.getUserNameTextArea().getText().trim());
       startGame();
     });
   }
@@ -178,27 +178,25 @@ public class Controller {
     House house = getGame().getNeighborhood().getNeighborhood()
         .get(getGame().getPlayer().getPosition());
     getGame().knockOnDoor();
-    if (checkSpecialHouse(house.getHouseName())) { // check if it's Karen's House or Saw House
-      knockSpecialHouse(house);
-      // TODO: Update screen with correct message when at Karen's House or Saw House
-      updateScreen(true, false, true);
-    } else { // if regular house
-      updateScreen(true, false, true);
-    }
-
-    System.out.println(house.isKnocked());
+//    if (checkSpecialHouse(house.getHouseName())) { // check if it's Karen's House or Saw House
+//      knockSpecialHouse(house);
+//      // TODO: Update screen with correct message when at Karen's House or Saw House
+//      updateScreen(true, false, true);
+//    } else { // if regular house
+    updateScreen(true, false, true);
+//    }
   }
 
-  public boolean checkSpecialHouse(String houseName) {
+  public static boolean checkSpecialHouse(String houseName) {
     return (houseName.equals("karen's house") || houseName.equals("saw house"));
   }
 
   public void knockSpecialHouse(House house) {
     ArrayList<String> playerItems = getGame().getPlayer().getItems();
     if (house.getHouseName().equals("karen's house")) {
-      getGame().karenHouseKnockPlayerHasCorrectItem(playerItems);
+      getGame().playerHasCorrectKarenItem(playerItems);
     } else if (house.getHouseName().equals("saw house")) {
-      getGame().sawHousePlayerHasCorrectItem(playerItems);
+      getGame().playerHasCorrectSawItem(playerItems);
     }
   }
 
@@ -254,26 +252,21 @@ public class Controller {
     MapScreen mapScreen = getView().getMapScreen();
     JButton backToGame = mapScreen.getBackToGameMapScreenButton();
 
-    backToGame.addActionListener(event -> getView().displayGameScreen(getGame().getPlayer(),
-        getGame().getNeighborhood()));
+    backToGame.addActionListener(event -> getView().displayGameScreen(getGame()));
   }
 
   public void addHelpScreenButtonHandlers() {
     HelpScreen helpScreen = getView().getHelpScreen();
     JButton backToGame = helpScreen.getBackToGameHelpScreenButton();
 
-    backToGame.addActionListener(
-        event -> getView().displayGameScreen(getGame().getPlayer(), getGame().getNeighborhood()));
+    backToGame.addActionListener(event -> getView().displayGameScreen(getGame()));
   }
 
   public void addGameResultScreenButtonHandler() {
     GameResultsScreen resultScreen = getView().getGameResultsScreen();
     JButton quitButton = resultScreen.getQuitGameButton();
 
-    quitButton.addActionListener(e -> {
-//      getView().displayGameResult(getGame());
-      quitProgram();
-    });
+    quitButton.addActionListener(e -> quitProgram());
   }
 
   /*
