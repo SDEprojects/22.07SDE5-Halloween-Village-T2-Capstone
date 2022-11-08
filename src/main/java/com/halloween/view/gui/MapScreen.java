@@ -1,5 +1,6 @@
 package com.halloween.view.gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +21,8 @@ public class MapScreen {
 
     backToGameMapScreenButton = new JButton("BACK TO GAME");
     backToGameMapScreenButton.setFont(BUTTON_FONT);
-    backToGameMapScreenButton.setBounds(350, 10, 200, 75);
+    backToGameMapScreenButton.setBounds(620, 450, 100, 50);
+    backToGameMapScreenButton.setBackground(Color.black);
     label.add(backToGameMapScreenButton);
   }
 
