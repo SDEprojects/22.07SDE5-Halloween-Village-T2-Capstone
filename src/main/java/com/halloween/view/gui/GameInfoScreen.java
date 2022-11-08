@@ -70,8 +70,7 @@ public class GameInfoScreen {
 
   public void buildGetUsernameScreen() {
     infoTextArea.setText("Enter Your Name: ");
-    userNameTextArea = new JTextArea("     ");
-    userNameTextArea.setBounds(300, 400, 800, 100);
+    userNameTextArea = new JTextArea(1, 20);
     userNameTextArea.setFont(INFO_TEXT_FONT);
     infoTextPanel.add(userNameTextArea);
 

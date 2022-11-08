@@ -175,7 +175,7 @@ public class GuiView {
     }
 
     // reset the text in the use item text field
-    useItemTextField.setText("     ");
+    useItemTextField.setText("");
 
     // hide everything in the bottom panel if game over
     if (game.getState().isTerminal()) {
