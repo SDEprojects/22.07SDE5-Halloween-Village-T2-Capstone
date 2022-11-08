@@ -22,8 +22,8 @@ import javax.swing.JButton;
 
 public class Controller {
 
-  Game game;
-  GuiView view;
+  private Game game;
+  private GuiView view;
 
   public Controller(Game game, GuiView view) {
     this.game = game;
@@ -31,8 +31,8 @@ public class Controller {
   }
 
   public void startProgram() {
-    view.displayTitleScreen();
-    game.startMusic();
+    getView().displayTitleScreen();
+    getGame().startMusic();
     addTitleScreenButtonHandlers();
   }
 
@@ -47,83 +47,82 @@ public class Controller {
       Neighborhood neighborhood = StoreGame.GSON.fromJson(neighborhoodReader, Neighborhood.class);
 
       if (state == null || player == null || neighborhood == null) {
-        view.displayLoadFailPane();
+        getView().displayLoadFailPane();
       } else {
-        game = new Game(state, player, neighborhood);
+        setGame(new Game(state, player, neighborhood));
         startGame();
       }
     } catch (IOException e) {
-      view.displayLoadFailPane();
+      getView().displayLoadFailPane();
     }
   }
 
   public void startGame() {
     playSound("/howl.wav");
-    view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
+    getView().displayGameScreen(getGame().getPlayer(), getGame().getNeighborhood());
     addGameScreenButtonHandlers();
-    game.setState(State.PLAY);
+    getGame().setState(State.PLAY);
     addGameResultScreenButtonHandler();
   }
 
   public void updateScreen(boolean updateMainPanel, boolean updateSidePanel,
       boolean updateBottomPanel) {
-    if (!getGame().getState().isTerminal()) { // if game's state is not terminal (still playing)
-      // update the main panel and side panel
-      if (updateMainPanel) {
-        view.updateGameScreenMainPanel(getGame().getPlayer(), getGame().getNeighborhood());
-      }
-      if (updateSidePanel) {
-        view.updateGameScreenSidePanel(getGame().getPlayer());
-      }
-      if (updateBottomPanel) {
-        view.updateGameScreenBottomPanel(getGame().getPlayer(), getGame().getNeighborhood());
-      }
-      // if game's state is terminal, update the game screen and display game result after 10 seconds
-    } else {
-      try {
-        Thread.sleep(10000);
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-      }
-      view.displayGameResult(getGame());
+    if (updateMainPanel) {
+      getView().updateGameScreenMainPanel(getGame().getPlayer(), getGame().getNeighborhood());
+    }
+    if (updateSidePanel) {
+      getView().updateGameScreenSidePanel(getGame().getPlayer());
+    }
+    if (updateBottomPanel) {
+      getView().updateGameScreenBottomPanel(getGame().getPlayer(), getGame().getNeighborhood());
     }
   }
 
-  public void quitGame() {
+  public void endGame() {
+    // if game's state is terminal, display game result after 10 seconds
+    if (getGame().getState().isTerminal()) {
+      try {
+        Thread.sleep(10000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      getView().displayGameResult(getGame());
+    }
+  }
+
+  public void quitProgram() {
     System.exit(0);
   }
 
   public void addTitleScreenButtonHandlers() {
-    JButton newGameButton = view.getTitleScreen().getNewGameButton();
-    JButton loadGameButton = view.getTitleScreen().getLoadGameButton();
-    JButton quitButton = view.getTitleScreen().getQuitButton();
+    JButton newGameButton = getView().getTitleScreen().getNewGameButton();
+    JButton loadGameButton = getView().getTitleScreen().getLoadGameButton();
+    JButton quitButton = getView().getTitleScreen().getQuitButton();
 
     newGameButton.addActionListener(e -> {
-      view.displayBackgroundStoryScreen();
+      getView().displayBackgroundStoryScreen();
       addGameInfoScreenButtonHandlers();
     });
     loadGameButton.addActionListener(e -> loadGame());
-    quitButton.addActionListener(e -> quitGame());
+    quitButton.addActionListener(e -> quitProgram());
   }
 
   public void addGameInfoScreenButtonHandlers() {
-    GameInfoScreen infoScreen = view.getGameInfoScreen();
+    GameInfoScreen infoScreen = getView().getGameInfoScreen();
     JButton backStoryNextButton = infoScreen.getBackStoryNextButton();
     JButton instructionsNextButton = infoScreen.getInstructionsNextButton();
     JButton startGameButton = infoScreen.getStartGameButton();
 
-    backStoryNextButton.addActionListener(e -> view.displayInstructionsScreen());
-    instructionsNextButton.addActionListener(e -> view.displayGetUsernameScreen());
+    backStoryNextButton.addActionListener(e -> getView().displayInstructionsScreen());
+    instructionsNextButton.addActionListener(e -> getView().displayGetUsernameScreen());
     startGameButton.addActionListener(e -> {
-      game.getPlayer().setName(infoScreen.getTextArea().getText());
+      getGame().getPlayer().setName(infoScreen.getTextArea().getText());
       startGame();
     });
   }
 
   public void addGameScreenButtonHandlers() {
-    House currentHouse = getGame().getNeighborhood().getNeighborhood()
-        .get(getGame().getPlayer().getPosition());
-    GameScreen gameScreen = view.getGameScreen();
+    GameScreen gameScreen = getView().getGameScreen();
     // TOP PANEL BUTTONS
     JButton helpButton = gameScreen.getHelpButton();
     JButton mapButton = gameScreen.getMapButton();
@@ -142,137 +141,154 @@ public class Controller {
 
     // TOP PANEL BUTTON HANDLERS
     helpButton.addActionListener(e -> {
-      view.displayHelpScreen();
+      getView().displayHelpScreen();
       addHelpScreenButtonHandlers();
     });
     mapButton.addActionListener(event -> {
-      view.displayMapScreen();
+      getView().displayMapScreen();
       addMapScreenButtonHandlers();
     });
     // TODO: Extend musicButton and fxButton handlers so that it can turn on/off sound
-    musicButton.addActionListener(e -> game.stopMusic()); // Can only mute the sound at the moment
+    musicButton.addActionListener(
+        e -> getGame().stopMusic()); // Can only mute the sound at the moment
     fxButton.addActionListener(e -> SoundEffects.muteSoundEffects()); // Can only mute fx
-    saveGameButton.addActionListener(e -> game.saveGame());
-    quitButton.addActionListener(e -> quitGame());
+    saveGameButton.addActionListener(e -> getGame().saveGame());
+    quitButton.addActionListener(e -> quitProgram());
 
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
-    goNorthButton.addActionListener(e -> {
-      game.movePlayer("north");
-      updateScreen(true, true, true);
-    });
-    goEastButton.addActionListener(e -> {
-      game.movePlayer("east");
-      updateScreen(true, true, true);
-    });
-    goSouthButton.addActionListener(e -> {
-      game.movePlayer("south");
-      updateScreen(true, true, true);
-    });
-    goWestButton.addActionListener(e -> {
-      game.movePlayer("west");
-      updateScreen(true, true, true);
-    });
-    knockButton.addActionListener(e -> {
-      boolean isSpecialHouse = checkSpecialHouse(currentHouse);
-      game.knockOnDoor();
-      if (isSpecialHouse) { // if Karen's House or Saw House
-        knockSpecialHouse(currentHouse);
-        // TODO: Update screen with correct message when at Karen's House or Saw House
-        updateScreen(true, false, true);
-      } else {
-        updateScreen(true, false, true);
-      }
-    });
+    goNorthButton.addActionListener(e -> movePlayer("north"));
+    goEastButton.addActionListener(e -> movePlayer("east"));
+    goSouthButton.addActionListener(e -> movePlayer("south"));
+    goWestButton.addActionListener(e -> movePlayer("west"));
+    knockButton.addActionListener(e -> knockOnDoor());
     getItemButton.addActionListener(e -> {
-      game.getItem();
+      getGame().getItem();
       updateScreen(false, true, true);
     });
-    useItemButton.addActionListener(e -> {
-      // TODO: Alert the user if they try to use item without knocking
-      if (currentHouse.isKnocked()) {
-        String item = view.getGameScreen().getUseItemTextField().getText().trim().toLowerCase();
-        useItem(item);
-      } else {
-        view.displayKnockToUseItemPane();
-      }
-    });
+    useItemButton.addActionListener(e -> useItem());
   }
 
-  public boolean checkSpecialHouse(House house) {
-    return (house.getHouseName().equals("karen's house") || house.getHouseName()
-        .equals("saw house"));
+  public void movePlayer(String direction) {
+    getGame().movePlayer(direction);
+    updateScreen(true, true, true);
+  }
+
+  public void knockOnDoor() {
+    // the current house player is located at
+    House house = getGame().getNeighborhood().getNeighborhood()
+        .get(getGame().getPlayer().getPosition());
+    getGame().knockOnDoor();
+    if (checkSpecialHouse(house.getHouseName())) { // check if it's Karen's House or Saw House
+      knockSpecialHouse(house);
+      // TODO: Update screen with correct message when at Karen's House or Saw House
+      updateScreen(true, false, true);
+    } else { // if regular house
+      updateScreen(true, false, true);
+    }
+
+    System.out.println(house.isKnocked());
+  }
+
+  public boolean checkSpecialHouse(String houseName) {
+    return (houseName.equals("karen's house") || houseName.equals("saw house"));
   }
 
   public void knockSpecialHouse(House house) {
     ArrayList<String> playerItems = getGame().getPlayer().getItems();
     if (house.getHouseName().equals("karen's house")) {
-      game.karenHouseKnockPlayerHasCorrectItem(playerItems);
+      getGame().karenHouseKnockPlayerHasCorrectItem(playerItems);
     } else if (house.getHouseName().equals("saw house")) {
-      game.sawHousePlayerHasCorrectItem(playerItems);
+      getGame().sawHousePlayerHasCorrectItem(playerItems);
     }
   }
 
-  public void useItem(String item) {
-    // get the house the player is currently at
+  public void useItem() {
+    // the current house player is located at
     House house = getGame().getNeighborhood().getNeighborhood()
         .get(getGame().getPlayer().getPosition());
+    String item = getView().getGameScreen().getUseItemTextField().getText().trim().toLowerCase();
+    boolean validItemUsed = false;
+
     // check if house is knocked
     if (house.isKnocked()) {
-      // check if the item could be removed from the inventory (if the item is in inventory)
-      boolean itemUseSuccessful = getGame().getPlayer().removeItem(item);
-      if (itemUseSuccessful) {
-        updateScreen(true, true, true);
-      } else {
-        view.displayNoSuchItemPane();
+      // remove item from inventory if the item is in the inventory. Otherwise, display an alert
+      validItemUsed = removeValidItem(item);
+    } else { // if house hasn't been knocked, display an alert
+      getView().displayKnockToUseItemPane();
+    }
+
+    if (validItemUsed) {
+      if (house.getHouseName().equals("dracula's mansion")) {
+        getGame().draculaUseItem(item);
       }
-    }
-    if (house.getHouseName().equals("karen's house")) {
-      getGame().karenUseItem(item);
-    }
-    if (house.getHouseName().equals("dracula's mansion")) {
-      getGame().draculaUseItem(item);
-    }
-    if (house.getHouseName().equals("witch's den")) {
-      getGame().witchUseItem(item, house);
+      if (house.getHouseName().equals("witch's den")) {
+        getGame().witchUseItem(item, house);
+      }
+      if (house.getHouseName().equals("karen's house")) {
+        getGame().karenUseItem(item);
+        if (checkGameWinningItem(item)) {
+          endGame();
+        }
+      }
     }
     updateScreen(true, true, false);
   }
 
+  public boolean removeValidItem(String item) {
+    // check if the item could be removed from the inventory (if the item is in inventory)
+    boolean itemUseSuccessful = getGame().getPlayer().removeItem(item);
+    if (itemUseSuccessful) {
+      updateScreen(true, true, true);
+      return true;
+    } else {
+      getView().displayNoSuchItemPane();
+      return false;
+    }
+  }
+
+  private boolean checkGameWinningItem(String item) {
+    return (item.equals("badge") || item.equals("potion") || item.equals("ruby"));
+  }
+
   public void addMapScreenButtonHandlers() {
-    MapScreen mapScreen = view.getMapScreen();
+    MapScreen mapScreen = getView().getMapScreen();
     JButton backToGame = mapScreen.getBackToGameMapScreenButton();
 
-    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer(),
-        game.getNeighborhood()));
+    backToGame.addActionListener(event -> getView().displayGameScreen(getGame().getPlayer(),
+        getGame().getNeighborhood()));
   }
 
   public void addHelpScreenButtonHandlers() {
-    HelpScreen helpScreen = view.getHelpScreen();
+    HelpScreen helpScreen = getView().getHelpScreen();
     JButton backToGame = helpScreen.getBackToGameHelpScreenButton();
 
     backToGame.addActionListener(
-        event -> view.displayGameScreen(game.getPlayer(), game.getNeighborhood()));
+        event -> getView().displayGameScreen(getGame().getPlayer(), getGame().getNeighborhood()));
   }
 
   public void addGameResultScreenButtonHandler() {
-    GameResultsScreen resultScreen = view.getGameResultsScreen();
+    GameResultsScreen resultScreen = getView().getGameResultsScreen();
     JButton quitButton = resultScreen.getQuitGameButton();
 
     quitButton.addActionListener(e -> {
-      view.displayGameResult(game);
-      game.quitGame();
+//      getView().displayGameResult(getGame());
+      quitProgram();
     });
   }
 
   /*
     GETTER & SETTER METHODS
    */
+  public Game getGame() {
+    return game;
+  }
+
   public void setGame(Game game) {
     this.game = game;
   }
 
-  public Game getGame() {
-    return game;
+  public GuiView getView() {
+    return view;
   }
 
 }
