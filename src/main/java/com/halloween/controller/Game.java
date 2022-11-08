@@ -99,7 +99,6 @@ public class Game {
       return false;
     } // otherwise, thing will free us from the trap, and be removed from the inventory
     else {
-      player.removeItem("thing");
       return true;
     }
   }
@@ -141,7 +140,6 @@ public class Game {
     if (item.equals("cat-hair") || item.equals("beer") || item.equals("dentures")) {
       playSound("/bubbles.wav");
       house.addItem(item);
-    } else {
     }
     ArrayList<String> witchHouseItems = house.getHouseItems();
     if (witchHouseItems.contains("cat-hair") && witchHouseItems.contains("beer")
@@ -164,8 +162,9 @@ public class Game {
     }
   }
 
-  public void draculaUseItem(String item) {
+  public void draculaUseItem(String item, House house) {
     if (item.equals("tooth")) {
+      house.addItem(item);
       getPlayer().addItem("ruby");
     }
   }
