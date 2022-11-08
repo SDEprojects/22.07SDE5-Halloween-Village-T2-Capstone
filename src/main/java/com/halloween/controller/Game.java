@@ -140,7 +140,6 @@ public class Game {
     if (item.equals("cat-hair") || item.equals("beer") || item.equals("dentures")) {
       playSound("/bubbles.wav");
       house.addItem(item);
-    } else {
     }
     ArrayList<String> witchHouseItems = house.getHouseItems();
     if (witchHouseItems.contains("cat-hair") && witchHouseItems.contains("beer")

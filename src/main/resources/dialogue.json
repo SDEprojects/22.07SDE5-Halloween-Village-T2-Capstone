@@ -7,7 +7,7 @@
   },
   {
     "dracula's mansion": {
-      "greet": "Player: Trick or treat! \nDracula: Why hello there human… good timing that you’re here because I am sooo hungry! \nPlayer: Please don’t drink my blood! \nDracula: I would eat you where you stand right now if my tooth didn’t fall out. I can’t find it anywhere. Have you seen it? If you find it for me I will be indebted to you. I pinky promise I won’t eat you! \nFind Item: Wow! You found my fang! Thank you so much. If there is anything I can do to help you please let me know\n",
+      "greet": "Player: Trick or treat!\nDracula: Why hello there human… good timing that you’re here because I am sooo hungry!\nPlayer: Please don’t drink my blood!\nDracula: I would eat you where you stand right now if my tooth didn't fall out!\n",
       "no item": "Dracula: There's nothing for you here. Have you seen my tooth anyways?"
     }
   },
@@ -49,7 +49,7 @@
   },
   {
     "karen's house": {
-      "greet": "Player: Trick or treat! \nKaren: How dare you trespass on my property! I’m calling the police. \n**Police arrive**\nOfficer: Ummm what’s the issue Ms. Karen? \nKaren: This intruder (points at you) invaded my property, and made threats against my life - remove them at once! \nOfficer: Not so fast - this kid is wearing a deputy mayor’s badge. Deputy mayor is any of this true?\nPlayer: Not. a. word. \nOfficer: That’s the last straw Karen, we’re taking you downtown.\nKaren: Excuse me?! GET YOUR HANDS OFF OF ME! I’m the president of the neighborhood association! I’ll have your badge..\n**Officer tases Karen** \nOfficer: Hasta la vista, Karen\n",
+      "greet": "**Police arrive**\nOfficer: Ummm what’s the issue Ms. Karen? \nKaren: This intruder (points at you) invaded my property, and made threats against my life - remove them at once! \nOfficer: Not so fast - this kid is wearing a deputy mayor’s badge. Deputy mayor is any of this true?\nPlayer: Not. a. word. \nOfficer: That’s the last straw Karen, we’re taking you downtown.\nKaren: Excuse me?! GET YOUR HANDS OFF OF ME! I’m the president of the neighborhood association! I’ll have your badge..\n**Officer tases Karen** \nOfficer: Hasta la vista, Karen\n",
       "no item": "Player: Trick or treat! \nKaren: How dare you trespass on my property! I’m calling the police.\n**Police arrives**\nOfficer: Ummm what’s the issue Ms. Karen? \nKaren: This intruder (points at you) invaded my property, and made threats against my life - remove them at once!\nOfficer: It’s just a kid... But if you say so! \nOfficer: Come on, we’re taking you home. Also, your parents are gonna pay a hefty fine for trespassing\nKaren: Oh and one last thing. You stole that from me (points at candy bag).\n**Officer takes your candy bag and hands it to Karen** \nKaren: Muahahahah!!!"
     }
   },

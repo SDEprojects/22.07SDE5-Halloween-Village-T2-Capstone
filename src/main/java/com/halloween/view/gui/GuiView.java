@@ -214,6 +214,13 @@ public class GuiView {
     container.revalidate();
   }
 
+  public void injectTextToGameTextArea(String text) {
+    getGameScreen().getGameTextArea().setText(text);
+
+    container.repaint();
+    container.revalidate();
+  }
+
   public void displayGameResult(Game game) {
     container.removeAll();
     container.add(getGameResultsScreen().getGameResultsPanel());

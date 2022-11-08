@@ -7,6 +7,7 @@ import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.SoundEffects;
+import com.halloween.view.View;
 import com.halloween.view.gui.GameInfoScreen;
 import com.halloween.view.gui.GameResultsScreen;
 import com.halloween.view.gui.GameScreen;
@@ -167,6 +168,7 @@ public class Controller {
   public void movePlayer(String direction) {
     getGame().movePlayer(direction);
     updateScreen(true, true, true);
+    endGameIfGameOver();
   }
 
   public void knockOnDoor() {
@@ -219,22 +221,37 @@ public class Controller {
 
     if (validItemUsed) {
       if (checkItemExchangeHouse(house.getHouseName())) {
-        if (house.getHouseName().equals("dracula's mansion")) {
+        if (house.getHouseName().equals("dracula's mansion") && item.equals("tooth")) {
           getGame().draculaUseItem(item, house);
-//          getView().updateGameTextAreaContent;
+          getView().injectTextToGameTextArea(View.getNpcResponse("draculas_tooth"));
+        } else if (house.getHouseName().equals("witch's den")) {
+          if (item.equals("cat-hair") || item.equals("beer") || item.equals("dentures")) {
+            getGame().witchUseItem(item, house);
+            getView().injectTextToGameTextArea(View.getNpcResponse("give_witch_ingredient"));
+            if (house.getHouseItems().size() > 2) {
+              getView().injectTextToGameTextArea(View.getNpcResponse("complete_witch_potion"));
+            }
+          } else {
+            getView().injectTextToGameTextArea(View.getNpcResponse("incorrect_witch_ingredient"));
+          }
         }
-        if (house.getHouseName().equals("witch's den")) {
-          getGame().witchUseItem(item, house);
-        }
-      }
-      if (house.getHouseName().equals("karen's house")) {
+      } else if (house.getHouseName().equals("karen's house")) {
         getGame().karenUseItem(item);
         if (checkGameWinningItem(item)) {
+          if (item.equals("badge")) {
+            getView().injectTextToGameTextArea(
+                View.getGreetings(getGame().getPlayer().getPosition()) + View.getNpcResponse(
+                    "karen_defeated_badge"));
+          } else if (item.equals("ruby")) {
+            getView().injectTextToGameTextArea(View.getNpcResponse("karen_defeated_ruby"));
+          } else if (item.equals("potion")) {
+            getView().injectTextToGameTextArea(View.getNpcResponse("karen_defeated_potion"));
+          }
           endGameIfGameOver();
         }
       }
+      updateScreen(false, true, false);
     }
-    updateScreen(true, true, false);
   }
 
   public boolean removeValidItem(String item) {
