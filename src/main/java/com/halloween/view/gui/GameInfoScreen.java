@@ -9,12 +9,11 @@ import javax.swing.JTextArea;
 
 public class GameInfoScreen {
 
-  private static final Font INFO_TEXT_FONT = new Font("Serif", Font.PLAIN, 30);
+  private static final Font INFO_TEXT_FONT = new Font("Serif", Font.PLAIN, 13);
   private JPanel infoTextPanel;
   private JTextArea textArea;
   private JPanel infoScreenButtonPanel;
   private JButton backStoryNextButton;
-  private JButton instructionsNextButton;
   private JButton startGameButton;
 
   public GameInfoScreen() {
@@ -48,9 +47,6 @@ public class GameInfoScreen {
     backStoryNextButton = new JButton("NEXT");
     backStoryNextButton.setFont(TitleScreen.TITLE_BUTTON_FONT);
 
-    instructionsNextButton = new JButton("NEXT");
-    instructionsNextButton.setFont(TitleScreen.TITLE_BUTTON_FONT);
-
     startGameButton = new JButton("START GAME");
     startGameButton.setFont(TitleScreen.TITLE_BUTTON_FONT);
 
@@ -61,14 +57,6 @@ public class GameInfoScreen {
 
   public void buildInstructionsScreen() {
     textArea.setText(View.getImportantDisplay("instruction"));
-
-    JPanel infoScreenButtonPanel = getInfoScreenButtonPanel();
-    infoScreenButtonPanel.removeAll();
-    infoScreenButtonPanel.add(instructionsNextButton);
-  }
-
-  public void buildGetUsernameScreen() {
-    textArea.setText("Enter Your Name: ");
 
     JPanel infoScreenButtonPanel = getInfoScreenButtonPanel();
     infoScreenButtonPanel.removeAll();
@@ -89,10 +77,6 @@ public class GameInfoScreen {
 
   public JButton getBackStoryNextButton() {
     return backStoryNextButton;
-  }
-
-  public JButton getInstructionsNextButton() {
-    return instructionsNextButton;
   }
 
   public JButton getStartGameButton() {

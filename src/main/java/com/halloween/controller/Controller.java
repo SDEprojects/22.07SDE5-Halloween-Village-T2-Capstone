@@ -98,11 +98,9 @@ public class Controller {
   public void addGameInfoScreenButtonHandlers() {
     GameInfoScreen infoScreen = view.getGameInfoScreen();
     JButton backStoryNextButton = infoScreen.getBackStoryNextButton();
-    JButton instructionsNextButton = infoScreen.getInstructionsNextButton();
     JButton startGameButton = infoScreen.getStartGameButton();
 
     backStoryNextButton.addActionListener(e -> view.displayInstructionsScreen());
-    instructionsNextButton.addActionListener(e -> view.displayGetUsernameScreen());
     startGameButton.addActionListener(e -> {
       game.getPlayer().setName(infoScreen.getTextArea().getText());
       startGame();

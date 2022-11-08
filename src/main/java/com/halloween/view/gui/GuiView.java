@@ -68,11 +68,11 @@ public class GuiView {
     container.revalidate();
   }
 
-  public void displayGetUsernameScreen() {
-    getGameInfoScreen().buildGetUsernameScreen();
-    container.repaint();
-    container.revalidate();
-  }
+//  public void displayGetUsernameScreen() {
+//    getGameInfoScreen().buildGetUsernameScreen();
+//    container.repaint();
+//    container.revalidate();
+//  }
 
   public void displayGameScreen(Player player, Neighborhood neighborhood) {
     container.removeAll();

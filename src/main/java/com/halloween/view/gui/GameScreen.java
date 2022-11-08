@@ -91,7 +91,6 @@ public class GameScreen {
     panel.setBorder(new LineBorder(Color.BLACK, 4));
     panel.setBounds(0, 100, 300, 700);
     panel.setBackground(new Color(204, 102, 0));
-//    panel.add(new JLabel(""));
     panel.add(getInventoryTextArea());
     panel.add(getRemainingMovesLabel());
     return panel;
@@ -182,7 +181,6 @@ public class GameScreen {
     label.setFont(GAME_TEXT_FONT);
     label.setOpaque(true);
     label.setBorder(new LineBorder(Color.WHITE, 3));
-//    label.setBounds(0, 10, 900, 100);
     return label;
   }
 
