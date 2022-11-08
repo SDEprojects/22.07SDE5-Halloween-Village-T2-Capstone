@@ -11,7 +11,8 @@ public class GameInfoScreen {
 
   private static final Font INFO_TEXT_FONT = new Font("Serif", Font.PLAIN, 13);
   private JPanel infoTextPanel;
-  private JTextArea textArea;
+  private JTextArea infoTextArea;
+  private JTextArea userNameTextArea;
   private JPanel infoScreenButtonPanel;
   private JButton backStoryNextButton;
   private JButton startGameButton;
@@ -26,15 +27,15 @@ public class GameInfoScreen {
     panel.setBounds(200, 200, 1000, 600);
     panel.setBackground(Color.black);
 
-    textArea = new JTextArea(View.getImportantDisplay("backstory"));
-    textArea.setBounds(200, 200, 1000, 600);
-    textArea.setBackground(Color.black);
-    textArea.setForeground(Color.white);
-    textArea.setFont(INFO_TEXT_FONT);
-    textArea.setLineWrap(true);
-    textArea.setEditable(false);
+    infoTextArea = new JTextArea(View.getImportantDisplay("backstory"));
+    infoTextArea.setBounds(200, 200, 1000, 600);
+    infoTextArea.setBackground(Color.black);
+    infoTextArea.setForeground(Color.white);
+    infoTextArea.setFont(INFO_TEXT_FONT);
+    infoTextArea.setLineWrap(true);
+    infoTextArea.setEditable(false);
 
-    panel.add(textArea);
+    panel.add(infoTextArea);
 
     return panel;
   }
@@ -56,10 +57,25 @@ public class GameInfoScreen {
   }
 
   public void buildInstructionsScreen() {
-    textArea.setText(View.getImportantDisplay("instruction"));
+    infoTextArea.setText(View.getImportantDisplay("instruction"));
 
     JPanel infoScreenButtonPanel = getInfoScreenButtonPanel();
     infoScreenButtonPanel.removeAll();
+<<<<<<< HEAD
+=======
+    infoScreenButtonPanel.add(instructionsNextButton);
+  }
+
+  public void buildGetUsernameScreen() {
+    infoTextArea.setText("Enter Your Name: ");
+    userNameTextArea = new JTextArea("     ");
+    userNameTextArea.setBounds(300, 400, 800, 100);
+    userNameTextArea.setFont(INFO_TEXT_FONT);
+    infoTextPanel.add(userNameTextArea);
+
+    JPanel infoScreenButtonPanel = getInfoScreenButtonPanel();
+    infoScreenButtonPanel.removeAll();
+>>>>>>> f37c6c58e14826c202fbb579390b0af1f8a0c0ec
     infoScreenButtonPanel.add(startGameButton);
   }
 
@@ -67,8 +83,12 @@ public class GameInfoScreen {
     return infoTextPanel;
   }
 
-  public JTextArea getTextArea() {
-    return textArea;
+  public JTextArea getInfoTextArea() {
+    return infoTextArea;
+  }
+
+  public JTextArea getUserNameTextArea() {
+    return userNameTextArea;
   }
 
   public JPanel getInfoScreenButtonPanel() {

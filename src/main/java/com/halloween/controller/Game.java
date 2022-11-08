@@ -8,11 +8,7 @@ import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.PlayMusic;
 import com.halloween.view.View;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This Game class initializes the game, manages the user status, and creates the Win scenarios for
@@ -94,15 +90,17 @@ public class Game {
    * Allows the player to knock at the Saw House location.
    *
    * @param playerItems A list of items that the player has (inventory).
+   * @return Returns a boolean representing if player has correct items to escape Saw or not.
    */
-  public void sawHousePlayerHasCorrectItem(ArrayList<String> playerItems) {
+  public boolean playerHasCorrectSawItem(ArrayList<String> playerItems) {
     // check for "thing" in not in our items then we lose the game
     if (!playerItems.contains("thing")) {
       setState(State.LOSE);
+      return false;
     } // otherwise, thing will free us from the trap, and be removed from the inventory
     else {
       player.removeItem("thing");
-      setState(State.WIN);
+      return true;
     }
   }
 
@@ -110,17 +108,19 @@ public class Game {
    * Allows the player to knock at the Karen's House location.
    *
    * @param playerItems A list of items that the player has (inventory).
+   * @return Returns a boolean representing if player has correct items to win Karen or not.
    */
-  public void karenHouseKnockPlayerHasCorrectItem(ArrayList<String> playerItems) {
+  public boolean playerHasCorrectKarenItem(ArrayList<String> playerItems) {
     // if we have a badge, potion, or ruby, then do nothing
     if (playerItems.contains("badge") || playerItems.contains("potion") || playerItems.contains(
         "ruby")) {
-      setState(State.WIN);
+      return true;
     }
     // if we don't have a badge, potion, or ruby we lose the game
     else {
       playSound("/evil-shreik.wav");
       setState(State.LOSE);
+      return false;
     }
   }
 
