@@ -1,5 +1,6 @@
 package com.halloween.view.gui;
 
+import com.halloween.controller.Controller;
 import com.halloween.controller.Game;
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
@@ -75,37 +76,34 @@ public class GuiView {
     container.revalidate();
   }
 
-  public void displayGameScreen(Player player, Neighborhood neighborhood) {
+  public void displayGameScreen(Game game) {
     container.removeAll();
     container.add(getGameScreen().getTopPanel(), BorderLayout.NORTH);
     container.add(getGameScreen().getSidePanel(), BorderLayout.WEST);
     container.add(getGameScreen().getMainPanel(), BorderLayout.CENTER);
     container.add(getGameScreen().getBottomPanel(), BorderLayout.SOUTH);
-    updateGameScreenMainPanel(player, neighborhood);
-    updateGameScreenSidePanel(player);
-    updateGameScreenBottomPanel(player, neighborhood);
+    updateGameScreenMainPanel(game);
+    updateGameScreenSidePanel(game.getPlayer());
+    updateGameScreenBottomPanel(game.getPlayer(), game.getNeighborhood());
 
     container.revalidate();
     container.repaint();
   }
 
-  public void updateGameScreenMainPanel(Player player, Neighborhood neighborhood) {
-    String playerPosition = player.getPosition();
-    String[] residents = neighborhood.getNeighborhood().get(playerPosition).getResidents();
+  public void updateGameScreenMainPanel(Game game) {
+
+    String playerPosition = game.getPlayer().getPosition();
+    String[] residents = game.getNeighborhood().getNeighborhood().get(playerPosition)
+        .getResidents();
+    House currentHouse = game.getNeighborhood().getNeighborhood().get(playerPosition);
 
     getGameScreen().getLocationLabel().setText("Current Location:\n" + playerPosition);
     getGameScreen().getNpcLabel().setText("Resident(s):\t" + Arrays.toString(residents));
 
-    // current house
-    House currentHouse = neighborhood.getNeighborhood().get(playerPosition);
     // check if the current house has been knocked
     if (currentHouse.isKnocked()) {
-      // check if the current house has item or not
-      if (currentHouse.getHouseItems().size() < 1) {
-        getGameScreen().getGameTextArea().setText(View.getNoItemGreetings(playerPosition));
-      } else {
-        getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
-      }
+      // update the text to be displayed
+      updateGameTextAreaContent(game, currentHouse, playerPosition);
       getGameScreen().getGameTextArea().setVisible(true);
     } else {
       getGameScreen().getGameTextArea().setVisible(false);
@@ -124,8 +122,7 @@ public class GuiView {
     container.repaint();
   }
 
-  public void updateGameScreenBottomPanel(Player player,
-      Neighborhood neighborhood) {
+  public void updateGameScreenBottomPanel(Player player, Neighborhood neighborhood) {
     String playerPosition = player.getPosition();
     House currentHouse = neighborhood.getNeighborhood().get(playerPosition);
     JButton goNorthButton = getGameScreen().getGoNorthButton();
@@ -177,6 +174,35 @@ public class GuiView {
 
     // reset the text in the use item text field
     useItemTextField.setText("     ");
+  }
+
+  private void updateGameTextAreaContent(Game game, House house, String playerPosition) {
+    String houseName = house.getHouseName();
+    // check if current house is a special house (e.g., Karen's House)
+    if (Controller.checkSpecialHouse(houseName)) {
+      if (houseName.equals("karen's house")) { // if current house is Karen's House
+        // check if player has correct items to win Karen
+        if (game.playerHasCorrectKarenItem(game.getPlayer().getItems())) {
+          getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
+        } else { // if player has no items to win karen
+          getGameScreen().getGameTextArea().setText(View.getNoItemGreetings(playerPosition));
+        }
+      } else if (houseName.equals("saw house")) { // if current house is Saw House
+        // if player has the correct item to escape Saw House
+        if (game.playerHasCorrectSawItem(game.getPlayer().getItems())) {
+          getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
+        } else { // if player has no correct item to escape Saw House
+          getGameScreen().getGameTextArea().setText(View.getNoItemGreetings(playerPosition));
+        }
+      }
+    } else { // if the current house is a regular house
+      // check if the current house has item or not
+      if (house.getHouseItems().size() < 1) {
+        getGameScreen().getGameTextArea().setText(View.getNoItemGreetings(playerPosition));
+      } else {
+        getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
+      }
+    }
   }
 
   public void displayGameResult(Game game) {
