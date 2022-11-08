@@ -225,4 +225,8 @@ public class Game {
     this.neighborhood = neighborhood;
   }
 
+  public PlayMusic getMusicPlayer() {
+    return musicPlayer;
+  }
+
 }

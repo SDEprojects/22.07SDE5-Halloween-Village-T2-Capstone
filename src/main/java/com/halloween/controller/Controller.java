@@ -145,10 +145,23 @@ public class Controller {
       getView().displayMapScreen();
       addMapScreenButtonHandlers();
     });
-    // TODO: Extend musicButton and fxButton handlers so that it can turn on/off sound
-    musicButton.addActionListener(
-        e -> getGame().stopMusic()); // Can only mute the sound at the moment
-    fxButton.addActionListener(e -> SoundEffects.muteSoundEffects()); // Can only mute fx
+    musicButton.addActionListener(e -> {
+      if (getGame().getMusicPlayer().isPlaying()) {
+        getGame().stopMusic();
+      } else {
+        getGame().startMusic();
+      }
+    }); // Can only mute the sound at the moment
+    fxButton.addActionListener(e -> {
+      if (SoundEffects.isPlaying()) {
+        SoundEffects.muteSoundEffects();
+      } else {
+        SoundEffects.increaseVolume();
+        SoundEffects.increaseVolume();
+        SoundEffects.increaseVolume();
+
+      }
+    }); // Can only mute fx
     saveGameButton.addActionListener(e -> getGame().saveGame());
     quitButton.addActionListener(e -> quitProgram());
 

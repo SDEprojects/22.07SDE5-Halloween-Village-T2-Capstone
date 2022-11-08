@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 
 public class MapScreen {
 
-  private final Font BUTTON_FONT = new Font("Times New Roman", Font.PLAIN, 10);
+  private static final Font BUTTON_FONT = new Font("Serif", Font.PLAIN, 25);
   private JLabel label;
 
   JButton backToGameMapScreenButton;
@@ -16,11 +16,11 @@ public class MapScreen {
   public MapScreen() {
     label = new JLabel();
     label.setIcon(new ImageIcon("src/main/resources/small_map.png"));
-    label.setBounds(20, 100, 1400, 500);
+    label.setBounds(0, 0, 1400, 900);
 
     backToGameMapScreenButton = new JButton("BACK TO GAME");
     backToGameMapScreenButton.setFont(BUTTON_FONT);
-    backToGameMapScreenButton.setBounds(350, 10, 200, 75);
+    backToGameMapScreenButton.setBounds(600, 50, 200, 100);
     label.add(backToGameMapScreenButton);
   }
 

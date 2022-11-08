@@ -1,44 +1,44 @@
 [
   {
     "amityville mansion": {
-      "greet": "Player: Trick or treat! \nGhost: ooooOOOooooOoO What a brave soul you must be to visit the Amityville Mansion on Halloween night. \nGhost: On second thought, you are not the only brave one visiting the mansion! Someone was here last night causing a ruckus and dropped something. I could’ve sworn it came from his mouth!\n",
+      "greet": "Player: Trick or treat! \nGhost: ooooOOOooooOoO What a brave soul you must be to visit the Amityville Mansion on Halloween night. \nGhost: On second thought, you are not the only brave one visiting the mansion! Someone was here last night causing a ruckus and dropped something. I could’ve sworn it came from his mouth! Ugh, do you want to take it?\n",
       "no item": "Ghost: “Another visitor?! Oh, it’s you...... *sigh*\n"
     }
   },
   {
     "dracula's mansion": {
-      "greet": "Player: Trick or treat!\nDracula: Why hello there human… good timing that you’re here because I am sooo hungry!\nPlayer: Please don’t drink my blood!\nDracula: I would eat you where you stand right now if my tooth didn't fall out!\n",
+      "greet": "Player: Trick or treat!\nDracula: Why hello there human… good timing that you’re here because I am sooo hungry!\nPlayer: Please don’t drink my blood!\nDracula: I would eat you where you stand right now if my tooth didn't fall out! Go away before I change my mind!\n",
       "no item": "Dracula: There's nothing for you here. Have you seen my tooth anyways?"
     }
   },
   {
     "haunted house": {
-      "greet": "Player: Trick or treat! \nZombie: GRAAHHH Welcome to the Haunted Zombie House where we like to scare the locals and eat their yummy brains!\n A black cat: meow….. Meow… \nThe cat rubs your leg and a hair falls out\nPlayer takes Cat hair\n",
+      "greet": "Player: Trick or treat! \nZombie: GRAAHHH Welcome to the Haunted Zombie House where we like to scare the locals and eat their yummy brains!\n A black cat: Meow….. meow… \nThe cat rubs your leg and a hair falls out. Should you take it?\n",
       "no item": "Zombie: Back for more scary fun? No can do, the zombies are on their mandatory union enforced break.\n"
     }
   },
   {
     "addam's family house": {
-      "greet": "Player: Trick or treat! \nWednesday Addams: *rolls eyes* What do you want? \nPlayer: Candy!!! \nWednesday Addams: I am tired of these childish trick or treaters. You can have The Thing.\n",
+      "greet": "Player: Trick or treat! \nWednesday Addams: *rolls eyes* What do you want? \nPlayer: Candy!!! \nWednesday Addams: I am tired of these childish trick or treaters. You can have The Thing. You want it or what?\n",
       "no item": "Wednesday Addams: There's nothing for you here. Go away!"
     }
   },
   {
     "witch's den": {
-      "greet": "Player: Trick or treat! \nWitch: Hehehehe Hi young one… I just used the last of my candies to lure Hansel and Gretel into my kitchen. There’s nothing here \nPlayer: How can you be empty handed this time of year!? \nWitch: I’ll tell you what. I can make you a little potion instead. I won’t tell you what it does until after I make it, it’s a surprise. But in order for me to do this, I need you to gather some ingredients for me: Beer, Dentures, and Cat Hair \nFind Item: Thank you for the ingredients dear! This potion has the power to make people __________________________IDK\nPlayer takes potion from witch\n",
-      "no item": "Witch: There's nothing for you right now. Maybe come back and give me the three ingredients..."
+      "greet": "Witch: There's nothing for you right now. At least until you give me all three ingredients...",
+      "no item": "Player: Trick or treat! \nWitch: Hehehehe Hi young one… I just used the last of my candies to lure Hansel and Gretel into my kitchen. There’s nothing here. \nPlayer: How can you be empty handed this time of year!? \nWitch: I’ll tell you what. I can make you a little potion instead. I won’t tell you what it does until after I make it, it’s a surprise. But in order for me to do this, I need you to gather some ingredients for me: Beer, Dentures, and Cat Hair!\n"
     }
   },
   {
     "mayor's house": {
-      "greet": "Player: Trick or treat! \nMayor: Ah hello there youngster! You’re in for a special treat, since you’re our first visitor this evening, and obviously full of ambition -  I'm appointing you deputy mayor for the rest of the day! \nConsole: Do you accept the item? \n",
+      "greet": "Player: Trick or treat! \nMayor: Ah hello there youngster! You’re in for a special treat, since you’re our first visitor this evening, and obviously full of ambition -  I'm appointing you deputy mayor for the rest of the day! Would you take this badge?\n",
       "no item": "Player: Trick or treat! \nMayor: You again? Sorry, I don’t have any more treats for you.\n"
     }
   },
   {
     "neighbor's house": {
-      "greet": "Player: Trick or treat! \nNeighbor: Omg Hey Bestieee! Here’s some of your favorite candy! Come back anytime :)\nPlayer takes candy\nFind Item: I know I told you to come back anytime, but I’m all out of goods. Sorry bud! \n",
-      "no item": "Neighbor: There's nothing for you here. Sorry!"
+      "greet": "Player: Trick or treat! \nNeighbor: Hey Bestie! Here’s some of your favorite candy! Would you take one?\n",
+      "no item": "Neighbor: You are more than welcome to come back anytime, but I’m all out of goods at the moment. Sorry bud!"
     }
   },
   {
@@ -55,13 +55,13 @@
   },
   {
     "grandma's house": {
-      "greet": "Player: Trick or treat! \nGrandma: You must be cold honey! I’m sorry but I don’t have warm cookies or candy for you. You can have my dentures!\nPlayer: Sure I’ll take that. Thank you Grandma.\nGrandma: Always a treat to see you \n",
+      "greet": "Player: Trick or treat! \nGrandma: You must be cold honey! I’m sorry but I don’t have warm cookies or candy for you. You can have my dentures! Would you take it? It's always a treat to see you anyways.\n",
       "no item": "Grandma: There's nothing for you here. Sorry!"
     }
   },
   {
     "freddy & jason's house": {
-      "greet": "**You arrive at Freddy and Jason’s house to find them drinking beer on the front porch**\nPlayer: Trick or treat! \n**You realize it’s the two most notorious slasher villains of all time but are too frightened to run**\nFreddy: Sup brochacho! Oh we’re not gonna kill ya, we’re retired!\nPlayer: Umm wait why did you retire?! \nFreddy: We started our careers right out of high school and missed out on the whole college experience. So we decided to enroll in community college and start our own fraternity. Welcome to Kappa Iota Lambda Lambda (ΚΙλλ)\n**Freddy and Jason cheers bottle to each other** \nFreddy: Anyway, someone (points at Jason) destroyed our candy stash, so I guess you can have one a cold one instead. \nConsole: Accept beer?\n",
+      "greet": "**You arrive at Freddy and Jason’s house to find them drinking beer on the front porch**\nPlayer: Trick or treat! \n**You realize it’s the two most notorious slasher villains of all time but are too frightened to run**\nFreddy: Sup brochacho! Oh we’re not gonna kill ya, we’re retired!\nPlayer: Umm wait why did you retire?! \nFreddy: We started our careers right out of high school and missed out on the whole college experience. So we decided to enroll in community college and start our own fraternity. Welcome to Kappa Iota Lambda Lambda (ΚΙλλ)\n**Freddy and Jason cheers bottle to each other** \nFreddy: Anyway, someone (points at Jason) destroyed our candy stash, so I guess you can have one a cold one instead. Would you take this beer?\n",
       "no item": "Freddy: Sorry kid, we’re all out of beer.\n"
     }
   },

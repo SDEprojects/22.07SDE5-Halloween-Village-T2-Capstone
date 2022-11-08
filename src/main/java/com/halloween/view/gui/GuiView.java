@@ -113,7 +113,8 @@ public class GuiView {
   }
 
   public void updateGameScreenSidePanel(Player player) {
-    getGameScreen().getInventoryTextArea().setText("Inventory:\n" + player.getItems().toString());
+    getGameScreen().getInventoryTextArea()
+        .setText(player.getName() + "'s Inventory:\n" + player.getItems().toString());
     getGameScreen().getRemainingMovesLabel()
         .setText("Remaining Moves:\t" + player.getUserMovesCounter());
 
