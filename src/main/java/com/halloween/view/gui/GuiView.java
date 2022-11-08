@@ -10,6 +10,7 @@ import com.halloween.view.View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,7 +28,7 @@ public class GuiView {
   private HelpScreen helpScreen;
   private GameResultsScreen gameResultsScreen;
 
-  public GuiView() {
+  public GuiView() throws IOException {
     window = createWindow();
     container = window.getContentPane();
     titleScreen = new TitleScreen();
