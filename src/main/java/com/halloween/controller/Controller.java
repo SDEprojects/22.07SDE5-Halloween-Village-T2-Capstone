@@ -7,6 +7,7 @@ import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
 import com.halloween.view.SoundEffects;
+import com.halloween.view.View;
 import com.halloween.view.gui.GameInfoScreen;
 import com.halloween.view.gui.GameResultsScreen;
 import com.halloween.view.gui.GameScreen;
@@ -19,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.Timer;
 
 public class Controller {
 
@@ -59,9 +61,9 @@ public class Controller {
 
   public void startGame() {
     playSound("/howl.wav");
+    getGame().setState(State.PLAY);
     getView().displayGameScreen(getGame());
     addGameScreenButtonHandlers();
-    getGame().setState(State.PLAY);
     addGameResultScreenButtonHandler();
   }
 
@@ -74,19 +76,14 @@ public class Controller {
       getView().updateGameScreenSidePanel(getGame().getPlayer());
     }
     if (updateBottomPanel) {
-      getView().updateGameScreenBottomPanel(getGame().getPlayer(), getGame().getNeighborhood());
+      getView().updateGameScreenBottomPanel(getGame());
     }
   }
 
-  public void endGame() {
+  public void endGameIfGameOver() {
     // if game's state is terminal, display game result after 10 seconds
     if (getGame().getState().isTerminal()) {
-      try {
-        Thread.sleep(10000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-      getView().displayGameResult(getGame());
+      new Timer(10000, e -> getView().displayGameResult(getGame())).start();
     }
   }
 
@@ -171,6 +168,7 @@ public class Controller {
   public void movePlayer(String direction) {
     getGame().movePlayer(direction);
     updateScreen(true, true, true);
+    endGameIfGameOver();
   }
 
   public void knockOnDoor() {
@@ -180,23 +178,28 @@ public class Controller {
     getGame().knockOnDoor();
     if (checkSpecialHouse(house.getHouseName())) { // check if it's Karen's House or Saw House
       knockSpecialHouse(house);
+    } else {
+      updateScreen(true, false, true);
     }
-    updateScreen(true, false, true);
-  }
-
-  public static boolean checkSpecialHouse(String houseName) {
-    return (houseName.equals("karen's house") || houseName.equals("saw house"));
   }
 
   public void knockSpecialHouse(House house) {
     ArrayList<String> playerItems = getGame().getPlayer().getItems();
     if (house.getHouseName().equals("karen's house")) {
       if (!getGame().playerHasCorrectKarenItem(playerItems)) {
-        endGame();
+        updateScreen(true, false, true);
+        endGameIfGameOver();
+      } else {
+        updateScreen(true, false, true);
       }
     } else if (house.getHouseName().equals("saw house")) {
       if (!getGame().playerHasCorrectSawItem(playerItems)) {
-        endGame();
+        updateScreen(true, false, true);
+        endGameIfGameOver();
+      } else {
+        updateScreen(true, false, false);
+        getGame().getPlayer().removeItem("thing");
+        updateScreen(false, true, false);
       }
     }
   }
@@ -217,20 +220,38 @@ public class Controller {
     }
 
     if (validItemUsed) {
-      if (house.getHouseName().equals("dracula's mansion")) {
-        getGame().draculaUseItem(item);
-      }
-      if (house.getHouseName().equals("witch's den")) {
-        getGame().witchUseItem(item, house);
-      }
-      if (house.getHouseName().equals("karen's house")) {
+      if (checkItemExchangeHouse(house.getHouseName())) {
+        if (house.getHouseName().equals("dracula's mansion") && item.equals("tooth")) {
+          getGame().draculaUseItem(item, house);
+          getView().injectTextToGameTextArea(View.getNpcResponse("draculas_tooth"));
+        } else if (house.getHouseName().equals("witch's den")) {
+          if (item.equals("cat-hair") || item.equals("beer") || item.equals("dentures")) {
+            getGame().witchUseItem(item, house);
+            getView().injectTextToGameTextArea(View.getNpcResponse("give_witch_ingredient"));
+            if (house.getHouseItems().size() > 2) {
+              getView().injectTextToGameTextArea(View.getNpcResponse("complete_witch_potion"));
+            }
+          } else {
+            getView().injectTextToGameTextArea(View.getNpcResponse("incorrect_witch_ingredient"));
+          }
+        }
+      } else if (house.getHouseName().equals("karen's house")) {
         getGame().karenUseItem(item);
         if (checkGameWinningItem(item)) {
-          endGame();
+          if (item.equals("badge")) {
+            getView().injectTextToGameTextArea(
+                View.getGreetings(getGame().getPlayer().getPosition()) + View.getNpcResponse(
+                    "karen_defeated_badge"));
+          } else if (item.equals("ruby")) {
+            getView().injectTextToGameTextArea(View.getNpcResponse("karen_defeated_ruby"));
+          } else if (item.equals("potion")) {
+            getView().injectTextToGameTextArea(View.getNpcResponse("karen_defeated_potion"));
+          }
+          endGameIfGameOver();
         }
       }
+      updateScreen(false, true, false);
     }
-    updateScreen(true, true, false);
   }
 
   public boolean removeValidItem(String item) {
@@ -243,6 +264,14 @@ public class Controller {
       getView().displayNoSuchItemPane();
       return false;
     }
+  }
+
+  public static boolean checkSpecialHouse(String houseName) {
+    return (houseName.equals("karen's house") || houseName.equals("saw house"));
+  }
+
+  public static boolean checkItemExchangeHouse(String houseName) {
+    return (houseName.equals("dracula's mansion") || houseName.equals("witch's den"));
   }
 
   private boolean checkGameWinningItem(String item) {

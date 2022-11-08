@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class View {
 
   private static ResourceBundle instructions;
-  private ResourceBundle npcResponse;
+  private static ResourceBundle npcResponse;
   private static BufferedReader reader = new BufferedReader(
       new InputStreamReader(View.class.getClassLoader().getResourceAsStream("dialogue.json")));
   private static Gson gson = new Gson();
@@ -85,7 +85,7 @@ public class View {
    * @param key Name of the message/alert to be displayed.
    * @return Returns the actual content (text) of in-game messages/alerts.
    */
-  public String getNpcResponse(String key) {
+  public static String getNpcResponse(String key) {
     return npcResponse.getString(key) + "\n";
   }
 
