@@ -55,6 +55,11 @@ public class GuiView {
     container.repaint();
     container.revalidate();
   }
+  public void displayGetUsernameScreen() {
+    getGameInfoScreen().buildGetUsernameScreen();
+    container.repaint();
+    container.revalidate();
+  }
 
   public void displayBackgroundStoryScreen() {
     container.removeAll();

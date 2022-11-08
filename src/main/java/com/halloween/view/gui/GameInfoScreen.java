@@ -17,6 +17,9 @@ public class GameInfoScreen {
   private JButton backStoryNextButton;
   private JButton startGameButton;
 
+  private JButton instructionsNextButton;
+
+
   public GameInfoScreen() {
     infoTextPanel = createInfoTextPanel();
     infoScreenButtonPanel = createInfoScreenButtonPanel();
@@ -48,6 +51,9 @@ public class GameInfoScreen {
     backStoryNextButton = new JButton("NEXT");
     backStoryNextButton.setFont(TitleScreen.TITLE_BUTTON_FONT);
 
+    instructionsNextButton = new JButton("NEXT");
+    instructionsNextButton.setFont(TitleScreen.TITLE_BUTTON_FONT);
+
     startGameButton = new JButton("START GAME");
     startGameButton.setFont(TitleScreen.TITLE_BUTTON_FONT);
 
@@ -61,8 +67,6 @@ public class GameInfoScreen {
 
     JPanel infoScreenButtonPanel = getInfoScreenButtonPanel();
     infoScreenButtonPanel.removeAll();
-<<<<<<< HEAD
-=======
     infoScreenButtonPanel.add(instructionsNextButton);
   }
 
@@ -75,7 +79,6 @@ public class GameInfoScreen {
 
     JPanel infoScreenButtonPanel = getInfoScreenButtonPanel();
     infoScreenButtonPanel.removeAll();
->>>>>>> f37c6c58e14826c202fbb579390b0af1f8a0c0ec
     infoScreenButtonPanel.add(startGameButton);
   }
 
@@ -103,4 +106,8 @@ public class GameInfoScreen {
     return startGameButton;
   }
 
+
+  public JButton getInstructionsNextButton() {
+    return instructionsNextButton;
+  }
 }
