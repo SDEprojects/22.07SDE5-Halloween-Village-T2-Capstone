@@ -1,5 +1,8 @@
 package com.halloween.controller;
 
+import static com.halloween.view.SoundEffects.playSound;
+
+import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
 import com.halloween.model.State;
@@ -14,6 +17,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import javax.swing.JButton;
 
 public class Controller {
@@ -54,18 +58,26 @@ public class Controller {
   }
 
   public void startGame() {
+    playSound("/howl.wav");
     view.displayGameScreen(game.getPlayer(), game.getNeighborhood());
     addGameScreenButtonHandlers();
     game.setState(State.PLAY);
     addGameResultScreenButtonHandler();
   }
 
-  public void updateScreen(Game game) {
-    if (!game.getState().isTerminal()) { // if game's state is not terminal (still playing)
+  public void updateScreen(boolean updateMainPanel, boolean updateSidePanel,
+      boolean updateBottomPanel) {
+    if (!getGame().getState().isTerminal()) { // if game's state is not terminal (still playing)
       // update the main panel and side panel
-      view.updateGameScreenMainPanel(game.getPlayer(), game.getNeighborhood());
-      view.updateGameScreenSidePanel(game.getPlayer());
-      view.updateGameScreenBottomPanel(game.getPlayer(), game.getNeighborhood());
+      if (updateMainPanel) {
+        view.updateGameScreenMainPanel(getGame().getPlayer(), getGame().getNeighborhood());
+      }
+      if (updateSidePanel) {
+        view.updateGameScreenSidePanel(getGame().getPlayer());
+      }
+      if (updateBottomPanel) {
+        view.updateGameScreenBottomPanel(getGame().getPlayer(), getGame().getNeighborhood());
+      }
       // if game's state is terminal, update the game screen and display game result after 10 seconds
     } else {
       try {
@@ -73,12 +85,11 @@ public class Controller {
       } catch (InterruptedException e) {
         throw new RuntimeException(e);
       }
-      view.displayGameResult(game);
+      view.displayGameResult(getGame());
     }
   }
 
   public void quitGame() {
-
     System.exit(0);
   }
 
@@ -110,6 +121,8 @@ public class Controller {
   }
 
   public void addGameScreenButtonHandlers() {
+    House currentHouse = getGame().getNeighborhood().getNeighborhood()
+        .get(getGame().getPlayer().getPosition());
     GameScreen gameScreen = view.getGameScreen();
     // TOP PANEL BUTTONS
     JButton helpButton = gameScreen.getHelpButton();
@@ -145,28 +158,84 @@ public class Controller {
     // BOTTOM PANEL BUTTON HANDLERS (USER CONTROL)
     goNorthButton.addActionListener(e -> {
       game.movePlayer("north");
-      updateScreen(game);
+      updateScreen(true, true, true);
     });
     goEastButton.addActionListener(e -> {
       game.movePlayer("east");
-      updateScreen(game);
+      updateScreen(true, true, true);
     });
     goSouthButton.addActionListener(e -> {
       game.movePlayer("south");
-      updateScreen(game);
+      updateScreen(true, true, true);
     });
     goWestButton.addActionListener(e -> {
       game.movePlayer("west");
-      updateScreen(game);
+      updateScreen(true, true, true);
     });
     knockButton.addActionListener(e -> {
+      boolean isSpecialHouse = checkSpecialHouse(currentHouse);
       game.knockOnDoor();
-      updateScreen(game);
+      if (isSpecialHouse) { // if Karen's House or Saw House
+        knockSpecialHouse(currentHouse);
+        // TODO: Update screen with correct message when at Karen's House or Saw House
+        updateScreen(true, false, true);
+      } else {
+        updateScreen(true, false, true);
+      }
     });
     getItemButton.addActionListener(e -> {
       game.getItem();
-      updateScreen(game);
+      updateScreen(false, true, true);
     });
+    useItemButton.addActionListener(e -> {
+      // TODO: Alert the user if they try to use item without knocking
+      if (currentHouse.isKnocked()) {
+        String item = view.getGameScreen().getUseItemTextField().getText().trim().toLowerCase();
+        useItem(item);
+      } else {
+        view.displayKnockToUseItemPane();
+      }
+    });
+  }
+
+  public boolean checkSpecialHouse(House house) {
+    return (house.getHouseName().equals("karen's house") || house.getHouseName()
+        .equals("saw house"));
+  }
+
+  public void knockSpecialHouse(House house) {
+    ArrayList<String> playerItems = getGame().getPlayer().getItems();
+    if (house.getHouseName().equals("karen's house")) {
+      game.karenHouseKnockPlayerHasCorrectItem(playerItems);
+    } else if (house.getHouseName().equals("saw house")) {
+      game.sawHousePlayerHasCorrectItem(playerItems);
+    }
+  }
+
+  public void useItem(String item) {
+    // get the house the player is currently at
+    House house = getGame().getNeighborhood().getNeighborhood()
+        .get(getGame().getPlayer().getPosition());
+    // check if house is knocked
+    if (house.isKnocked()) {
+      // check if the item could be removed from the inventory (if the item is in inventory)
+      boolean itemUseSuccessful = getGame().getPlayer().removeItem(item);
+      if (itemUseSuccessful) {
+        updateScreen(true, true, true);
+      } else {
+        view.displayNoSuchItemPane();
+      }
+    }
+    if (house.getHouseName().equals("karen's house")) {
+      getGame().karenUseItem(item);
+    }
+    if (house.getHouseName().equals("dracula's mansion")) {
+      getGame().draculaUseItem(item);
+    }
+    if (house.getHouseName().equals("witch's den")) {
+      getGame().witchUseItem(item, house);
+    }
+    updateScreen(true, true, false);
   }
 
   public void addMapScreenButtonHandlers() {
@@ -181,8 +250,8 @@ public class Controller {
     HelpScreen helpScreen = view.getHelpScreen();
     JButton backToGame = helpScreen.getBackToGameHelpScreenButton();
 
-    backToGame.addActionListener(event -> view.displayGameScreen(game.getPlayer(),
-        game.getNeighborhood()));
+    backToGame.addActionListener(
+        event -> view.displayGameScreen(game.getPlayer(), game.getNeighborhood()));
   }
 
   public void addGameResultScreenButtonHandler() {
@@ -194,7 +263,6 @@ public class Controller {
       game.quitGame();
     });
   }
-
 
   /*
     GETTER & SETTER METHODS

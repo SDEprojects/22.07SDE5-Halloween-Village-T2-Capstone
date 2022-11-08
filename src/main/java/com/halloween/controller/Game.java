@@ -229,22 +229,6 @@ public class Game {
     playSound(knock);
     House house = neighborhood.getNeighborhood().get(player.getPosition());
     house.setKnocked(true);
-
-    ArrayList<String> playerItems = player.getItems();
-    // If we knock on karen's house or the saw house we need to have check for specific items in our inventory
-    // If we do not have the items, then we lose the game
-    // If we knock on karen's door
-    if (house.getHouseName().equals("karen's house")) {
-      knockOnKarenHouse(playerItems);
-      // if knock on the saw house
-    } else if (house.getHouseName().equals("saw house")) {
-      knockOnSawHouse(playerItems);
-      // for all other houses (besides karen's house and saw house) we do the following
-    } else if (house.getHouseItems().isEmpty()) {
-      display.noItem(player.getPosition());
-    } else {
-      display.greet(player.getPosition());
-    }
   }
 
   /**
@@ -252,15 +236,14 @@ public class Game {
    *
    * @param playerItems A list of items that the player has (inventory).
    */
-  private void knockOnSawHouse(ArrayList<String> playerItems) {
+  public void sawHousePlayerHasCorrectItem(ArrayList<String> playerItems) {
     // check for "thing" in not in our items then we lose the game
     if (!playerItems.contains("thing")) {
-      display.noItem(player.getPosition());
       setState(State.LOSE);
     } // otherwise, thing will free us from the trap, and be removed from the inventory
     else {
-      display.greet(player.getPosition());
       player.removeItem("thing");
+      setState(State.WIN);
     }
   }
 
@@ -269,22 +252,15 @@ public class Game {
    *
    * @param playerItems A list of items that the player has (inventory).
    */
-  private void knockOnKarenHouse(ArrayList<String> playerItems) {
+  public void karenHouseKnockPlayerHasCorrectItem(ArrayList<String> playerItems) {
     // if we have a badge, potion, or ruby, then do nothing
     if (playerItems.contains("badge") || playerItems.contains("potion") || playerItems.contains(
         "ruby")) {
-      display.printKarenCallingCops();
+      setState(State.WIN);
     }
     // if we don't have a badge, potion, or ruby we lose the game
     else {
-      display.greet(player.getPosition());
-      display.printPlayerArrested();
       playSound("/evil-shreik.wav");
-      try {
-        TimeUnit.SECONDS.sleep(3);  // Wait 2 seconds
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
       setState(State.LOSE);
     }
   }
@@ -366,7 +342,7 @@ public class Game {
    * @param item  The item to be used at Witch's Den.
    * @param house An instance of {@link House}, representing the Witch's Den.
    */
-  private void witchUseItem(String item, House house) {
+  public void witchUseItem(String item, House house) {
     if (item.equals("cat-hair") || item.equals("beer") || item.equals("dentures")) {
       display.printGiveWitchItem(item);
       playSound("/bubbles.wav");
@@ -391,12 +367,18 @@ public class Game {
    */
   public void karenUseItem(String item) {
     if (item.equals("badge") || item.equals("potion") || item.equals("ruby")) {
+      setState(State.WIN);
       display.printKarenDefeated(item);
       playSound("/girl_scream.wav");
     } else {
       return;
     }
-    setState(State.WIN);
+  }
+
+  public void draculaUseItem(String item) {
+    if (item.equals("tooth")) {
+      getPlayer().addItem("ruby");
+    }
   }
 
   /**
