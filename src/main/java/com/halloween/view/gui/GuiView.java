@@ -13,6 +13,7 @@ import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class GuiView {
 
@@ -95,8 +96,16 @@ public class GuiView {
     getGameScreen().getLocationLabel().setText("Current Location:\n" + playerPosition);
     getGameScreen().getNpcLabel().setText("Resident(s):\t" + Arrays.toString(residents));
 
-    if (neighborhood.getNeighborhood().get(playerPosition).isKnocked()) {
-      getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
+    // current house
+    House currentHouse = neighborhood.getNeighborhood().get(playerPosition);
+    // check if the current house has been knocked
+    if (currentHouse.isKnocked()) {
+      // check if the current house has item or not
+      if (currentHouse.getHouseItems().size() < 1) {
+        getGameScreen().getGameTextArea().setText(View.getNoItemGreetings(playerPosition));
+      } else {
+        getGameScreen().getGameTextArea().setText(View.getGreetings(playerPosition));
+      }
       getGameScreen().getGameTextArea().setVisible(true);
     } else {
       getGameScreen().getGameTextArea().setVisible(false);
@@ -113,6 +122,61 @@ public class GuiView {
 
     container.revalidate();
     container.repaint();
+  }
+
+  public void updateGameScreenBottomPanel(Player player,
+      Neighborhood neighborhood) {
+    String playerPosition = player.getPosition();
+    House currentHouse = neighborhood.getNeighborhood().get(playerPosition);
+    JButton goNorthButton = getGameScreen().getGoNorthButton();
+    JButton goEastButton = getGameScreen().getGoEastButton();
+    JButton goSouthButton = getGameScreen().getGoSouthButton();
+    JButton goWestButton = getGameScreen().getGoWestButton();
+    JButton knockButton = getGameScreen().getKnockButton();
+    JButton getItemButton = getGameScreen().getGetItemButton();
+    JButton useItemButton = getGameScreen().getUseItemButton();
+    JTextField useItemTextField = getGameScreen().getUseItemTextField();
+
+    String[] directions = new String[]{"north", "east", "south", "west"};
+    JButton[] buttons = new JButton[]{goNorthButton, goEastButton, goSouthButton, goWestButton};
+    House currentPosition = neighborhood.getNeighborhood().get(player.getPosition());
+
+    for (int i = 0; i < directions.length; i++) {
+      if (neighborhood.isValidDirection(directions[i], currentPosition).isEmpty()) {
+        buttons[i].setVisible(false);
+      } else {
+        buttons[i].setVisible(true);
+      }
+    }
+
+    // hide knock button if already knocked
+    if (currentHouse.isKnocked()) {
+      knockButton.setVisible(false);
+    } else {
+      knockButton.setVisible(true);
+    }
+
+    // hide get item button if house hasn't been knocked
+    if (!currentHouse.isKnocked()) {
+      getItemButton.setVisible(false);
+    // hide get item button if house has no item
+    } else if (currentHouse.getHouseItems().size() < 1) {
+      getItemButton.setVisible(false);
+    } else {
+      getItemButton.setVisible(true);
+    }
+
+    // hide use item button if there is no item in inventory
+    if (player.getItems().size() < 1) {
+      useItemButton.setVisible(false);
+      useItemTextField.setVisible(false);
+    } else {
+      useItemButton.setVisible(true);
+      useItemTextField.setVisible(true);
+    }
+
+    // reset the text in the use item text field
+    useItemTextField.setText("     ");
   }
 
   public void displayGameResult(Game game) {
@@ -146,24 +210,14 @@ public class GuiView {
         "ERROR: FAILED TO LOAD GAME DATA.\nPLEASE START A NEW GAME.");
   }
 
-  public void updateGameScreenBottomPanel(Player player,
-      Neighborhood neighborhood) {
-    JButton goNorthButton = getGameScreen().getGoNorthButton();
-    JButton goEastButton = getGameScreen().getGoEastButton();
-    JButton goSouthButton = getGameScreen().getGoSouthButton();
-    JButton goWestButton = getGameScreen().getGoWestButton();
+  public void displayKnockToUseItemPane() {
+    JOptionPane.showMessageDialog(null,
+        "ERROR: You should knock first to use item.");
+  }
 
-    String[] directions = new String[]{"north", "east", "south", "west"};
-    JButton[] buttons = new JButton[]{goNorthButton, goEastButton, goSouthButton, goWestButton};
-    House currentPosition = neighborhood.getNeighborhood().get(player.getPosition());
-
-    for (int i = 0; i < directions.length; i++) {
-      if (neighborhood.isValidDirection(directions[i], currentPosition).isEmpty()) {
-        buttons[i].setVisible(false);
-      } else {
-        buttons[i].setVisible(true);
-      }
-    }
+  public void displayNoSuchItemPane() {
+    JOptionPane.showMessageDialog(null,
+        "ERROR: You do not have such item.");
   }
 
   /*

@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
@@ -38,6 +39,7 @@ public class GameScreen {
   private JButton knockButton;
   private JButton getItemButton;
   private JButton useItemButton;
+  private JTextField useItemTextField;
 
   public GameScreen() {
     inventoryTextArea = createInventoryTextArea();
@@ -132,8 +134,12 @@ public class GameScreen {
     getItemButton = new JButton("GET ITEM");
     getItemButton.setFont(TOP_BUTTON_FONT);
 
-    useItemButton = new JButton("USE ITEM");
+    useItemButton = new JButton("USE");
     useItemButton.setFont(TOP_BUTTON_FONT);
+
+    useItemTextField = new JTextField("     ");
+    useItemTextField.setFont(TOP_BUTTON_FONT);
+    useItemTextField.setBounds(0, 0, 250, 50);
 
     panel.add(goNorthButton);
     panel.add(goEastButton);
@@ -142,6 +148,7 @@ public class GameScreen {
     panel.add(knockButton);
     panel.add(getItemButton);
     panel.add(useItemButton);
+    panel.add(useItemTextField);
     panel.setBorder(new LineBorder(Color.WHITE, 3)); //Sets the border
     panel.setBounds(0, 800, 1400, 200);
     panel.setBackground(Color.WHITE); //Sets the background
@@ -283,6 +290,10 @@ public class GameScreen {
 
   public JButton getUseItemButton() {
     return useItemButton;
+  }
+
+  public JTextField getUseItemTextField() {
+    return useItemTextField;
   }
 
 }
