@@ -1,7 +1,6 @@
 package com.halloween.controller;
 
 import static com.halloween.view.SoundEffects.playSound;
-
 import com.halloween.model.House;
 import com.halloween.model.Neighborhood;
 import com.halloween.model.Player;
@@ -173,6 +172,7 @@ public class Controller {
     knockButton.addActionListener(e -> {
       boolean isSpecialHouse = checkSpecialHouse(currentHouse);
       game.knockOnDoor();
+      currentHouse.setKnocked(true);
       if (isSpecialHouse) { // if Karen's House or Saw House
         knockSpecialHouse(currentHouse);
         // TODO: Update screen with correct message when at Karen's House or Saw House

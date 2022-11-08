@@ -19,7 +19,6 @@ public class HelpScreen {
   public HelpScreen() {
     label = new JLabel();
     label.setBounds(0, 0, 1400, 1000);
-//    label.setVisible(true);
 
     text = new JTextArea(View.getImportantDisplay("help"));
     text.setBounds(250, 30, 1100, 500);

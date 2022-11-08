@@ -14,7 +14,6 @@ public class GameResultsScreen {
   private JPanel gameResultsPanel;
   private JLabel winLabel;
   private JLabel loseLabel;
-  //  private JTextArea text;
   JButton quitGameButton;
 
   public GameResultsScreen() {
@@ -34,19 +33,13 @@ public class GameResultsScreen {
     gameResultsPanel.add(winLabel);
     gameResultsPanel.add(loseLabel);
 
-//    text = new JTextArea(View.getImportantDisplay("help"));
-//    text.setBounds(250, 30, 1100, 500);
-//    label.add(text);
-
     quitGameButton = new JButton("QUIT GAME");
     quitGameButton.setFont(BUTTON_FONT);
     quitGameButton.setBounds(680, 600, 200, 50);
     gameResultsPanel.add(quitGameButton);
   }
 
-//  public JButton getBackToGameGameResultsScreenButton() {
-//    return backToGameHelpScreenButton;
-//  }
+
 
   public JButton getQuitGameButton() {
     return quitGameButton;
@@ -64,8 +57,5 @@ public class GameResultsScreen {
     return loseLabel;
   }
 
-  //  public JTextArea getText() {
-//    return text;
-//  }
 
 }
